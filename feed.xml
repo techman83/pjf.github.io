@@ -3,8 +3,8 @@
 	<channel>
 		<title>Leon Wright</title>
 		<description>I am self professed Geek that enjoys the company of small mythical creatures.</description>
-		<link>http://techieman.net/</link>
-		<atom:link href="http://techieman.net//feed.xml" rel="self" type="application/rss+xml" />
+		<link>http://www.techieman.83/</link>
+		<atom:link href="http://www.techieman.83//feed.xml" rel="self" type="application/rss+xml" />
                 
 
                     
@@ -17,8 +17,8 @@
 
 &lt;p&gt;Now to populate the site with content! :D&lt;/p&gt;</description>
 				<pubDate>Sun, 19 Jan 2014 00:00:00 +0800</pubDate>
-				<link>http://techieman.net///personal/2014/01/19/first_post.html</link>
-				<guid isPermaLink="true">http://techieman.net///personal/2014/01/19/first_post.html</guid>
+				<link>http://www.techieman.83///personal/2014/01/19/first_post.html</link>
+				<guid isPermaLink="true">http://www.techieman.83///personal/2014/01/19/first_post.html</guid>
 			</item>
 		
 
@@ -28,7 +28,7 @@
 
 			<item>
 				<title>More Awesome Things You've Missed in Perl</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1' height='420' width='560'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Awesome things have been happening in Perl recently; so many that even if you’ve been paying close attention, you may have missed a few. In this talk we’ll examine some of the coolest recent technologies for Perl programmers, including:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -48,8 +48,8 @@
 &lt;/ul&gt;
 &lt;!--more--&gt;</description>
 				<pubDate>Tue, 01 May 2012 00:00:00 +0800</pubDate>
-				<link>http://techieman.net///plug/2012/05/01/more-awesome-things-you%27ve-missed-in-perl.html</link>
-				<guid isPermaLink="true">http://techieman.net///plug/2012/05/01/more-awesome-things-you%27ve-missed-in-perl.html</guid>
+				<link>http://www.techieman.83///plug/2012/05/01/more-awesome-things-you%27ve-missed-in-perl.html</link>
+				<guid isPermaLink="true">http://www.techieman.83///plug/2012/05/01/more-awesome-things-you%27ve-missed-in-perl.html</guid>
 			</item>
 		
 	</channel>
