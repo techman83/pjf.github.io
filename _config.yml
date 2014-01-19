@@ -46,7 +46,10 @@ sidebar:
   - personal:
     title: "Personal"
     url: "/personal"
-  - youtube:
+  - programming:
+    title: "Programming"
+    url: "/programming"
+  - plug:
     title: "PLUG"
     url: "/plug"
 
