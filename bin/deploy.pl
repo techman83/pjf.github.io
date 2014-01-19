@@ -26,7 +26,7 @@ system("mv _site/* .");
 
 # Add domain info
 open(my $fh, '>', 'CNAME');
-say {$fh} "www.techieman.net";
+say {$fh} "www.techman83.me";
 close($fh);
 
 # Tell github it shouldn't run jekyll a second time.
