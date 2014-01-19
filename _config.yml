@@ -1,0 +1,54 @@
+timezone: Australia/Perth
+excerpt_separator: <!--more-->
+name: Leon Wright
+shortname: techman83
+avatar: avatar_square.jpg
+description: I am self professed Geek that enjoys the company of small mythical creatures.
+github_repo: https://github.com/techman83/techman83.github.io
+intro: Welcome to my home on the internet! Everything here is free
+  under the Creative Commons Attribution 3.0 license unless marked
+  otherwise.
+
+# Site URL
+url: http://techieman.net/
+
+# Comment out if not wanted, change if wanted.
+twitter: http://twitter.com/Techman_83
+#facebook: http://facebook.com/
+googleplus: https://plus.google.com/+LeonWright
+github: https://github.com/techman83
+gittip: https://www.gittip.com/techman83/
+
+exclude: 
+    - '_assets'
+    - 'bin'
+    - 'CNAME'
+    - 'Gemfile'
+    - 'Gemfile.lock'
+    - 'Rakefile.rb'
+    - 'README.md'
+
+# Uncomment and Add your publisher ID here. https://www.addthis.com/
+#addthis:
+#  publisher:
+
+# Uncomment and Add your google analytics ID here:
+#analytics:
+#  id:
+
+# Uncomment and Add your disqus shortname here:
+#disqus:
+#  shortname:
+
+sidebar:
+  - personal:
+    title: "Personal"
+    url: "/personal"
+  - youtube:
+    title: "PLUG"
+    url: "/plug"
+
+sitemap:
+    file: "/sitemap.xml"
+    exclude:
+        - "/feed.xml"
