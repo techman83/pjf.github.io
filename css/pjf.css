@@ -67,3 +67,59 @@ img.me {
 .tip-box i {
     margin-bottom: 2em;
 }
+
+/* Responsive video containers, courtesy
+ * http://avexdesigns.com/responsive-youtube-embed/ 
+ */
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Fix bullet lists in posts */
+
+.is-post ul, 
+.is-post-excerpt ul {
+    list-style: disc;
+    padding-left: 1em;
+}
+
+.is-post ol, 
+.is-post-excerpt ol {
+    list-style: decimal;
+    padding-left: 1em;
+}
+
+/* AddThis */
+
+div.addthis_container {
+    padding-top:    1em;
+    padding-bottom: 1em;
+}
+
+.addthis_container p {
+    float: left;
+    font-weight: bold;
+    padding-right: 1em;
+}
+
+div.addthis {
+    display: inline-block;
+}
+
+/* Rounded corners on the buttons, please */
+.addthis_32x32_style span {
+    border-radius: 10%;
+}

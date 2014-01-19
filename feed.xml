@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Leon Wright</title>
+		<description>I am self professed Geek that enjoys the company of small mythical creatures.</description>
+		<link>http://techieman.net/</link>
+		<atom:link href="http://techieman.net//feed.xml" rel="self" type="application/rss+xml" />
+                
+
+                    
+                    
+                    
+
+			<item>
+				<title>First Post!</title>
+				<description>&lt;p&gt;I’ve been saying it for years, “I should make a website!”. However “Graphic Design” and “Presentation” aren’t really things that excite me and so motivation was hard to come by. &lt;!--more--&gt;Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time involved really meant that it never happened. Fortunately I follow an awesome dude named Paul Fenwick and he built &lt;a href=&quot;http://pjf.id.au/&quot;&gt;this site&lt;/a&gt; and encouraged others to fork the codebase. Of which I was more than happy to oblige. Thanks Paul!&lt;/p&gt;
+
+&lt;p&gt;Now to populate the site with content! :D&lt;/p&gt;</description>
+				<pubDate>Sun, 19 Jan 2014 00:00:00 +0800</pubDate>
+				<link>http://techieman.net///personal/2014/01/19/first_post.html</link>
+				<guid isPermaLink="true">http://techieman.net///personal/2014/01/19/first_post.html</guid>
+			</item>
+		
+
+                    
+                    
+                    
+
+			<item>
+				<title>More Awesome Things You've Missed in Perl</title>
+				<description>&lt;div class='video-container'&gt;&lt;iframe src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1' width='560' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Awesome things have been happening in Perl recently; so many that even if you’ve been paying close attention, you may have missed a few. In this talk we’ll examine some of the coolest recent technologies for Perl programmers, including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Overhauling Perl’s Object Oriented framework with Moose.&lt;/li&gt;
+
+&lt;li&gt;Making everything a first-class object with autobox.&lt;/li&gt;
+
+&lt;li&gt;Slashing your error handling code with autodie.&lt;/li&gt;
+
+&lt;li&gt;Building fast, readable and reusable regular expressions with Perl 5.10.&lt;/li&gt;
+
+&lt;li&gt;Bundling and building stand-alone applications using PAR, the Perl Archiver.&lt;/li&gt;
+
+&lt;li&gt;Astonishingly good profiling with Devel::NYTProf.&lt;/li&gt;
+
+&lt;li&gt;Playing MineSweeper automatically with App::SweeperBot.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--more--&gt;</description>
+				<pubDate>Tue, 01 May 2012 00:00:00 +0800</pubDate>
+				<link>http://techieman.net///plug/2012/05/01/more-awesome-things-you%27ve-missed-in-perl.html</link>
+				<guid isPermaLink="true">http://techieman.net///plug/2012/05/01/more-awesome-things-you%27ve-missed-in-perl.html</guid>
+			</item>
+		
+	</channel>
+</rss>
