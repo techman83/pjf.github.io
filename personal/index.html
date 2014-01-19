@@ -1,10 +1,20 @@
 ---
 layout: default
-title: A collection of my Random thoughts
+title: Personal Thoughts
 ---
+
+<article class="is-post">
+
+    <img class="me" src="/images/{{site.avatar}}" />
 
     <header>
         <h2>{{ page.title }}</h2>
     </header>
+
+    <p>A collection of my Random thoughts</a>
+    
+    {% include tip-box.html %}
+
+</article>
 
 {% include post-list.html tag="personal" %}

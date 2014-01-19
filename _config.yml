@@ -2,7 +2,7 @@ timezone: Australia/Perth
 excerpt_separator: <!--more-->
 name: Leon Wright
 shortname: techman83
-avatar: avatar_square.jpg
+avatar: leon_tiger.jpg
 description: I am self professed Geek that enjoys the company of small mythical creatures.
 github_repo: https://github.com/techman83/techman83.github.io
 intro: Welcome to my home on the internet! Everything here is free
@@ -35,12 +35,12 @@ exclude:
 #  publisher:
 
 # Uncomment and Add your google analytics ID here:
-#analytics:
-#  id:
+analytics:
+  id: 'UA-39211824-2'
 
 # Uncomment and Add your disqus shortname here:
-#disqus:
-#  shortname:
+disqus:
+  shortname: 'techman83'
 
 sidebar:
   - personal:
