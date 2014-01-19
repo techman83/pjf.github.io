@@ -28,7 +28,7 @@
 
 			<item>
 				<title>More Awesome Things You've Missed in Perl</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1' height='420' width='560'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Awesome things have been happening in Perl recently; so many that even if you’ve been paying close attention, you may have missed a few. In this talk we’ll examine some of the coolest recent technologies for Perl programmers, including:&lt;/p&gt;
 
 &lt;ul&gt;
