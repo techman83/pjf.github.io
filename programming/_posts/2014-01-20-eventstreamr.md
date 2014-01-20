@@ -23,4 +23,20 @@ Ability to scale down was particularly important to us, as we want to be able to
 
 There are 2 major components to EventStreamR, I'll cover the engine that sits in the background doing all the hardwork. I had pondered for some time about how I was going to solve the above problems and also meet our requirements. I felt Perl would be up to the challenge (and also happens to be the language I have the most exeprience in). It's a language I frequently use to glue things together in my day job and there are many libraries availble, which means less time re-inventing the wheel.
 
-With [Luke](https://github.com/lukejohnosmahi) writing the framework for the frontend, it left me focus on the backend. Which at it's core is a single daemon.
+With [Luke](https://github.com/lukejohnosmahi) writing the framework for the frontend, it left me focus on the backend. Which at it's core is a [single daemon](https://github.com/lukejohnosmahi/eventstreamr/blob/master/station/bin/station-mgr.pl) and essentially is a RESTful api enabled glorified process manager. I learnt a number of things whilst developing this with [Jason](https://github.com/nimm).
+
+- The current firewire stack is extremely reliable, the hardware I chose to develop the solution with initially was not. (2 days yak shaving due to a faulty camera and faulty firewire leads).
+- IPC::Shareable - I love what it can do, however you really need to devote time to managing your shared memory. We had modest needs, so Signals + HTTP calls were more than enough.
+- There are either restrictions to what key names when utilising JSON for serialised data or the JSON library does not escape them correctly. [I need to fix this properly](https://github.com/lukejohnosmahi/eventstreamr/issues/53)
+- The default dancer HTTP engine (HTTP::Server::Simple::CGI) does not support all HTTP methods. Causing much hair pulling when attempting to address CORS issues.
+- When you think you've squashed all the bugs, there will be more
+- You won't have quality time to write code at a conference
+- You will have to write code at the conference and it will inolve hours of yak shaving
+- If you're making a lot of mistakes, have a nap or if it's late go to bed!
+
+Overall LCA2014 was a success and I'm happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices I'm sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.
+
+Amazing things can happen when your volunteers are not afraid to experiemnt.
+
+{% youtube vbt_0q4qWUo %}
+(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)

@@ -1,0 +1,20 @@
+---
+layout: default
+title: My Coding Adventures
+---
+
+<article class="is-post">
+
+    <img class="me" src="/images/{{site.avatar}}" />
+
+    <header>
+        <h2>{{ page.title }}</h2>
+    </header>
+
+    <p>A collection of my adventures whilst learning to code.</a>
+    
+    {% include tip-box.html %}
+
+</article>
+
+{% include post-list.html tag="programming" %}
