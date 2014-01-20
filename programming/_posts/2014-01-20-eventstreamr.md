@@ -34,7 +34,7 @@ With [Luke](https://github.com/lukejohnosmahi) writing the framework for the fro
 - You will have to write code at the conference and it will inolve hours of yak shaving
 - If you're making a lot of mistakes, have a nap or if it's late go to bed!
 
-Overall LCA2014 was a success and I'm happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices I'm sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.
+Overall LCA2014 was a success and I'm happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I'm sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.
 
 Amazing things can happen when your volunteers are not afraid to experiemnt.
 
