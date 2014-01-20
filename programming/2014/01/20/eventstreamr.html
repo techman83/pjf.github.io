@@ -7,7 +7,7 @@
 -->
 <html lang="en">
     <head>
-        <title>First Post!</title>
+        <title>Automating AV&#58; EventStreamr</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
@@ -70,7 +70,7 @@
             if they get too long. You can also remove the "byline" span entirely if you don't
             need a byline.
     -->
-    <h2><a href="#">First Post!</a></h2>
+    <h2><a href="#">Automating AV&#58; EventStreamr</a></h2>
     <!-- <span class="byline">A free, fully responsive HTML5 site template by AJ for HTML5 UP</span> -->
 </header>
 
@@ -86,7 +86,7 @@
     <!-- <span class="date"><span class="month">Jan<span>uary</span></span> <span class="day">14</span><span class="year">, 2013</span></span> -->
     <span class="date">
         <span class="month">Jan</span>
-        <span class="day">19</span>
+        <span class="day">20</span>
         <span class="year"><span>,</span> 2014</span>
     </span>
 
@@ -104,9 +104,61 @@
 </div>
 
 
-    <p>I’ve been saying it for years, “I should make a website!”. However “Graphic Design” and “Presentation” aren’t really things that excite me and so motivation was hard to come by. <!--more-->Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time involved really meant that it never happened. Fortunately I follow an awesome dude named Paul Fenwick and he built <a href="http://pjf.id.au/">this site</a> and encouraged others to fork the codebase. Of which I was more than happy to oblige. Thanks Paul!</p>
+    <p><a href="https://github.com/lukejohnosmahi/eventstreamr/">EventStreamR</a> come to inception from a collection of experiences amongst our local LUG the <a href="https://www.plug.org.au">Perth Linux User Group</a>. Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some of our members find it quite difficult to attend. A few years ago an initiave started by <a href="http://blog.james.rcpt.to/">James Bromberger</a> was to film and live stream all PLUG talks so that every member had an oppurtunity to attend our meetings, even if they couldn’t necessarily make it in person. <!--more--></p>
 
-<p>Now to populate the site with content! :D</p>
+<p>Between our experience streaming and attending LCA2013 to get a feel for how the conference ran, we had come to the conclusion that the Open Source Video mixing stack we use (DVswitch), whilst being easy to use and quite fit for purpose; it can be a little unreliable. Along with that DV aka Digital Video as a dying standard. To my knowledge there isn’t a lot of work being put into the project as the world is moving on from DV. In light of all that we had come up with a list of requirements to bring reliability to the table.</p>
+
+<ul>
+<li>Open Source</li>
+
+<li>Be able to scale up and down</li>
+
+<li>Easy to setup and use</li>
+
+<li>Work on any hardware</li>
+
+<li>Central Configuration Management + Control</li>
+
+<li>Able to operate independently (Locations with no network or failure of networking)</li>
+</ul>
+
+<p>Ability to scale down was particularly important to us, as we want to be able to use this solution at our local LUG and also encourage other LUGs to generate content. Which was something that I felt was lacking in some of the established solutions (eg. Matterhorn, though I’m happy to be shown otherwise). So after gathering our requirements, there was also figuring out what problems we needed to solve.</p>
+
+<ul>
+<li>DVswitch - It sometimes goes bang</li>
+
+<li>DVgrab - does not fail gracefully</li>
+
+<li>Setup for mutliple stations and rooms is time consuming</li>
+</ul>
+
+<p>There are 2 major components to EventStreamR, I’ll cover the engine that sits in the background doing all the hardwork. I had pondered for some time about how I was going to solve the above problems and also meet our requirements. I felt Perl would be up to the challenge (and also happens to be the language I have the most exeprience in). It’s a language I frequently use to glue things together in my day job and there are many libraries availble, which means less time re-inventing the wheel.</p>
+
+<p>With <a href="https://github.com/lukejohnosmahi">Luke</a> writing the framework for the frontend, it left me focus on the backend. Which at it’s core is a <a href="https://github.com/lukejohnosmahi/eventstreamr/blob/master/station/bin/station-mgr.pl">single daemon</a> and essentially is a RESTful api enabled glorified process manager. I learnt a number of things whilst developing this with <a href="https://github.com/nimm">Jason</a>.</p>
+
+<ul>
+<li>The current firewire stack is extremely reliable, the hardware I chose to develop the solution with initially was not. (2 days yak shaving due to a faulty camera and faulty firewire leads).</li>
+
+<li>IPC::Shareable - I love what it can do, however you really need to devote time to managing your shared memory. We had modest needs, so Signals + HTTP calls were more than enough.</li>
+
+<li>There are either restrictions to what key names when utilising JSON for serialised data or the JSON library does not escape them correctly. <a href="https://github.com/lukejohnosmahi/eventstreamr/issues/53">I need to fix this properly</a></li>
+
+<li>The default dancer HTTP engine (HTTP::Server::Simple::CGI) does not support all HTTP methods. Causing much hair pulling when attempting to address CORS issues.</li>
+
+<li>When you think you’ve squashed all the bugs, there will be more</li>
+
+<li>You won’t have quality time to write code at a conference</li>
+
+<li>You will have to write code at the conference and it will inolve hours of yak shaving</li>
+
+<li>If you’re making a lot of mistakes, have a nap or if it’s late go to bed!</li>
+</ul>
+
+<p>Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.</p>
+
+<p>Amazing things can happen when your volunteers are not afraid to experiemnt.</p>
+<div class='video-container'><iframe width='560' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1' height='420'> </iframe></div><p><a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'>Watch on YouTube</a></p>
+<p>(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)</p>
 
     
 
@@ -131,8 +183,8 @@
 <script type="text/javascript">
 
     var disqus_shortname  = 'techman83'; 
-    var disqus_identifier = '/personal/2014/01/19/first_post.html';
-    var disqus_title      = 'First Post!';
+    var disqus_identifier = '/programming/2014/01/20/eventstreamr.html';
+    var disqus_title      = 'Automating AV&#58; EventStreamr';
 
     /* Make sure that once disqus renders, we trigger any events that
      * need to happen on page resize. Otherwise our left-bar looks funny. */

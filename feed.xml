@@ -12,6 +12,73 @@
                     
 
 			<item>
+				<title>Automating AV&amp;#58; EventStreamr</title>
+				<description>&lt;p&gt;&lt;a href=&quot;https://github.com/lukejohnosmahi/eventstreamr/&quot;&gt;EventStreamR&lt;/a&gt; come to inception from a collection of experiences amongst our local LUG the &lt;a href=&quot;https://www.plug.org.au&quot;&gt;Perth Linux User Group&lt;/a&gt;. Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some of our members find it quite difficult to attend. A few years ago an initiave started by &lt;a href=&quot;http://blog.james.rcpt.to/&quot;&gt;James Bromberger&lt;/a&gt; was to film and live stream all PLUG talks so that every member had an oppurtunity to attend our meetings, even if they couldn’t necessarily make it in person. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;Between our experience streaming and attending LCA2013 to get a feel for how the conference ran, we had come to the conclusion that the Open Source Video mixing stack we use (DVswitch), whilst being easy to use and quite fit for purpose; it can be a little unreliable. Along with that DV aka Digital Video as a dying standard. To my knowledge there isn’t a lot of work being put into the project as the world is moving on from DV. In light of all that we had come up with a list of requirements to bring reliability to the table.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Open Source&lt;/li&gt;
+
+&lt;li&gt;Be able to scale up and down&lt;/li&gt;
+
+&lt;li&gt;Easy to setup and use&lt;/li&gt;
+
+&lt;li&gt;Work on any hardware&lt;/li&gt;
+
+&lt;li&gt;Central Configuration Management + Control&lt;/li&gt;
+
+&lt;li&gt;Able to operate independently (Locations with no network or failure of networking)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ability to scale down was particularly important to us, as we want to be able to use this solution at our local LUG and also encourage other LUGs to generate content. Which was something that I felt was lacking in some of the established solutions (eg. Matterhorn, though I’m happy to be shown otherwise). So after gathering our requirements, there was also figuring out what problems we needed to solve.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;DVswitch - It sometimes goes bang&lt;/li&gt;
+
+&lt;li&gt;DVgrab - does not fail gracefully&lt;/li&gt;
+
+&lt;li&gt;Setup for mutliple stations and rooms is time consuming&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are 2 major components to EventStreamR, I’ll cover the engine that sits in the background doing all the hardwork. I had pondered for some time about how I was going to solve the above problems and also meet our requirements. I felt Perl would be up to the challenge (and also happens to be the language I have the most exeprience in). It’s a language I frequently use to glue things together in my day job and there are many libraries availble, which means less time re-inventing the wheel.&lt;/p&gt;
+
+&lt;p&gt;With &lt;a href=&quot;https://github.com/lukejohnosmahi&quot;&gt;Luke&lt;/a&gt; writing the framework for the frontend, it left me focus on the backend. Which at it’s core is a &lt;a href=&quot;https://github.com/lukejohnosmahi/eventstreamr/blob/master/station/bin/station-mgr.pl&quot;&gt;single daemon&lt;/a&gt; and essentially is a RESTful api enabled glorified process manager. I learnt a number of things whilst developing this with &lt;a href=&quot;https://github.com/nimm&quot;&gt;Jason&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The current firewire stack is extremely reliable, the hardware I chose to develop the solution with initially was not. (2 days yak shaving due to a faulty camera and faulty firewire leads).&lt;/li&gt;
+
+&lt;li&gt;IPC::Shareable - I love what it can do, however you really need to devote time to managing your shared memory. We had modest needs, so Signals + HTTP calls were more than enough.&lt;/li&gt;
+
+&lt;li&gt;There are either restrictions to what key names when utilising JSON for serialised data or the JSON library does not escape them correctly. &lt;a href=&quot;https://github.com/lukejohnosmahi/eventstreamr/issues/53&quot;&gt;I need to fix this properly&lt;/a&gt;&lt;/li&gt;
+
+&lt;li&gt;The default dancer HTTP engine (HTTP::Server::Simple::CGI) does not support all HTTP methods. Causing much hair pulling when attempting to address CORS issues.&lt;/li&gt;
+
+&lt;li&gt;When you think you’ve squashed all the bugs, there will be more&lt;/li&gt;
+
+&lt;li&gt;You won’t have quality time to write code at a conference&lt;/li&gt;
+
+&lt;li&gt;You will have to write code at the conference and it will inolve hours of yak shaving&lt;/li&gt;
+
+&lt;li&gt;If you’re making a lot of mistakes, have a nap or if it’s late go to bed!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
+
+&lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
+&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;</description>
+				<pubDate>Mon, 20 Jan 2014 00:00:00 +0800</pubDate>
+				<link>http://www.techieman.83///programming/2014/01/20/eventstreamr.html</link>
+				<guid isPermaLink="true">http://www.techieman.83///programming/2014/01/20/eventstreamr.html</guid>
+			</item>
+		
+
+                    
+                    
+                    
+
+			<item>
 				<title>First Post!</title>
 				<description>&lt;p&gt;I’ve been saying it for years, “I should make a website!”. However “Graphic Design” and “Presentation” aren’t really things that excite me and so motivation was hard to come by. &lt;!--more--&gt;Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time involved really meant that it never happened. Fortunately I follow an awesome dude named Paul Fenwick and he built &lt;a href=&quot;http://pjf.id.au/&quot;&gt;this site&lt;/a&gt; and encouraged others to fork the codebase. Of which I was more than happy to oblige. Thanks Paul!&lt;/p&gt;
 
@@ -28,7 +95,7 @@
 
 			<item>
 				<title>More Awesome Things You've Missed in Perl</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Awesome things have been happening in Perl recently; so many that even if you’ve been paying close attention, you may have missed a few. In this talk we’ll examine some of the coolest recent technologies for Perl programmers, including:&lt;/p&gt;
 
 &lt;ul&gt;
