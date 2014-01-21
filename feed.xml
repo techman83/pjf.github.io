@@ -66,7 +66,7 @@
 &lt;p&gt;Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
 
 &lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
-&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;</description>
 				<pubDate>Mon, 20 Jan 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///programming/2014/01/20/eventstreamr.html</link>
@@ -95,7 +95,7 @@
 
 			<item>
 				<title>More Awesome Things You've Missed in Perl</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vgvMd4nuHTg?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vgvMd4nuHTg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Awesome things have been happening in Perl recently; so many that even if you’ve been paying close attention, you may have missed a few. In this talk we’ll examine some of the coolest recent technologies for Perl programmers, including:&lt;/p&gt;
 
 &lt;ul&gt;
