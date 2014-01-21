@@ -30,6 +30,9 @@ exclude:
     - 'personal_example'
     - 'youtube_example'
 
+# Uncomment this to enable pagination, including tag pagination.
+paginate: 5
+
 # Uncomment and Add your publisher ID here. https://www.addthis.com/
 #addthis:
 #  publisher:
