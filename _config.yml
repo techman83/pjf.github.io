@@ -35,8 +35,8 @@ exclude:
 paginate: 5
 
 # Uncomment and Add your publisher ID here. https://www.addthis.com/
-#addthis:
-#  publisher:
+addthis:
+  publisher: 'ra-52df33e30fca36e7'
 
 # Uncomment and Add your google analytics ID here:
 analytics:
