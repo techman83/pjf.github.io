@@ -53,6 +53,7 @@
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-39211824-2']);
+  _gaq.push(['_gat._anonymizeIp']); // Better user privacy
   _gaq.push(['_trackPageview']);
 
   (function() {
@@ -227,6 +228,17 @@ var addthis_config = {
 
     function disqus_config() {
         this.callbacks.onReady = [function() {
+            var $sc = $('#sidebar, #content');
+
+if (skel.isActive('mobile') || skel.isActive('narrower'))
+    $sc.css('min-height', '0').css('height', 'auto');
+else
+    $sc.css('min-height', $(window).height()).css('height', $(document).height());
+
+
+        }];
+
+        this.callbacks.onNewComment = [function() {
             var $sc = $('#sidebar, #content');
 
 if (skel.isActive('mobile') || skel.isActive('narrower'))
