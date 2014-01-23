@@ -161,11 +161,7 @@
 			This sets an upper limit on your page content to prevent it
 			from looking insane on really wide displays.
 		*/
-<<<<<<< HEAD
-		max-width: 80%;
-=======
 		max-width: 50em;
->>>>>>> base
 	}
 
 /*********************************************************************************/
