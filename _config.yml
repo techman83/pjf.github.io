@@ -42,6 +42,11 @@ addthis:
 analytics:
   id: 'UA-39211824-2'
 
+# Uncomment and Add your google custom search ID here:
+search:
+  google:
+    cx: '013407213838922707467:62s2x7krfn8'
+
 # Uncomment and Add your disqus shortname here:
 disqus:
   shortname: 'techman83'
