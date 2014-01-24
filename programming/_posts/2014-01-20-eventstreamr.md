@@ -19,7 +19,7 @@ Ability to scale down was particularly important to us, as we want to be able to
 
 - DVswitch - It sometimes goes bang
 - DVgrab - does not fail gracefully
-- Setup for mutliple stations and rooms is time consuming
+- Setup for multiple stations and rooms is time consuming
 
 There are 2 major components to EventStreamR, I'll cover the engine that sits in the background doing all the hardwork. I had pondered for some time about how I was going to solve the above problems and also meet our requirements. I felt Perl would be up to the challenge (and also happens to be the language I have the most exeprience in). It's a language I frequently use to glue things together in my day job and there are many libraries availble, which means less time re-inventing the wheel.
 
