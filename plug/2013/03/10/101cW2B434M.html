@@ -12,11 +12,11 @@
 
         
 
-<link rel="image_src"        href="http://www.techieman.83//images/leon_tiger.jpg"  />
 
-<!-- These four properties are mandatory -->
+    <meta property="og:image" content="http://www.techieman.83//images/leon_tiger.jpg"  />
+    <link rel="image_src"        href="http://www.techieman.83//images/leon_tiger.jpg"  />
 
-<meta property="og:image" content="http://www.techieman.83//images/leon_tiger.jpg"  />
+
 <meta property="og:title" content="Startup Weekend&amp;#58; Flearns and Thanks, Perth 2013-03"  />
 <meta property="og:url"   content="http://www.techieman.83//plug/2013/03/10/101cW2B434M.html" />
 
@@ -31,7 +31,12 @@
 
 
         <link rel="icon" type="image/png" href="/images/favicon.png" />
-        <link rel="alternative" type="application/rss+xml" title="RSS" href="/feed.xml"/>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml"/>
+
+        
+            <link rel="alternate" type="application/rss+xml" title="All Comments" href="http://techman83.disqus.com/latest.rss"/>
+        
+
         <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700|Open+Sans+Condensed:300,700" rel="stylesheet" />
         <script src="/js/jquery.min.js"></script>
         <script src="/js/skel.min.js"></script>
@@ -46,6 +51,11 @@
         <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
         <!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
         <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+
+        <!-- TODO: Only load on fancybox pages -->
+<link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
 
         <link rel="stylesheet" href="/css/pjf.css" />
 
@@ -92,19 +102,10 @@ to this post.)
 </header>
 
     <div class="info">
-    <!--
-            Note: The date should be formatted exactly as it's shown below. In particular, the
-            "least significant" characters of the month should be encapsulated in a <span>
-            element to denote what gets dropped in 1200px mode (eg. the "uary" in "January").
-            Oh, and if you don't need a date for a particular page or post you can simply delete
-            the entire "date" element.
-            
-    -->
-    <!-- <span class="date"><span class="month">Jan<span>uary</span></span> <span class="day">14</span><span class="year">, 2013</span></span> -->
-    <span class="date">
-        <span class="month">Mar</span>
-        <span class="day">10</span>
-        <span class="year"><span>,</span> 2013</span>
+    
+    <span class="date"> <span class="month">Mar</span>
+        <span class="day">10</span> <span
+            class="year"><span>,</span> 2013</span>
     </span>
 
 
@@ -121,7 +122,9 @@ to this post.)
 </div>
 
 
-    <div class='video-container'><iframe width='560' height='420' src='http://www.youtube.com/embed/101cW2B434M?html5=1'> </iframe></div><p><a href='http://www.youtube.com/watch?v=101cW2B434M'>Watch on YouTube</a></p><!--more-->
+    
+
+    <div class='video-container'><iframe src='http://www.youtube.com/embed/101cW2B434M?html5=1' width='560' height='420'> </iframe></div><p><a href='http://www.youtube.com/watch?v=101cW2B434M'>Watch on YouTube</a></p><!--more-->
 <p>http://perth.startupweekend.org/ at SpaceCubed</p>
 
 <p>Those learning experiences… http://flearn.org/</p>
@@ -152,6 +155,8 @@ var addthis_config = {
 
 
     
+
+    
 <div class="tip-box">
     <p>
         <a href="https://www.gittip.com/techman83/"><i class="fa fa-gittip fa-3x pull-left"></i></a>
@@ -173,12 +178,13 @@ var addthis_config = {
     var disqus_shortname  = "techman83"; 
     var disqus_identifier = "/plug/2013/03/10/101cW2B434M.html";
     var disqus_title      = "Startup Weekend&amp;#58; Flearns and Thanks, Perth 2013-03";
+    var disqus_url        = "http://www.techieman.83//plug/2013/03/10/101cW2B434M.html";
 
     /* Make sure that once disqus renders, we trigger any events that
      * need to happen on page resize. Otherwise our left-bar looks funny. */
 
     function disqus_config() {
-        this.callbacks.onReady = [function() {
+        this.callbacks.onReady.push(function() {
             var $sc = $('#sidebar, #content');
 
 if (skel.isActive('mobile') || skel.isActive('narrower'))
@@ -187,9 +193,9 @@ else
     $sc.css('min-height', $(window).height()).css('height', $(document).height());
 
 
-        }];
+        });
 
-        this.callbacks.onNewComment = [function() {
+        this.callbacks.onNewComment.push(function() {
             var $sc = $('#sidebar, #content');
 
 if (skel.isActive('mobile') || skel.isActive('narrower'))
@@ -198,7 +204,7 @@ else
     $sc.css('min-height', $(window).height()).css('height', $(document).height());
 
 
-        }];
+        });
     }
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -239,6 +245,8 @@ else
     
         <a href="https://github.com/techman83"><i class="fa fa-github-square   fa-3x"  ></i></a>
     
+    
+    <a href="/feed.xml"><i class="fa fa-rss-square fa-3x"></i></a>
     </section>
 
     <!-- Nav -->
@@ -400,6 +408,18 @@ else
 
             
         </div>
+    <!-- TODO: Only load on fancybos pages -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".fancybox").fancybox({
+            closeClick: true,
+            closeBtn: false,
+            arrows: false,
+            mouseWheel: false,
+        });
+    });
+</script>
+
     </body>
 </html>
 
