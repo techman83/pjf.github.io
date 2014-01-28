@@ -109,7 +109,7 @@
 
 			#titleBar .toggle:active:before
 			{
-				background-color: #d95673;
+				background-color: #0071bd;
 			}
 
 			#titleBar .toggle:active:after
