@@ -30,6 +30,7 @@ exclude:
     - 'README.md'
     - 'personal_example'
     - 'youtube_example'
+    - 'CUSTOMISATIONS.md'
 
 # Uncomment this to enable pagination, including tag pagination.
 paginate: 5
