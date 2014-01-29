@@ -66,7 +66,7 @@
 &lt;p&gt;Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
 
 &lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
-&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;</description>
 				<pubDate>Mon, 20 Jan 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///programming/2014/01/20/eventstreamr.html</link>
@@ -95,7 +95,7 @@
 
 			<item>
 				<title>PLUG&amp;#58; theSkyNet POGS and Radio Astronomy</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/LBQp9aPe6k0?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=LBQp9aPe6k0'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/LBQp9aPe6k0?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=LBQp9aPe6k0'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Kevin Vinsen talking at the PLUG November 2013 meeting about current and upcoming radio astronomy in WA and elsewhere, and its distributed computing requirements - add your home computer to the mix!&lt;/p&gt;</description>
 				<pubDate>Tue, 12 Nov 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///plug/2013/11/12/LBQp9aPe6k0.html</link>
@@ -109,7 +109,7 @@
 
 			<item>
 				<title>PLUG&amp;#58; Configuration Management using Puppet - October 2013</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/XQsD8bQtoY4?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=XQsD8bQtoY4'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/XQsD8bQtoY4?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=XQsD8bQtoY4'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Luke Williams talking at the PLUG October 2013 meeting about automated system administration and configuration using Puppet.&lt;/p&gt;</description>
 				<pubDate>Mon, 14 Oct 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///plug/2013/10/14/XQsD8bQtoY4.html</link>
@@ -123,7 +123,7 @@
 
 			<item>
 				<title>PLUG&amp;#58; iVEC SC13 Student Cluster Competition Team</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/m4RywlIdhM8?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=m4RywlIdhM8'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/m4RywlIdhM8?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=m4RywlIdhM8'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;iVEC has a team entering the Student Cluster Competition at SC13 in the US later this year. This is the pre-eminent event in the High Performance Computing (HPC) world and it’s great for Australia, and in particular Western Australia to be involved thanks to iVEC and their sponsors.&lt;/p&gt;
 
 &lt;p&gt;The team gave a presentation at PLUG going through the ins and outs of super computing, the state of super compuing in WA, and information about the competition itself.&lt;/p&gt;
@@ -141,7 +141,7 @@
 
 			<item>
 				<title>PLUG&amp;#58; Subversion SVN, July 2013</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/TTImA7FYNHI?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=TTImA7FYNHI'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/TTImA7FYNHI?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=TTImA7FYNHI'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Alastair Irvine on creating a Subversion repository and SVN usage&lt;/p&gt;</description>
 				<pubDate>Tue, 09 Jul 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///plug/2013/07/09/TTImA7FYNHI.html</link>
@@ -155,7 +155,7 @@
 
 			<item>
 				<title>GovHack 2013&amp;#58; Introduction and talk by Lyn Beazley, Chief Scientist WA</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/GDz4WUcbKhc?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=GDz4WUcbKhc'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;</description>
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/GDz4WUcbKhc?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=GDz4WUcbKhc'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;</description>
 				<pubDate>Sat, 01 Jun 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///plug/2013/06/01/GDz4WUcbKhc.html</link>
 				<guid isPermaLink="true">http://www.techieman.83///plug/2013/06/01/GDz4WUcbKhc.html</guid>
@@ -168,7 +168,7 @@
 
 			<item>
 				<title>Startup Weekend&amp;#58; Presentations 1/2, Perth 2013-03</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/xC3KbZYgqpU?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=xC3KbZYgqpU'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/xC3KbZYgqpU?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=xC3KbZYgqpU'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;http://perth.startupweekend.org/ at SpaceCubed&lt;/p&gt;
 
 &lt;p&gt;Ninja Vest: 00:00 Op Shopping: 09:44 Druckr: 20:36 Styleable: 32:00 Virality: 44:00 Collidr: 55:00﻿ – thanks, https://www.youtube.com/user/mikecunneen&lt;/p&gt;
@@ -186,7 +186,7 @@
 
 			<item>
 				<title>Startup Weekend&amp;#58; Rabbit Raffle Draw, Perth 2013-03</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/gS96Qgkx7zI?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=gS96Qgkx7zI'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/gS96Qgkx7zI?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=gS96Qgkx7zI'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Rabbit Raffle’s inaugural public draw&lt;/p&gt;
 
 &lt;p&gt;http://rafflerabbit.co/&lt;/p&gt;</description>
@@ -202,7 +202,7 @@
 
 			<item>
 				<title>Startup Weekend&amp;#58; heads up! Perth 2013-03</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' src='http://www.youtube.com/embed/bIUsN_WObcg?html5=1' height='420'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=bIUsN_WObcg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/bIUsN_WObcg?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=bIUsN_WObcg'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Here come the presentations, thanks @yeoro!&lt;/p&gt;</description>
 				<pubDate>Sun, 10 Mar 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techieman.83///plug/2013/03/10/bIUsN_WObcg.html</link>
