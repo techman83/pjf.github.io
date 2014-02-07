@@ -13,6 +13,9 @@ intro: Welcome to my home on the internet! Everything here is free
 # Site URL
 url: http://www.techieman.83/
 
+# custom css
+customcss: custom.css
+
 # Comment out if not wanted, change if wanted.
 twitter: http://twitter.com/Techman_83
 #facebook: http://facebook.com/
