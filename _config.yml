@@ -16,6 +16,15 @@ url: http://www.techieman.83/
 # custom css
 customcss: custom.css
 
+# February 11th, 2014 campaign.
+# See https://thedaywefightback.org for details.
+# The 'testing' option will enable the banner, even if it not Feb 11th
+
+thedaywefightback:
+  enable: true
+  testing: false
+
+
 # Comment out if not wanted, change if wanted.
 twitter: http://twitter.com/Techman_83
 #facebook: http://facebook.com/
