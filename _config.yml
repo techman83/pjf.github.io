@@ -22,7 +22,7 @@ customcss: custom.css
 
 thedaywefightback:
   enable: true
-  testing: true 
+  testing: false 
 
 
 # Comment out if not wanted, change if wanted.
