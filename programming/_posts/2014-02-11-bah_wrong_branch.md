@@ -1,6 +1,6 @@
 ---
 tags: programming git
-title: Git AV&#58; Bah, wrong branch!
+title: Git&#58; Bah, wrong branch!
 description: Fixing a commit into the wrong branch.
 ---
 
