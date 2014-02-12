@@ -10,8 +10,8 @@ intro: Welcome to my home on the internet! Everything here is free
   under the Creative Commons Attribution 3.0 license unless marked
   otherwise.
 
-# Site URL
-url: http://www.techieman.83/
+# Site URL - without trailing forward slash
+url: http://www.techieman.83
 
 # custom css
 customcss: custom.css
