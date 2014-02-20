@@ -12,17 +12,106 @@
                     
 
 			<item>
+				<title>Dancing with WebSockets</title>
+				<description>&lt;p&gt;I learnt during the development of the &lt;a href=&quot;https://github.com/plugorgau/eventstreamr&quot;&gt;EventStreamR&lt;/a&gt; frontend that websockets are cool! Another learning project of mine is &lt;a href=&quot;https://github.com/techman83/NanodeControl&quot;&gt;NanodeControl&lt;/a&gt; and after learning what all the cool new things are available I wanted to have a crack at making it more modern. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;After a bit of search around I came across &lt;a href=&quot;http://search.cpan.org/~ironcamel/Dancer-Plugin-WebSocket-0.0100/lib/Dancer/Plugin/WebSocket.pm&quot;&gt;Dancer::Plugin::WebSocket&lt;/a&gt;. Expanding on the example provided here is a simple web page with simple messages and forked calls. It utilises the the Twiggy AnyEvent based non-blocking (asynchronous) and lightweight PSGI web server.&lt;/p&gt;
+
+&lt;p&gt;You’ll need some libraries, my favourite way to install them is &lt;a href=&quot;http://search.cpan.org/~miyagawa/App-cpanminus-1.7001/lib/App/cpanminus.pm&quot;&gt;cpanm&lt;/a&gt;:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;cpanm -S Plack Twiggy Dancer Dancer::Plugin::WebSocket AnyEvent::Util
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;app.pl:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='perl'&gt;&lt;span class='k'&gt;use&lt;/span&gt; &lt;span class='n'&gt;Dancer&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;:syntax&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='k'&gt;use&lt;/span&gt; &lt;span class='nn'&gt;Dancer::Plugin::&lt;/span&gt;&lt;span class='n'&gt;WebSocket&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='k'&gt;use&lt;/span&gt; &lt;span class='nn'&gt;AnyEvent::&lt;/span&gt;&lt;span class='n'&gt;Util&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+
+&lt;span class='n'&gt;set&lt;/span&gt; &lt;span class='n'&gt;logger&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;console&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='n'&gt;set&lt;/span&gt; &lt;span class='nb'&gt;log&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;core&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+
+&lt;span class='n'&gt;get&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;sub &lt;/span&gt;&lt;span class='p'&gt;{&lt;/span&gt;&lt;span class='sx'&gt;q[&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;script&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;      var ws_path = &amp;quot;ws://localhost:5000/_hippie/ws&amp;quot;;&lt;/span&gt;
+&lt;span class='sx'&gt;      var socket = new WebSocket(ws_path);&lt;/span&gt;
+&lt;span class='sx'&gt;      socket.onopen = function() {&lt;/span&gt;
+&lt;span class='sx'&gt;          document.getElementById(&amp;#39;conn-status&amp;#39;).innerHTML = &amp;#39;Connected&amp;#39;;&lt;/span&gt;
+&lt;span class='sx'&gt;      };&lt;/span&gt;
+&lt;span class='sx'&gt;      socket.onmessage = function(e) {&lt;/span&gt;
+&lt;span class='sx'&gt;          var data = JSON.parse(e.data);&lt;/span&gt;
+&lt;span class='sx'&gt;          console.log(data);&lt;/span&gt;
+&lt;span class='sx'&gt;          if (data.msg) {&lt;/span&gt;
+&lt;span class='sx'&gt;            document.getElementById(&amp;#39;content&amp;#39;).innerHTML = data.msg;&lt;/span&gt;
+&lt;span class='sx'&gt;            setTimeout(function() {&lt;/span&gt;
+&lt;span class='sx'&gt;              document.getElementById(&amp;#39;content&amp;#39;).innerHTML = &amp;#39;No current message&amp;#39;;&lt;/span&gt;
+&lt;span class='sx'&gt;            }, 5000);&lt;/span&gt;
+&lt;span class='sx'&gt;          }&lt;/span&gt;
+&lt;span class='sx'&gt;      };&lt;/span&gt;
+&lt;span class='sx'&gt;      function send_msg(message) {&lt;/span&gt;
+&lt;span class='sx'&gt;          socket.send(JSON.stringify({ msg: message }));&lt;/span&gt;
+&lt;span class='sx'&gt;      }&lt;/span&gt;
+&lt;span class='sx'&gt;      function get_long() {&lt;/span&gt;
+&lt;span class='sx'&gt;        var xmlHttp = null;&lt;/span&gt;
+
+&lt;span class='sx'&gt;        xmlHttp = new XMLHttpRequest();&lt;/span&gt;
+&lt;span class='sx'&gt;        xmlHttp.open( &amp;quot;GET&amp;quot;, &amp;#39;/long&amp;#39;, false );&lt;/span&gt;
+&lt;span class='sx'&gt;        xmlHttp.send( null );&lt;/span&gt;
+&lt;span class='sx'&gt;        document.getElementById(&amp;#39;content&amp;#39;).innerHTML = &amp;#39;Waiting...&amp;#39;;&lt;/span&gt;
+&lt;span class='sx'&gt;      }&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    Connection Status: &amp;lt;span id=&amp;quot;conn-status&amp;quot;&amp;gt; Disconnected &amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;input value=&amp;quot;Send Message&amp;quot; type=button onclick=&amp;quot;send_msg(&amp;#39;hello&amp;#39;)&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;input value=&amp;quot;Get Long Call&amp;quot; type=button onclick=&amp;quot;get_long()&amp;quot; /&amp;gt;&amp;lt;br&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;span id=&amp;quot;content&amp;quot;&amp;gt; No current message &amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;    &amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;span class='sx'&gt;]&lt;/span&gt;&lt;span class='p'&gt;};&lt;/span&gt;
+
+&lt;span class='n'&gt;get&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;/long&amp;#39;&lt;/span&gt; &lt;span class='o'&gt;=&amp;gt;&lt;/span&gt; &lt;span class='k'&gt;sub &lt;/span&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+    &lt;span class='n'&gt;debug&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;Stations Called&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+    &lt;span class='n'&gt;fork_call&lt;/span&gt; &lt;span class='p'&gt;{&lt;/span&gt;
+      &lt;span class='n'&gt;debug&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;Forking&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+      &lt;span class='nb'&gt;sleep&lt;/span&gt; &lt;span class='mi'&gt;5&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+    &lt;span class='p'&gt;}&lt;/span&gt; &lt;span class='k'&gt;sub &lt;/span&gt;&lt;span class='p'&gt;{&lt;/span&gt;
+      &lt;span class='k'&gt;my&lt;/span&gt; &lt;span class='nv'&gt;$data&lt;/span&gt; &lt;span class='o'&gt;=&lt;/span&gt; &lt;span class='s'&gt;&amp;#39;Forked result!&amp;#39;&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+      &lt;span class='n'&gt;ws_send&lt;/span&gt; &lt;span class='nv'&gt;$data&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+      &lt;span class='n'&gt;debug&lt;/span&gt;&lt;span class='p'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;Message Sent&amp;quot;&lt;/span&gt;&lt;span class='p'&gt;);&lt;/span&gt;
+    &lt;span class='p'&gt;};&lt;/span&gt;
+    &lt;span class='k'&gt;return&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;span class='p'&gt;};&lt;/span&gt;
+
+&lt;span class='n'&gt;dance&lt;/span&gt;&lt;span class='p'&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Launch the script with plackup:&lt;/p&gt;
+&lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='bash'&gt;plackup -s Twiggy socket_dance.pl -p 5000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Browse to http://localhost:5000 and you should be greated with page. Press the buttons and watch the magic happen!&lt;/p&gt;
+
+&lt;p&gt;I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some &lt;a href=&quot;https://github.com/miyagawa/Twiggy/pull/39&quot;&gt;bug reports&lt;/a&gt; indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-)&lt;/p&gt;</description>
+				<pubDate>Thu, 20 Feb 2014 00:00:00 +0800</pubDate>
+				<link>http://www.techman83.me/programming/2014/02/20/dancing_with_websockets.html</link>
+				<guid isPermaLink="true">http://www.techman83.me/programming/2014/02/20/dancing_with_websockets.html</guid>
+			</item>
+		
+
+                    
+                    
+                    
+
+			<item>
 				<title>Bottom Bracket Refit + Dropout repair</title>
 				<description>&lt;p&gt;As a follow up to my &lt;a href=&quot;/personal/2014/02/06/repair_bb.html&quot;&gt;previous post&lt;/a&gt;, I ordered an upgraded BB. Being a Shimano HollowTech II, the different screw in type BBs are interchangeable. So long as you get the correct thread and width. Mine had the english thread (1.37x24) and the bracket width of 68mm. The bike shop had stock of a Dura-Ace SM-BB9000 in their warehouse, being only a little more than the equivilent Shimano 105 I decided to spring for the upgrade (mine only had a Tiagra, so quite an upgrade indeed).&lt;/p&gt;
-&lt;figure&gt;&lt;a rel='group' href='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' class='fancybox'&gt;&lt;img src='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;New vs Old&lt;/figcaption&gt;&lt;/figure&gt;&lt;!--more--&gt;
+&lt;figure&gt;&lt;a class='fancybox' rel='group' href='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG'&gt;&lt;img src='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;New vs Old&lt;/figcaption&gt;&lt;/figure&gt;&lt;!--more--&gt;
 &lt;p&gt;The BB was pretty easy to fit in the end. Grease the BB threads, put back together, slide in the crank (with a few gentle taps with a plastic mallet drive it home) and a bit of thread locker on the crank arm bolts.&lt;/p&gt;
 
 &lt;p&gt;I also gave everything a really good clean whilst it was apart. The chain rings were quite filthy and there a few places that are difficult to reach when it’s all together.&lt;/p&gt;
-&lt;figure&gt;&lt;a rel='group' href='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w1291-h1023-no/IMG_0297-edit.JPG' class='fancybox'&gt;&lt;img src='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w250/IMG_0297-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;BB Fitted&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;a rel='group' href='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w1533-h715-no/IMG_0285-edit.JPG' class='fancybox'&gt;&lt;img src='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w250/IMG_0285-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano 105 Crankset&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;a class='fancybox' rel='group' href='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w1291-h1023-no/IMG_0297-edit.JPG'&gt;&lt;img src='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w250/IMG_0297-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;BB Fitted&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;a class='fancybox' rel='group' href='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w1533-h715-no/IMG_0285-edit.JPG'&gt;&lt;img src='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w250/IMG_0285-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano 105 Crankset&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;The dropouts were something else I addressed. When I first got the bike it came with Skewers that were cheap and didn’t have a lot of clamping force. Initially the replacements I got helped, but the damage was done and it indented the dropout in the wrong position. No matter how much force I used, eventually the wheel would find it’s way into that incorrect position. Lately it’s been happening nearly every day, which was driving me mental.&lt;/p&gt;
 
 &lt;p&gt;So it gave me a chance to use my new found favourite product, JB Weld (2 part epoxy steel resin). I filled in the incorrect position so I could reset it and create a new one. So far it appears to be working quite well. Though I need a new skewer as I cracked it with all the force I had used to try and stop the wheel from moving.&lt;/p&gt;
-&lt;figure&gt;&lt;a rel='group' href='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w1324-h1023-no/IMG_0293-edit.JPG' class='fancybox'&gt;&lt;img src='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w250/IMG_0293-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Dropout Repair&lt;/figcaption&gt;&lt;/figure&gt;</description>
+&lt;figure&gt;&lt;a class='fancybox' rel='group' href='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w1324-h1023-no/IMG_0293-edit.JPG'&gt;&lt;img src='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w250/IMG_0293-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Dropout Repair&lt;/figcaption&gt;&lt;/figure&gt;</description>
 				<pubDate>Wed, 12 Feb 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/personal/2014/02/12/refit_bb.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/personal/2014/02/12/refit_bb.html</guid>
@@ -101,13 +190,13 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>Bottom Bracket Removal</title>
-				<description>&lt;figure class='right'&gt;&lt;a rel='group' href='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' class='fancybox'&gt;&lt;img src='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano BB - 4500&lt;/figcaption&gt;&lt;/figure&gt;
+				<description>&lt;figure class='right'&gt;&lt;a class='fancybox' rel='group' href='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG'&gt;&lt;img src='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano BB - 4500&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;For those that don’t know me, I like to cycle. Though I do find it difficult to fit the time in, I find it really easy to make it part of my commute to work. Commuting however is pretty hard on your equipment. Especially if you’re not afraid of a bit of water. (I’m not, not even horizontal rain!)&lt;/p&gt;
 &lt;!--more--&gt;
 &lt;p&gt;Another passion of mine is repairing things. Buying a complete replacement is always a last resort and it feels really wrong to pay someone to do something knowing full well that I’m more than capable of doing it myself.&lt;/p&gt;
 
 &lt;p&gt;I noticed earlier this week that my pedaling didn’t feel all that smooth. Upon investigation I noted a small amount of play in my crank shaft. I decided it wasn’t bad enough to not commute for the week, so I waited till this evening to strip it down. After stripping it all down and inspecting the bearings, I found the issue straight away. The drive side bearing had a lot of play in it and when rotating it, it felt very gritty. Off to the bike shop tomorrow to buy a replacement, I might even spring for an upgrade to a Dura Ace BB.&lt;/p&gt;
-&lt;figure class='right'&gt;&lt;a rel='group' href='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' class='fancybox'&gt;&lt;img src='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Tools&lt;/figcaption&gt;&lt;/figure&gt;</description>
+&lt;figure class='right'&gt;&lt;a class='fancybox' rel='group' href='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG'&gt;&lt;img src='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Tools&lt;/figcaption&gt;&lt;/figure&gt;</description>
 				<pubDate>Thu, 06 Feb 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/personal/2014/02/06/repair_bb.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/personal/2014/02/06/repair_bb.html</guid>
@@ -253,19 +342,6 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 				<pubDate>Tue, 09 Jul 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/plug/2013/07/09/TTImA7FYNHI.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/plug/2013/07/09/TTImA7FYNHI.html</guid>
-			</item>
-		
-
-                    
-                    
-                    
-
-			<item>
-				<title>GovHack 2013&amp;#58; Introduction and talk by Lyn Beazley, Chief Scientist WA</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/GDz4WUcbKhc?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=GDz4WUcbKhc'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;</description>
-				<pubDate>Sat, 01 Jun 2013 00:00:00 +0800</pubDate>
-				<link>http://www.techman83.me/plug/2013/06/01/GDz4WUcbKhc.html</link>
-				<guid isPermaLink="true">http://www.techman83.me/plug/2013/06/01/GDz4WUcbKhc.html</guid>
 			</item>
 		
 
