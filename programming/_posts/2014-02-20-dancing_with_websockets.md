@@ -85,6 +85,6 @@ Launch the script with plackup:
 plackup -s Twiggy socket_dance.pl -p 5000
 {% endhighlight %}
 
-Browse to http://localhost:5000 and you should be greated with page. Press the buttons and watch the magic happen!
+Browse to http://localhost:5000 and you should be greeted with a page. Press the buttons and watch the magic happen!
 
 I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some [bug reports](https://github.com/miyagawa/Twiggy/pull/39) indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-) 
