@@ -6,7 +6,7 @@ layout: default
     {% assign post = page %}
 {% endunless %}
 
-<article class="is-post">
+<article class="is-post h-entry">
     {% include header.html %}
     {% include info.html %}
 
@@ -14,7 +14,9 @@ layout: default
         <img src="{{ post.wide_image }}" alt="" />
     {% endif %}
 
-    {{content}}
+    <div class="e-content">
+        {{content}}
+    </div>
 
     {% include addthis.html %}
 
