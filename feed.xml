@@ -89,7 +89,9 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Browse to http://localhost:5000 and you should be greeted with a page. Press the buttons and watch the magic happen!&lt;/p&gt;
 
-&lt;p&gt;I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some &lt;a href=&quot;https://github.com/miyagawa/Twiggy/pull/39&quot;&gt;bug reports&lt;/a&gt; indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-)&lt;/p&gt;</description>
+&lt;p&gt;I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some &lt;a href=&quot;https://github.com/miyagawa/Twiggy/pull/39&quot;&gt;bug reports&lt;/a&gt; indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-)&lt;/p&gt;
+
+&lt;p&gt;NOTE: I found a solution, instead of using the builtin AnyEvent::Loop, use EV. From what I’ve read it’s a faster and more robust event backend. The errors from chrome still occur, however the server keeps going inside of barfing and dying.&lt;/p&gt;</description>
 				<pubDate>Thu, 20 Feb 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/programming/2014/02/20/dancing_with_websockets.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/programming/2014/02/20/dancing_with_websockets.html</guid>
@@ -103,15 +105,15 @@
 			<item>
 				<title>Bottom Bracket Refit + Dropout repair</title>
 				<description>&lt;p&gt;As a follow up to my &lt;a href=&quot;/personal/2014/02/06/repair_bb.html&quot;&gt;previous post&lt;/a&gt;, I ordered an upgraded BB. Being a Shimano HollowTech II, the different screw in type BBs are interchangeable. So long as you get the correct thread and width. Mine had the english thread (1.37x24) and the bracket width of 68mm. The bike shop had stock of a Dura-Ace SM-BB9000 in their warehouse, being only a little more than the equivilent Shimano 105 I decided to spring for the upgrade (mine only had a Tiagra, so quite an upgrade indeed).&lt;/p&gt;
-&lt;figure&gt;&lt;a class='fancybox' href='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' rel='group'&gt;&lt;img src='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;New vs Old&lt;/figcaption&gt;&lt;/figure&gt;&lt;!--more--&gt;
+&lt;figure&gt;&lt;a href='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' rel='group' class='fancybox'&gt;&lt;img src='https://lh6.googleusercontent.com/-X17fCai5QLA/UvtjL_I-rMI/AAAAAAAAIq4/uCvFPqOm5yM/w1533-h961-no/IMG_0288-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;New vs Old&lt;/figcaption&gt;&lt;/figure&gt;&lt;!--more--&gt;
 &lt;p&gt;The BB was pretty easy to fit in the end. Grease the BB threads, put back together, slide in the crank (with a few gentle taps with a plastic mallet drive it home) and a bit of thread locker on the crank arm bolts.&lt;/p&gt;
 
 &lt;p&gt;I also gave everything a really good clean whilst it was apart. The chain rings were quite filthy and there a few places that are difficult to reach when it’s all together.&lt;/p&gt;
-&lt;figure&gt;&lt;a class='fancybox fancybox_gallery' href='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w1291-h1023-no/IMG_0297-edit.JPG' rel='group'&gt;&lt;img src='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w250/IMG_0297-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;BB Fitted&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;a class='fancybox fancybox_gallery' href='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w1533-h715-no/IMG_0285-edit.JPG' rel='group'&gt;&lt;img src='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w250/IMG_0285-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano 105 Crankset&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;a href='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w1291-h1023-no/IMG_0297-edit.JPG' rel='group' class='fancybox fancybox_gallery'&gt;&lt;img src='https://lh4.googleusercontent.com/-SkpEEsa1FbY/UvtjW5SVCNI/AAAAAAAAIrI/8gROED9lKzk/w250/IMG_0297-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;BB Fitted&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;a href='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w1533-h715-no/IMG_0285-edit.JPG' rel='group' class='fancybox fancybox_gallery'&gt;&lt;img src='https://lh6.googleusercontent.com/--SjSM7wCXsA/UvtjPbZ9SWI/AAAAAAAAIrA/v2teYf9GIdw/w250/IMG_0285-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano 105 Crankset&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;The dropouts were something else I addressed. When I first got the bike it came with Skewers that were cheap and didn’t have a lot of clamping force. Initially the replacements I got helped, but the damage was done and it indented the dropout in the wrong position. No matter how much force I used, eventually the wheel would find it’s way into that incorrect position. Lately it’s been happening nearly every day, which was driving me mental.&lt;/p&gt;
 
 &lt;p&gt;So it gave me a chance to use my new found favourite product, JB Weld (2 part epoxy steel resin). I filled in the incorrect position so I could reset it and create a new one. So far it appears to be working quite well. Though I need a new skewer as I cracked it with all the force I had used to try and stop the wheel from moving.&lt;/p&gt;
-&lt;figure&gt;&lt;a class='fancybox fancybox_gallery' href='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w1324-h1023-no/IMG_0293-edit.JPG' rel='group'&gt;&lt;img src='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w250/IMG_0293-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Dropout Repair&lt;/figcaption&gt;&lt;/figure&gt;</description>
+&lt;figure&gt;&lt;a href='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w1324-h1023-no/IMG_0293-edit.JPG' rel='group' class='fancybox fancybox_gallery'&gt;&lt;img src='https://lh5.googleusercontent.com/-RxG-kI3AMXA/UvtjLu7eoqI/AAAAAAAAIq0/TJ6J8gj_MCo/w250/IMG_0293-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Dropout Repair&lt;/figcaption&gt;&lt;/figure&gt;</description>
 				<pubDate>Wed, 12 Feb 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/personal/2014/02/12/refit_bb.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/personal/2014/02/12/refit_bb.html</guid>
@@ -190,13 +192,13 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>Bottom Bracket Removal</title>
-				<description>&lt;figure class='right'&gt;&lt;a class='fancybox' href='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' rel='group'&gt;&lt;img src='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano BB - 4500&lt;/figcaption&gt;&lt;/figure&gt;
+				<description>&lt;figure class='right'&gt;&lt;a href='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' rel='group' class='fancybox'&gt;&lt;img src='https://lh5.googleusercontent.com/-20qjDl-uppg/UvN1qkN-BcI/AAAAAAAAIo0/Z6RhbxWUD7k/w703-h1023-no/IMG_0235-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Shimano BB - 4500&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;For those that don’t know me, I like to cycle. Though I do find it difficult to fit the time in, I find it really easy to make it part of my commute to work. Commuting however is pretty hard on your equipment. Especially if you’re not afraid of a bit of water. (I’m not, not even horizontal rain!)&lt;/p&gt;
 &lt;!--more--&gt;
 &lt;p&gt;Another passion of mine is repairing things. Buying a complete replacement is always a last resort and it feels really wrong to pay someone to do something knowing full well that I’m more than capable of doing it myself.&lt;/p&gt;
 
 &lt;p&gt;I noticed earlier this week that my pedaling didn’t feel all that smooth. Upon investigation I noted a small amount of play in my crank shaft. I decided it wasn’t bad enough to not commute for the week, so I waited till this evening to strip it down. After stripping it all down and inspecting the bearings, I found the issue straight away. The drive side bearing had a lot of play in it and when rotating it, it felt very gritty. Off to the bike shop tomorrow to buy a replacement, I might even spring for an upgrade to a Dura Ace BB.&lt;/p&gt;
-&lt;figure class='right'&gt;&lt;a class='fancybox' href='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' rel='group'&gt;&lt;img src='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Tools&lt;/figcaption&gt;&lt;/figure&gt;</description>
+&lt;figure class='right'&gt;&lt;a href='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' rel='group' class='fancybox'&gt;&lt;img src='https://lh6.googleusercontent.com/-4dARA9LQpLI/UvN60sc2J6I/AAAAAAAAIpg/zt-LQCTOIBI/w1533-h894-no/IMG_0242-edit.JPG' /&gt;&lt;/a&gt;&lt;figcaption&gt;Tools&lt;/figcaption&gt;&lt;/figure&gt;</description>
 				<pubDate>Thu, 06 Feb 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/personal/2014/02/06/repair_bb.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/personal/2014/02/06/repair_bb.html</guid>
@@ -262,7 +264,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 &lt;p&gt;Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
 
 &lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
-&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;</description>
 				<pubDate>Mon, 20 Jan 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/programming/2014/01/20/eventstreamr.html</link>
@@ -291,7 +293,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>PLUG&amp;#58; theSkyNet POGS and Radio Astronomy</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/LBQp9aPe6k0?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=LBQp9aPe6k0'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/LBQp9aPe6k0?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=LBQp9aPe6k0'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Kevin Vinsen talking at the PLUG November 2013 meeting about current and upcoming radio astronomy in WA and elsewhere, and its distributed computing requirements - add your home computer to the mix!&lt;/p&gt;</description>
 				<pubDate>Tue, 12 Nov 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/plug/2013/11/12/LBQp9aPe6k0.html</link>
@@ -305,7 +307,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>PLUG&amp;#58; Configuration Management using Puppet - October 2013</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/XQsD8bQtoY4?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=XQsD8bQtoY4'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/XQsD8bQtoY4?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=XQsD8bQtoY4'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Luke Williams talking at the PLUG October 2013 meeting about automated system administration and configuration using Puppet.&lt;/p&gt;</description>
 				<pubDate>Mon, 14 Oct 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/plug/2013/10/14/XQsD8bQtoY4.html</link>
@@ -319,7 +321,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>PLUG&amp;#58; iVEC SC13 Student Cluster Competition Team</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/m4RywlIdhM8?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=m4RywlIdhM8'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/m4RywlIdhM8?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=m4RywlIdhM8'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;iVEC has a team entering the Student Cluster Competition at SC13 in the US later this year. This is the pre-eminent event in the High Performance Computing (HPC) world and it’s great for Australia, and in particular Western Australia to be involved thanks to iVEC and their sponsors.&lt;/p&gt;
 
 &lt;p&gt;The team gave a presentation at PLUG going through the ins and outs of super computing, the state of super compuing in WA, and information about the competition itself.&lt;/p&gt;
@@ -337,7 +339,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>PLUG&amp;#58; Subversion SVN, July 2013</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/TTImA7FYNHI?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=TTImA7FYNHI'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' width='560' src='http://www.youtube.com/embed/TTImA7FYNHI?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=TTImA7FYNHI'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Alastair Irvine on creating a Subversion repository and SVN usage&lt;/p&gt;</description>
 				<pubDate>Tue, 09 Jul 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/plug/2013/07/09/TTImA7FYNHI.html</link>
