@@ -89,4 +89,4 @@ Browse to http://localhost:5000 and you should be greeted with a page. Press the
 
 I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some [bug reports](https://github.com/miyagawa/Twiggy/pull/39) indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-) 
 
-NOTE: I found a solution, instead of using the builtin AnyEvent::Loop, use EV. From what I've read it's a faster and more robust event backend. The errors from chrome still occur, however the server keeps going inside of barfing and dying.
+NOTE: I found a solution, instead of using the builtin AnyEvent::Loop, use EV. From what I've read it's a faster and more robust event backend. The errors from chrome still occur, however the server keeps going inside of barfing and dying. As long as EV is available AnyEvent will use it (unless otherwise configured).
