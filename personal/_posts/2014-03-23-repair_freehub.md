@@ -1,7 +1,7 @@
 ---
 title: Freehub Repair/Replace Clutch Master Cylinder
 tags: personal diy repair cycling
-image: 
+image: https://lh5.googleusercontent.com/-fFzGQJD9wkw/Uy6Gf-Sb0II/AAAAAAAAI70/Mar4iI7kFbA/w1533-h1022-no/IMG_0307.JPG 
 description: "My passion for Repair + DIY, repairing my Freehub/Master Cylinder"
 fancybox: true
 ---
