@@ -8,7 +8,7 @@ fancybox: true
 
 Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The real big tick in Sony’s favour was the fact there was a [factory supported unlocking method](http://developer.sonymobile.com/unlockbootloader/unlock-yourboot-loader/), the usual caveats apply but I’ll vote with my wallet every time (are you listening Samsung!).
 
-I’m a massive gadget geek and I must admit I love my Xperia Z. The size is great, the screen resolution (1920x1080) is awesome, takes great photos for a phone and the cpu is nice and fast leaving me with a mostly hassle free CyanogenMod nightly build user.
+I’m a massive gadget geek and I must admit I love my Xperia Z. The size is great, the screen resolution (1920x1080) is awesome, takes great photos for a phone and the cpu is nice and fast leaving me as a mostly hassle free CyanogenMod nightly build user.
 
 However a week ago… :-(
 {% fancybox href='https://lh4.googleusercontent.com/-7N0zic7ed6k/U9eNJpv9iYI/AAAAAAAAM5c/kePCM1FxRJM/w684/01-XperiaZ_Crack.JPG "Sony Xperia Z" %}
