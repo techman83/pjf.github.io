@@ -7,7 +7,7 @@
 -->
 <html lang="en">
     <head prefix="og: http://ogp.me/ns#">
-        <title>PLUG&#58; Python in Astronomy</title>
+        <title>Jira Automation + Copying Fields</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
         
@@ -17,16 +17,23 @@
     <link rel="image_src"        href="http://www.techman83.me/images/leon_tiger.jpg"  />
 
 
-<meta property="og:title" content="PLUG&amp;#58; Python in Astronomy"  />
-<meta property="og:url"   content="http://www.techman83.me/plug/2012/10/09/XVTV_VG3rok.html" />
+<meta property="og:title" content="Jira Automation + Copying Fields"  />
+<meta property="og:url"   content="http://www.techman83.me/programming/2014/08/04/jira_automation.html" />
 
 <!-- This should be expanded to allow for 'article' types -->
 <meta property="og:type"  content="website" />
 
 
 
+    <meta name="description"        content="Using the Jira Automation and Script Runner plugins to automatically set fields." />
+    <meta property="og:description" content="Using the Jira Automation and Script Runner plugins to automatically set fields." />
 
-    <meta name="keywords" content="av, plug" />
+
+
+
+
+
+    <meta name="keywords" content="programming, groovy, jira, automation, scriptrunner" />
 
 
 
@@ -103,10 +110,10 @@
     <header>
     
 
-    <h2>PLUG&#58; Python in Astronomy</h2>
+    <h2>Jira Automation + Copying Fields</h2>
     
     <p class="edit-post">
-(You can <a href="https://github.com/techman83/techman83.github.io/edit/build/plug/_posts/2012-10-09-XVTV_VG3rok.md">suggest changes</a>
+(You can <a href="https://github.com/techman83/techman83.github.io/edit/build/programming/_posts/2014-08-04-jira_automation.md">suggest changes</a>
 to this post.)
 </p>
 
@@ -115,9 +122,9 @@ to this post.)
 
     <div class="info">
     
-    <span class="date"> <span class="month">Oct</span>
-        <span class="day"> 9</span> <span
-            class="year"><span>,</span> 2012</span>
+    <span class="date"> <span class="month">Aug</span>
+        <span class="day"> 4</span> <span
+            class="year"><span>,</span> 2014</span>
     </span>
 
 
@@ -136,10 +143,68 @@ to this post.)
 
     
 
-    <div class='video-container'><iframe width='560' height='420' src='http://www.youtube.com/embed/XVTV_VG3rok?html5=1'> </iframe></div><p><a href='http://www.youtube.com/watch?v=XVTV_VG3rok'>Watch on YouTube</a></p><!--more-->
-<p>Dr. Andrew Williams on Python use in astronomy, work with optical telescopes and digital cameras; and the MWA: http://www.mwatelescope.org/</p>
+    <p>We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It’s also far more reliable, far easier to keep up-to-date and runs on Linux!</p>
 
-<p>Speaker audio begins at 1m10s</p>
+<p>In the latest update I had a chance to really push the new version of the <a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin">Jira Automation Plugin</a>, which is a free and open source plugin. Written by Atlassian to support their internal processes, It’s a little nugget of awesome that has really extended what we can do without writing bulk custom code. <!--more--></p>
+
+<p>The team that maintains the Jira Automation plugin implemented a feature request I raised for <a href="https://bitbucket.org/atlassianlabs/automation/issue/10/copy-field-contents-to-another">Copying fields</a>, which they implented and included in their next release. However being a simple field copy, the data needs to be exactly how the destination expects.</p>
+
+<p>Insert the <a href="https://marketplace.atlassian.com/plugins/com.onresolve.jira.groovy.groovyrunner">Script Runner</a> plugin. Which offers a massive amount of things you can extend without writing a custom Jira Plugin. Whilst I’ve written one before I’m completely alergic to the concept, as it requires Java ramp up that I’m not really interested in.</p>
+
+<p>When I first used the Script Runner plugin, external scripts were really the only option for doing things. Which often to hack something together is my default go to, but in the case of the combination of the Automation Plugin gave results that didn’t work in practice and required a lot more effort to do the job.</p>
+
+<p>The easiest way to give the Automation plugin data that the destination can accept is to use a transitionary custom field. I was initially using a post action script to populate it, however it populates it after the Trigger that fires the automation and gets blatted in the process. Which is less than ideal.</p>
+
+<p><em>Setting a field to contain the raw username</em></p>
+<div class='highlight'><pre><code class='java'><span class='c1'>// Accessing Customfield data</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.ComponentManager</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.CustomFieldManager</span>
+
+<span class='c1'>// Updating Custom field data</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.ModifiedValue</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.util.DefaultIssueChangeHolder</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.util.IssueChangeHolder</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.fields.CustomField</span>
+
+<span class='c1'>// Define Field IDs</span>
+<span class='n'>def</span> <span class='n'>assignee</span> <span class='o'>=</span> <span class='s'>&quot;customfield_11402&quot;</span>
+<span class='n'>def</span> <span class='n'>assigneeTransition</span> <span class='o'>=</span> <span class='s'>&quot;customfield_11705&quot;</span>
+
+<span class='c1'>// Load Custom Fields from Jira</span>
+<span class='n'>ComponentManager</span> <span class='n'>componentManager</span> <span class='o'>=</span> <span class='n'>ComponentManager</span><span class='o'>.</span><span class='na'>getInstance</span><span class='o'>()</span>
+<span class='n'>CustomFieldManager</span> <span class='n'>customFieldManager</span> <span class='o'>=</span> <span class='n'>componentManager</span><span class='o'>.</span><span class='na'>getCustomFieldManager</span><span class='o'>()</span>
+<span class='n'>CustomField</span> <span class='n'>assigneeSrc</span> <span class='o'>=</span> <span class='n'>customFieldManager</span><span class='o'>.</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='n'>assignee</span><span class='o'>)</span>
+<span class='n'>CustomField</span> <span class='n'>assigneeTransitionCF</span> <span class='o'>=</span> <span class='n'>customFieldManager</span><span class='o'>.</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='n'>assigneeTransition</span><span class='o'>)</span>
+
+<span class='c1'>// Load Values</span>
+<span class='n'>def</span> <span class='n'>assigneeVal</span> <span class='o'>=</span> <span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>assigneeSrc</span><span class='o'>).</span><span class='na'>getUsername</span><span class='o'>()</span>
+
+<span class='c1'>// Write data</span>
+<span class='n'>IssueChangeHolder</span> <span class='n'>changeHolder</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>DefaultIssueChangeHolder</span><span class='o'>();</span>
+<span class='n'>assigneeTransitionCF</span><span class='o'>.</span><span class='na'>updateValue</span><span class='o'>(</span><span class='kc'>null</span><span class='o'>,</span> <span class='n'>issue</span><span class='o'>,</span> <span class='k'>new</span> <span class='n'>ModifiedValue</span><span class='o'>(</span><span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>assigneeTransitionCF</span><span class='o'>),</span> <span class='n'>assigneeVal</span><span class='o'>),</span> <span class='n'>changeHolder</span><span class='o'>)</span>
+</code></pre></div>
+<p>Now the Script Runner plugin can produce <a href="https://jamieechlin.atlassian.net/wiki/display/GRV/Scripted+Fields">scripted fields</a>. Which can return information when queried (cached by default, but caching can be disabled). Which is a perfect companion to the Automation Plugin.</p>
+
+<p><em>Returning a raw username compatible with the Assignee Field</em></p>
+<div class='highlight'><pre><code class='java'><span class='kn'>import</span> <span class='nn'>com.atlassian.jira.ComponentManager</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.CustomFieldManager</span>
+<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.fields.CustomField</span>
+
+<span class='c1'>// Get username from &#39;Custom Field 10400&#39;</span>
+<span class='k'>return</span> <span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>ComponentManager</span><span class='o'>.</span><span class='na'>getInstance</span><span class='o'>().</span><span class='na'>getCustomFieldManager</span><span class='o'>().</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='s'>&quot;customfield_10400&quot;</span><span class='o'>)).</span><span class='na'>getUsername</span><span class='o'>()</span>
+</code></pre></div>
+<p><em>Automatically generate a Date compatible with the Due Date field</em></p>
+<div class='highlight'><pre><code class='java'><span class='kn'>import</span> <span class='nn'>java.sql.Timestamp</span>
+<span class='kn'>import</span> <span class='nn'>java.util.Date</span>
+<span class='kn'>import</span> <span class='nn'>java.text.SimpleDateFormat</span>
+<span class='kn'>import</span> <span class='nn'>java.text.DateFormat</span>
+
+<span class='c1'>//Returns current date + 4 weeks - formatted &#39;26/Jul/14&#39;</span>
+<span class='k'>return</span> <span class='k'>new</span> <span class='nf'>SimpleDateFormat</span><span class='o'>(</span><span class='s'>&quot;d/MMM/yy&quot;</span><span class='o'>).</span><span class='na'>format</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>Timestamp</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>java</span><span class='o'>.</span><span class='na'>util</span><span class='o'>.</span><span class='na'>Date</span><span class='o'>().</span><span class='na'>getTime</span><span class='o'>()).</span><span class='na'>plus</span><span class='o'>(</span><span class='mi'>28</span><span class='o'>))</span>
+</code></pre></div>
+<p>Though the script runner is based on Groovy, you can import (at least to my limited knowledge) any Java class available within the Jira framework. The Jira Automation + Script Runner plugins complement each other perfectly and really give you a huge amount of flexibility without writing a custom Plugin. As long as the data for the destination is valid the Automation plugin will happily set the field and it’s trivial to provide that data via a Scripted field.</p>
+
+<p>Happy Days!</p>
 
     
 
@@ -188,9 +253,9 @@ var addthis_config = {
 <script type="text/javascript">
 
     var disqus_shortname  = "techman83"; 
-    var disqus_identifier = "/plug/2012/10/09/XVTV_VG3rok.html";
-    var disqus_title      = "PLUG&amp;#58; Python in Astronomy";
-    var disqus_url        = "http://www.techman83.me/plug/2012/10/09/XVTV_VG3rok.html";
+    var disqus_identifier = "/programming/2014/08/04/jira_automation.html";
+    var disqus_title      = "Jira Automation + Copying Fields";
+    var disqus_url        = "http://www.techman83.me/programming/2014/08/04/jira_automation.html";
 
     /* Make sure that once disqus renders, we trigger any events that
      * need to happen on page resize. Otherwise our left-bar looks funny. */
