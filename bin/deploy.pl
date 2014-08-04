@@ -8,6 +8,15 @@ use FindBin qw($Bin);
 
 chdir("$Bin/..");
 
+# Hack to avoid blatting things I've forgotten to commit..
+my $clean = `git status -s`;
+
+if ($clean) {
+  say "You have untracked/uncommited files";
+  say "Please commit or remove them";
+  exit 0;
+}
+
 system("jekyll build");
 system("git checkout master");
 
