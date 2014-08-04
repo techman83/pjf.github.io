@@ -11,9 +11,9 @@ In the latest update I had a chance to really push the new version of the [Jira 
 
 The team that maintains the Jira Automation plugin implemented a feature request I raised for [Copying fields](https://bitbucket.org/atlassianlabs/automation/issue/10/copy-field-contents-to-another), which they implented and included in their next release. However being a simple field copy, the data needs to be exactly how the destination expects.
 
-Insert the [Script Runner](https://marketplace.atlassian.com/plugins/com.onresolve.jira.groovy.groovyrunner) plugin. Which offers a massive amount of things you can extend without writing a custom Jira Plugin. Whilst I've written one before I'm completely alergic to the concept, as it requires Java ramp up that I'm not really interested in.
+Insert the [Script Runner](https://marketplace.atlassian.com/plugins/com.onresolve.jira.groovy.groovyrunner) plugin. Which offers a massive amount of things you can extend without writing a custom Jira Plugin. Whilst I've written one before I'm completely allergic to the concept, as it requires Java ramp up that I'm not really interested in.
 
-When I first used the Script Runner plugin, external scripts were really the only option for doing things. Which often to hack something together is my default go to, but in the case of the combination of the Automation Plugin gave results that didn't work in practice and required a lot more effort to do the job.
+When I first used the Script Runner plugin, external scripts were really the only option for doing things. Often when I need to hack something together a post action script is my default go to, but in the case of the combination of the Automation Plugin gave results that didn't work in practice and required a lot more effort to do the job.
 
 The easiest way to give the Automation plugin data that the destination can accept is to use a transitionary custom field. I was initially using a post action script to populate it, however it populates it after the Trigger that fires the automation and gets blatted in the process. Which is less than ideal.
 
