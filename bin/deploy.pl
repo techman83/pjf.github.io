@@ -20,6 +20,11 @@ if ($clean) {
 system("jekyll build");
 system("git checkout master");
 
+# I work from many systems, trying to 
+# push a commit when the branch isn't up
+# to date is a pain in the bum.
+system("git pull origin master");
+
 # Make a hash of all our (non-dot) files
 my %files;
 @files{ glob("*") } = ();
