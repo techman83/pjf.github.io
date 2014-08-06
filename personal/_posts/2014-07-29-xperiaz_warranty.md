@@ -25,3 +25,5 @@ So off to Vodafone I went, after showing the shop assistant the details of the i
 I called Sony, to which their response was they would need to to assess the phone at their service center. Which required rejecting Vodafone’s quote and getting the phone shipped back to me. So I have the device back and am waiting for shipping details from Sony’s service center. By time the phone gets back to me It will have travelled ~16,000kms (Both Sony’s Mobile and Vodafone’s service centers are on the East Coast and I live on the West Coast)!
 
 I’ll add updates as I get them, but I do hope Sony come to the party here. It’s inexcusable for a screen to break seemingly of it’s own accord, I would completely understand if I dropped it or stood on it and it broke; However that is not the case here.
+
+UPDATE 2014-08-06: Fonebiz finally received my device. As a private individual I had to ship it via Road Freight so it took a week. I should have spoken nicely to the warehouse guys at work, they have the necessary approvals and qualifications to do so. Aus Post info [here](http://auspost.com.au/parcels-mail/dangerous-and-prohibited-items.html). 
