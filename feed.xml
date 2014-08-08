@@ -60,9 +60,17 @@
 &lt;span class='kn'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;com.atlassian.jira.issue.CustomFieldManager&lt;/span&gt;
 &lt;span class='kn'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;com.atlassian.jira.issue.fields.CustomField&lt;/span&gt;
 
-&lt;span class='c1'&gt;// Get username from &amp;#39;Custom Field 10400&amp;#39;&lt;/span&gt;
-&lt;span class='k'&gt;return&lt;/span&gt; &lt;span class='n'&gt;issue&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldValue&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;ComponentManager&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;getInstance&lt;/span&gt;&lt;span class='o'&gt;().&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldManager&lt;/span&gt;&lt;span class='o'&gt;().&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldObject&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;customfield_10400&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)).&lt;/span&gt;&lt;span class='na'&gt;getUsername&lt;/span&gt;&lt;span class='o'&gt;()&lt;/span&gt;
+&lt;span class='nf'&gt;if&lt;/span&gt; &lt;span class='o'&gt;(&lt;/span&gt; &lt;span class='n'&gt;issue&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldValue&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;ComponentManager&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;getInstance&lt;/span&gt;&lt;span class='o'&gt;().&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldManager&lt;/span&gt;&lt;span class='o'&gt;().&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldObject&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;customfield_10400&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;))&lt;/span&gt; &lt;span class='o'&gt;==&lt;/span&gt; &lt;span class='kc'&gt;null&lt;/span&gt; &lt;span class='o'&gt;)&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+  &lt;span class='k'&gt;return&lt;/span&gt;
+&lt;span class='o'&gt;}&lt;/span&gt; &lt;span class='k'&gt;else&lt;/span&gt; &lt;span class='o'&gt;{&lt;/span&gt;
+  &lt;span class='c1'&gt;// Get username from &amp;#39;Custom Field 10400&amp;#39;&lt;/span&gt;
+  &lt;span class='k'&gt;return&lt;/span&gt; &lt;span class='n'&gt;issue&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldValue&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='n'&gt;ComponentManager&lt;/span&gt;&lt;span class='o'&gt;.&lt;/span&gt;&lt;span class='na'&gt;getInstance&lt;/span&gt;&lt;span class='o'&gt;().&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldManager&lt;/span&gt;&lt;span class='o'&gt;().&lt;/span&gt;&lt;span class='na'&gt;getCustomFieldObject&lt;/span&gt;&lt;span class='o'&gt;(&lt;/span&gt;&lt;span class='s'&gt;&amp;quot;customfield_10400&amp;quot;&lt;/span&gt;&lt;span class='o'&gt;)).&lt;/span&gt;&lt;span class='na'&gt;getUsername&lt;/span&gt;&lt;span class='o'&gt;()&lt;/span&gt;
+&lt;span class='o'&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;Update 2014-08-08 - It’s probably a good idea to check that 10400 contains a user object before you fill your logs with Null Pointer Exceptions during indexing!&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;p&gt;&lt;em&gt;Automatically generate a Date compatible with the Due Date field&lt;/em&gt;&lt;/p&gt;
 &lt;div class='highlight'&gt;&lt;pre&gt;&lt;code class='java'&gt;&lt;span class='kn'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;java.sql.Timestamp&lt;/span&gt;
 &lt;span class='kn'&gt;import&lt;/span&gt; &lt;span class='nn'&gt;java.util.Date&lt;/span&gt;
@@ -389,7 +397,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 &lt;p&gt;Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
 
 &lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
-&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
+&lt;div class='video-container'&gt;&lt;iframe height='420' src='http://www.youtube.com/embed/vbt_0q4qWUo?html5=1' width='560'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=vbt_0q4qWUo'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;</description>
 				<pubDate>Mon, 20 Jan 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/programming/2014/01/20/eventstreamr.html</link>
@@ -418,7 +426,7 @@ HEAD is now at 3761131 &lt;span class='nb'&gt;test &lt;/span&gt;xml stuffs
 
 			<item>
 				<title>PLUG&amp;#58; theSkyNet POGS and Radio Astronomy</title>
-				<description>&lt;div class='video-container'&gt;&lt;iframe width='560' height='420' src='http://www.youtube.com/embed/LBQp9aPe6k0?html5=1'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=LBQp9aPe6k0'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
+				<description>&lt;div class='video-container'&gt;&lt;iframe height='420' src='http://www.youtube.com/embed/LBQp9aPe6k0?html5=1' width='560'&gt; &lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;a href='http://www.youtube.com/watch?v=LBQp9aPe6k0'&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;&lt;!--more--&gt;
 &lt;p&gt;Kevin Vinsen talking at the PLUG November 2013 meeting about current and upcoming radio astronomy in WA and elsewhere, and its distributed computing requirements - add your home computer to the mix!&lt;/p&gt;</description>
 				<pubDate>Tue, 12 Nov 2013 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/plug/2013/11/12/LBQp9aPe6k0.html</link>
