@@ -55,9 +55,14 @@ import com.atlassian.jira.ComponentManager
 import com.atlassian.jira.issue.CustomFieldManager
 import com.atlassian.jira.issue.fields.CustomField
 
-// Get username from 'Custom Field 10400'
-return issue.getCustomFieldValue(ComponentManager.getInstance().getCustomFieldManager().getCustomFieldObject("customfield_10400")).getUsername()
+if ( issue.getCustomFieldValue(ComponentManager.getInstance().getCustomFieldManager().getCustomFieldObject("customfield_10400")) == null ) {
+  return
+} else {
+  // Get username from 'Custom Field 10400'
+  return issue.getCustomFieldValue(ComponentManager.getInstance().getCustomFieldManager().getCustomFieldObject("customfield_10400")).getUsername()
+}
 {% endhighlight %}
+ - Update 2014-08-08 - It's probably a good idea to check that 10400 contains a user object before you fill your logs with Null Pointer Exceptions during indexing!
 
 *Automatically generate a Date compatible with the Due Date field*
 {% highlight java %}
