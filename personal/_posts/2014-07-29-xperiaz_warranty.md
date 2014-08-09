@@ -26,4 +26,7 @@ I called Sony, to which their response was they would need to to assess the phon
 
 I’ll add updates as I get them, but I do hope Sony come to the party here. It’s inexcusable for a screen to break seemingly of it’s own accord, I would completely understand if I dropped it or stood on it and it broke; However that is not the case here.
 
-UPDATE 2014-08-06: Fonebiz finally received my device. As a private individual I had to ship it via Road Freight so it took a week. I should have spoken nicely to the warehouse guys at work, they have the necessary approvals and qualifications to do so. Aus Post info [here](http://auspost.com.au/parcels-mail/dangerous-and-prohibited-items.html). 
+UPDATE 2014-08-06: Fonebiz finally received my device. As a private individual I had to ship it via Road Freight (Had a lithium ion battery, so considered dangerous goods...)  so it took a week. I should have spoken nicely to the warehouse guys at work, they have the necessary approvals and qualifications to do so. Aus Post info [here](http://auspost.com.au/parcels-mail/dangerous-and-prohibited-items.html). 
+UPDATE 2014-08-09: It's fixed! Took them no time at all, it was shipped the day after they received it and I received it the day after that. Very happy. The only things weren't replaced were the rear cover and Main PCB. PCB due to have been flashed with non Sony firmware, I'll leave my issues with that aside for now as that was something I knew upfront before purchasing the device. Some support for the modding community is better than none.
+
+{% fancybox https://lh6.googleusercontent.com/-bvpQcuiaJQs/U-XATb536ZI/AAAAAAAANBU/_w3ab0M09qY/w1031/IMG_1059-edit.JPG "Fixed!" %}
