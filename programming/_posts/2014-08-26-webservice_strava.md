@@ -22,7 +22,7 @@ $ eval $(perl -Mlocal::lib)
 
 then install WebService::Strava
 {% highlight bash %}
-cpanm Webservice::Strava
+cpanm WebService::Strava
 {% endhighlight %}
 
 Once installed you will need to configure your authentication. After setting up your application in your [profile](https://www.strava.com/settings/api) just run
