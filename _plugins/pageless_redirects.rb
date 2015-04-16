@@ -66,7 +66,7 @@ module Jekyll
     def process_yaml
       file_path = @site.source + "/_redirects.yml"
       if File.exists?(file_path)
-        YAML.load_file(file_path, :safe => true).each do | new_url, old_url |
+        YAML.load_file(file_path).each do | new_url, old_url |
           generate_aliases( old_url, new_url )
         end
       end
@@ -118,9 +118,12 @@ module Jekyll
         File.open(File.join(fs_path_to_dir, alias_file), 'w') do |file|
           file.write(alias_template(destination_path))
         end
+        
+        (alias_index_path.split('/').size).times do |sections|
+          index_path = alias_index_path.split('/')[0, sections + 1].join('/')
+          next if index_path.empty?
 
-        (alias_index_path.split('/').size + 1).times do |sections|
-          @site.static_files << Jekyll::PagelessRedirectFile.new(@site, @site.dest, alias_index_path.split('/')[0, sections].join('/'), '')
+          @site.static_files << Jekyll::PagelessRedirectFile.new(@site, @site.dest, index_path, '')
         end
       end
     end
