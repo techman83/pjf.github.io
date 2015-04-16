@@ -136,42 +136,51 @@ to this post.)
 
     
 
-    <p>Being a Cyclist and a Geek, I like to track things. Being a Sys Admin and a Programmer I also like this to happen in the most efficient manner possible. Insert <a href="http://strava.com">Strava</a>, which is basically a social networking platform for cyclists/runners/swimmers (I believe they’re adding more as well). Strava has an App for recording things or you can use any app or device that can output in one of the supported formats (GPX, FIT and TCX). <!--more--></p>
+    <p>Being a Cyclist and a Geek, I like to track things. Being a Sys Admin and a Programmer I also like this to happen in the most efficient manner possible. Insert <a href="http://strava.com">Strava</a>, which is basically a social networking platform for cyclists/runners/swimmers (I believe they’re adding more as well). Strava has an App for recording things or you can use any app or device that can output in one of the supported formats (GPX, FIT and TCX).
+<!--more--></p>
 
 <p>Strava also has an <a href="http://strava.github.io">api</a> and I was looking to implement something for <a href="https://metacpan.org/pod/Exobrain">Exobrain</a> and noted that whilst a Perl Client existed for Strava it was based on V2 API which no longer exists. So after pinging the Maintainer I was given co-maint on <a href="https://metacpan.org/pod/WebService::Strava">WebService::Strava</a> and today I was able to release my first module on cpan!</p>
 
 <p>Probably the easiest way to install it is via cpanm + local::lib. On an Ubuntu distro you can grab these with apt:</p>
-<div class='highlight'><pre><code class='bash'>sudo apt-get install cpanminus liblocal-lib-perl
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install cpanminus liblocal-lib-perl</code></pre></div>
+
 <p>Then you can configure local::lib</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>perl -Mlocal::lib &gt;&gt; ~/.bashrc
-<span class='nv'>$ </span><span class='nb'>eval</span> <span class='k'>$(</span>perl -Mlocal::lib<span class='k'>)</span>
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>perl -Mlocal::lib &gt;&gt; ~/.bashrc
+<span class="nv">$ </span><span class="nb">eval</span> <span class="k">$(</span>perl -Mlocal::lib<span class="k">)</span></code></pre></div>
+
 <p>then install WebService::Strava</p>
-<div class='highlight'><pre><code class='bash'>cpanm WebService::Strava
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cpanm WebService::Strava</code></pre></div>
+
 <p>Once installed you will need to configure your authentication. After setting up your application in your <a href="https://www.strava.com/settings/api">profile</a> just run</p>
-<div class='highlight'><pre><code class='bash'>strava --setup
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">strava --setup</code></pre></div>
+
 <p>It will ask for your client id, client secret and authenticate with the strava api. You will have to copy the ‘code’ from the url bar as Strava doesn’t yet implement ‘urn:ietf:wg:oauth:2.0:oob’ standard for scripts.</p>
 
 <p>After which you can in a few lines access most of the API</p>
-<div class='highlight'><pre><code class='perl'><span class='c1'>#!/usr/env/perl</span>
-<span class='k'>use</span> <span class='n'>strict</span><span class='p'>;</span>
-<span class='k'>use</span> <span class='n'>feature</span> <span class='sx'>qw(say)</span><span class='p'>;</span>
-<span class='k'>use</span> <span class='nn'>WebService::</span><span class='n'>Strava</span><span class='p'>;</span>
 
-<span class='k'>my</span> <span class='nv'>$strava</span> <span class='o'>=</span> <span class='nn'>WebService::</span><span class='n'>Strava</span><span class='o'>-&gt;</span><span class='k'>new</span><span class='p'>();</span>
+<div class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="c1">#!/usr/env/perl</span>
+<span class="k">use</span> <span class="n">strict</span><span class="p">;</span>
+<span class="k">use</span> <span class="n">feature</span> <span class="sx">qw(say)</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">WebService::</span><span class="n">Strava</span><span class="p">;</span>
 
-<span class='k'>my</span> <span class='nv'>$athlete</span> <span class='o'>=</span> <span class='nv'>$strava</span><span class='o'>-&gt;</span><span class='n'>athlete</span><span class='p'>();</span>
+<span class="k">my</span> <span class="nv">$strava</span> <span class="o">=</span> <span class="nn">WebService::</span><span class="n">Strava</span><span class="o">-&gt;</span><span class="k">new</span><span class="p">();</span>
 
-<span class='n'>say</span> <span class='nv'>$athlete</span><span class='o'>-&gt;</span><span class='n'>firstname</span><span class='p'>;</span>
-</code></pre></div>
+<span class="k">my</span> <span class="nv">$athlete</span> <span class="o">=</span> <span class="nv">$strava</span><span class="o">-&gt;</span><span class="n">athlete</span><span class="p">();</span>
+
+<span class="n">say</span> <span class="nv">$athlete</span><span class="o">-&gt;</span><span class="n">firstname</span><span class="p">;</span></code></pre></div>
+
 <p>Which outputs</p>
-<div class='highlight'><pre><code class='bash'>leon@bofh-sider:/tmp<span class='nv'>$ </span>perl strava.pl 
-Leon
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">leon@bofh-sider:/tmp<span class="nv">$ </span>perl strava.pl 
+Leon</code></pre></div>
+
 <p>Full documentation is available on <a href="https://metacpan.org/pod/WebService::Strava">cpan</a> and you can contribute, ask for features on <a href="https://github.com/techman83/WebService-Strava3">github</a></p>
+
+
 
     
 
@@ -342,6 +351,8 @@ else
 
         <ul>
         
+            <li><a href="/programming/2015/04/16/EventStreamr.html">EventStreamr Talk at PLUG</a>
+        
             <li><a href="/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a>
         
             <li><a href="/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a>
@@ -359,8 +370,6 @@ else
             <li><a href="/personal/2014/02/06/repair_bb.html">Bottom Bracket Removal</a>
         
             <li><a href="/programming/2014/01/20/eventstreamr.html">Automating AV&#58; EventStreamr</a>
-        
-            <li><a href="/personal/2014/01/19/first_post.html">First Post!</a>
         
         </ul>
     </section>

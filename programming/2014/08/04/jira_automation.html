@@ -145,7 +145,8 @@ to this post.)
 
     <p>We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It’s also far more reliable, far easier to keep up-to-date and runs on Linux!</p>
 
-<p>In the latest update I had a chance to really push the new version of the <a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin">Jira Automation Plugin</a>, which is a free and open source plugin. Written by Atlassian to support their internal processes, It’s a little nugget of awesome that has really extended what we can do without writing bulk custom code. <!--more--></p>
+<p>In the latest update I had a chance to really push the new version of the <a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin">Jira Automation Plugin</a>, which is a free and open source plugin. Written by Atlassian to support their internal processes, It’s a little nugget of awesome that has really extended what we can do without writing bulk custom code.
+<!--more--></p>
 
 <p>The team that maintains the Jira Automation plugin implemented a feature request I raised for <a href="https://bitbucket.org/atlassianlabs/automation/issue/10/copy-field-contents-to-another">Copying fields</a>, which they implented and included in their next release. However being a simple field copy, the data needs to be exactly how the destination expects.</p>
 
@@ -156,63 +157,68 @@ to this post.)
 <p>The easiest way to give the Automation plugin data that the destination can accept is to use a transitionary custom field. I was initially using a post action script to populate it, however it populates it after the Trigger that fires the automation and gets blatted in the process. Which is less than ideal.</p>
 
 <p><em>Setting a field to contain the raw username</em></p>
-<div class='highlight'><pre><code class='java'><span class='c1'>// Accessing Customfield data</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.ComponentManager</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.CustomFieldManager</span>
 
-<span class='c1'>// Updating Custom field data</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.ModifiedValue</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.util.DefaultIssueChangeHolder</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.util.IssueChangeHolder</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.fields.CustomField</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">// Accessing Customfield data</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.ComponentManager</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.CustomFieldManager</span>
 
-<span class='c1'>// Define Field IDs</span>
-<span class='n'>def</span> <span class='n'>assignee</span> <span class='o'>=</span> <span class='s'>&quot;customfield_11402&quot;</span>
-<span class='n'>def</span> <span class='n'>assigneeTransition</span> <span class='o'>=</span> <span class='s'>&quot;customfield_11705&quot;</span>
+<span class="c1">// Updating Custom field data</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.ModifiedValue</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.util.DefaultIssueChangeHolder</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.util.IssueChangeHolder</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.fields.CustomField</span>
 
-<span class='c1'>// Load Custom Fields from Jira</span>
-<span class='n'>ComponentManager</span> <span class='n'>componentManager</span> <span class='o'>=</span> <span class='n'>ComponentManager</span><span class='o'>.</span><span class='na'>getInstance</span><span class='o'>()</span>
-<span class='n'>CustomFieldManager</span> <span class='n'>customFieldManager</span> <span class='o'>=</span> <span class='n'>componentManager</span><span class='o'>.</span><span class='na'>getCustomFieldManager</span><span class='o'>()</span>
-<span class='n'>CustomField</span> <span class='n'>assigneeSrc</span> <span class='o'>=</span> <span class='n'>customFieldManager</span><span class='o'>.</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='n'>assignee</span><span class='o'>)</span>
-<span class='n'>CustomField</span> <span class='n'>assigneeTransitionCF</span> <span class='o'>=</span> <span class='n'>customFieldManager</span><span class='o'>.</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='n'>assigneeTransition</span><span class='o'>)</span>
+<span class="c1">// Define Field IDs</span>
+<span class="n">def</span> <span class="n">assignee</span> <span class="o">=</span> <span class="s">&quot;customfield_11402&quot;</span>
+<span class="n">def</span> <span class="n">assigneeTransition</span> <span class="o">=</span> <span class="s">&quot;customfield_11705&quot;</span>
 
-<span class='c1'>// Load Values</span>
-<span class='n'>def</span> <span class='n'>assigneeVal</span> <span class='o'>=</span> <span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>assigneeSrc</span><span class='o'>).</span><span class='na'>getUsername</span><span class='o'>()</span>
+<span class="c1">// Load Custom Fields from Jira</span>
+<span class="n">ComponentManager</span> <span class="n">componentManager</span> <span class="o">=</span> <span class="n">ComponentManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">()</span>
+<span class="n">CustomFieldManager</span> <span class="n">customFieldManager</span> <span class="o">=</span> <span class="n">componentManager</span><span class="o">.</span><span class="na">getCustomFieldManager</span><span class="o">()</span>
+<span class="n">CustomField</span> <span class="n">assigneeSrc</span> <span class="o">=</span> <span class="n">customFieldManager</span><span class="o">.</span><span class="na">getCustomFieldObject</span><span class="o">(</span><span class="n">assignee</span><span class="o">)</span>
+<span class="n">CustomField</span> <span class="n">assigneeTransitionCF</span> <span class="o">=</span> <span class="n">customFieldManager</span><span class="o">.</span><span class="na">getCustomFieldObject</span><span class="o">(</span><span class="n">assigneeTransition</span><span class="o">)</span>
 
-<span class='c1'>// Write data</span>
-<span class='n'>IssueChangeHolder</span> <span class='n'>changeHolder</span> <span class='o'>=</span> <span class='k'>new</span> <span class='n'>DefaultIssueChangeHolder</span><span class='o'>();</span>
-<span class='n'>assigneeTransitionCF</span><span class='o'>.</span><span class='na'>updateValue</span><span class='o'>(</span><span class='kc'>null</span><span class='o'>,</span> <span class='n'>issue</span><span class='o'>,</span> <span class='k'>new</span> <span class='n'>ModifiedValue</span><span class='o'>(</span><span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>assigneeTransitionCF</span><span class='o'>),</span> <span class='n'>assigneeVal</span><span class='o'>),</span> <span class='n'>changeHolder</span><span class='o'>)</span>
-</code></pre></div>
+<span class="c1">// Load Values</span>
+<span class="n">def</span> <span class="n">assigneeVal</span> <span class="o">=</span> <span class="n">issue</span><span class="o">.</span><span class="na">getCustomFieldValue</span><span class="o">(</span><span class="n">assigneeSrc</span><span class="o">).</span><span class="na">getUsername</span><span class="o">()</span>
+
+<span class="c1">// Write data</span>
+<span class="n">IssueChangeHolder</span> <span class="n">changeHolder</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">DefaultIssueChangeHolder</span><span class="o">();</span>
+<span class="n">assigneeTransitionCF</span><span class="o">.</span><span class="na">updateValue</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">issue</span><span class="o">,</span> <span class="k">new</span> <span class="nf">ModifiedValue</span><span class="o">(</span><span class="n">issue</span><span class="o">.</span><span class="na">getCustomFieldValue</span><span class="o">(</span><span class="n">assigneeTransitionCF</span><span class="o">),</span> <span class="n">assigneeVal</span><span class="o">),</span> <span class="n">changeHolder</span><span class="o">)</span></code></pre></div>
+
 <p>Now the Script Runner plugin can produce <a href="https://jamieechlin.atlassian.net/wiki/display/GRV/Scripted+Fields">scripted fields</a>. Which can return information when queried (cached by default, but caching can be disabled). Which is a perfect companion to the Automation Plugin.</p>
 
 <p><em>Returning a raw username compatible with the Assignee Field</em></p>
-<div class='highlight'><pre><code class='java'><span class='kn'>import</span> <span class='nn'>com.atlassian.jira.ComponentManager</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.CustomFieldManager</span>
-<span class='kn'>import</span> <span class='nn'>com.atlassian.jira.issue.fields.CustomField</span>
 
-<span class='nf'>if</span> <span class='o'>(</span> <span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>ComponentManager</span><span class='o'>.</span><span class='na'>getInstance</span><span class='o'>().</span><span class='na'>getCustomFieldManager</span><span class='o'>().</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='s'>&quot;customfield_10400&quot;</span><span class='o'>))</span> <span class='o'>==</span> <span class='kc'>null</span> <span class='o'>)</span> <span class='o'>{</span>
-  <span class='k'>return</span>
-<span class='o'>}</span> <span class='k'>else</span> <span class='o'>{</span>
-  <span class='c1'>// Get username from &#39;Custom Field 10400&#39;</span>
-  <span class='k'>return</span> <span class='n'>issue</span><span class='o'>.</span><span class='na'>getCustomFieldValue</span><span class='o'>(</span><span class='n'>ComponentManager</span><span class='o'>.</span><span class='na'>getInstance</span><span class='o'>().</span><span class='na'>getCustomFieldManager</span><span class='o'>().</span><span class='na'>getCustomFieldObject</span><span class='o'>(</span><span class='s'>&quot;customfield_10400&quot;</span><span class='o'>)).</span><span class='na'>getUsername</span><span class='o'>()</span>
-<span class='o'>}</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.atlassian.jira.ComponentManager</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.CustomFieldManager</span>
+<span class="kn">import</span> <span class="nn">com.atlassian.jira.issue.fields.CustomField</span>
+
+<span class="nf">if</span> <span class="o">(</span> <span class="n">issue</span><span class="o">.</span><span class="na">getCustomFieldValue</span><span class="o">(</span><span class="n">ComponentManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCustomFieldManager</span><span class="o">().</span><span class="na">getCustomFieldObject</span><span class="o">(</span><span class="s">&quot;customfield_10400&quot;</span><span class="o">))</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+  <span class="c1">// Get username from &#39;Custom Field 10400&#39;</span>
+  <span class="k">return</span> <span class="n">issue</span><span class="o">.</span><span class="na">getCustomFieldValue</span><span class="o">(</span><span class="n">ComponentManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCustomFieldManager</span><span class="o">().</span><span class="na">getCustomFieldObject</span><span class="o">(</span><span class="s">&quot;customfield_10400&quot;</span><span class="o">)).</span><span class="na">getUsername</span><span class="o">()</span>
+<span class="o">}</span></code></pre></div>
+
 <ul>
-<li>Update 2014-08-08 - It’s probably a good idea to check that 10400 contains a user object before you fill your logs with Null Pointer Exceptions during indexing!</li>
+  <li>Update 2014-08-08 - It’s probably a good idea to check that 10400 contains a user object before you fill your logs with Null Pointer Exceptions during indexing!</li>
 </ul>
 
 <p><em>Automatically generate a Date compatible with the Due Date field</em></p>
-<div class='highlight'><pre><code class='java'><span class='kn'>import</span> <span class='nn'>java.sql.Timestamp</span>
-<span class='kn'>import</span> <span class='nn'>java.util.Date</span>
-<span class='kn'>import</span> <span class='nn'>java.text.SimpleDateFormat</span>
-<span class='kn'>import</span> <span class='nn'>java.text.DateFormat</span>
 
-<span class='c1'>//Returns current date + 4 weeks - formatted &#39;26/Jul/14&#39;</span>
-<span class='k'>return</span> <span class='k'>new</span> <span class='nf'>SimpleDateFormat</span><span class='o'>(</span><span class='s'>&quot;d/MMM/yy&quot;</span><span class='o'>).</span><span class='na'>format</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>Timestamp</span><span class='o'>(</span><span class='k'>new</span> <span class='n'>java</span><span class='o'>.</span><span class='na'>util</span><span class='o'>.</span><span class='na'>Date</span><span class='o'>().</span><span class='na'>getTime</span><span class='o'>()).</span><span class='na'>plus</span><span class='o'>(</span><span class='mi'>28</span><span class='o'>))</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.sql.Timestamp</span>
+<span class="kn">import</span> <span class="nn">java.util.Date</span>
+<span class="kn">import</span> <span class="nn">java.text.SimpleDateFormat</span>
+<span class="kn">import</span> <span class="nn">java.text.DateFormat</span>
+
+<span class="c1">//Returns current date + 4 weeks - formatted &#39;26/Jul/14&#39;</span>
+<span class="k">return</span> <span class="k">new</span> <span class="nf">SimpleDateFormat</span><span class="o">(</span><span class="s">&quot;d/MMM/yy&quot;</span><span class="o">).</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="nf">Timestamp</span><span class="o">(</span><span class="k">new</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span><span class="o">().</span><span class="na">getTime</span><span class="o">()).</span><span class="na">plus</span><span class="o">(</span><span class="mi">28</span><span class="o">))</span></code></pre></div>
+
 <p>Though the script runner is based on Groovy, you can import (at least to my limited knowledge) any Java class available within the Jira framework. The Jira Automation + Script Runner plugins complement each other perfectly and really give you a huge amount of flexibility without writing a custom Plugin. As long as the data for the destination is valid the Automation plugin will happily set the field and it’s trivial to provide that data via a Scripted field.</p>
 
 <p>Happy Days!</p>
+
+
 
     
 
@@ -383,6 +389,8 @@ else
 
         <ul>
         
+            <li><a href="/programming/2015/04/16/EventStreamr.html">EventStreamr Talk at PLUG</a>
+        
             <li><a href="/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a>
         
             <li><a href="/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a>
@@ -400,8 +408,6 @@ else
             <li><a href="/personal/2014/02/06/repair_bb.html">Bottom Bracket Removal</a>
         
             <li><a href="/programming/2014/01/20/eventstreamr.html">Automating AV&#58; EventStreamr</a>
-        
-            <li><a href="/personal/2014/01/19/first_post.html">First Post!</a>
         
         </ul>
     </section>

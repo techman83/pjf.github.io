@@ -143,85 +143,91 @@ to this post.)
 
     
 
-    <p>I learnt during the development of the <a href="https://github.com/plugorgau/eventstreamr">EventStreamR</a> frontend that websockets are cool! Another learning project of mine is <a href="https://github.com/techman83/NanodeControl">NanodeControl</a> and after learning what all the cool new things are available I wanted to have a crack at making it more modern. <!--more--></p>
+    <p>I learnt during the development of the <a href="https://github.com/plugorgau/eventstreamr">EventStreamR</a> frontend that websockets are cool! Another learning project of mine is <a href="https://github.com/techman83/NanodeControl">NanodeControl</a> and after learning what all the cool new things are available I wanted to have a crack at making it more modern.
+<!--more--></p>
 
 <p>After a bit of search around I came across <a href="http://search.cpan.org/~ironcamel/Dancer-Plugin-WebSocket-0.0100/lib/Dancer/Plugin/WebSocket.pm">Dancer::Plugin::WebSocket</a>. Expanding on the example provided here is a simple web page with simple messages and forked calls. It utilises the the Twiggy AnyEvent based non-blocking (asynchronous) and lightweight PSGI web server.</p>
 
 <p>You’ll need some libraries, my favourite way to install them is <a href="http://search.cpan.org/~miyagawa/App-cpanminus-1.7001/lib/App/cpanminus.pm">cpanm</a>:</p>
-<div class='highlight'><pre><code class='bash'>cpanm -S Plack Twiggy Dancer Dancer::Plugin::WebSocket AnyEvent::Util
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cpanm -S Plack Twiggy Dancer Dancer::Plugin::WebSocket AnyEvent::Util</code></pre></div>
+
 <p>app.pl:</p>
-<div class='highlight'><pre><code class='perl'><span class='k'>use</span> <span class='n'>Dancer</span> <span class='s'>&#39;:syntax&#39;</span><span class='p'>;</span>
-<span class='k'>use</span> <span class='nn'>Dancer::Plugin::</span><span class='n'>WebSocket</span><span class='p'>;</span>
-<span class='k'>use</span> <span class='nn'>AnyEvent::</span><span class='n'>Util</span><span class='p'>;</span>
 
-<span class='n'>set</span> <span class='n'>logger</span> <span class='o'>=&gt;</span> <span class='s'>&#39;console&#39;</span><span class='p'>;</span>
-<span class='n'>set</span> <span class='nb'>log</span> <span class='o'>=&gt;</span> <span class='s'>&#39;core&#39;</span><span class='p'>;</span>
+<div class="highlight"><pre><code class="language-perl" data-lang="perl"><span class="k">use</span> <span class="n">Dancer</span> <span class="s">&#39;:syntax&#39;</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">Dancer::Plugin::</span><span class="n">WebSocket</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">AnyEvent::</span><span class="n">Util</span><span class="p">;</span>
 
-<span class='n'>get</span> <span class='s'>&#39;/&#39;</span> <span class='o'>=&gt;</span> <span class='k'>sub </span><span class='p'>{</span><span class='sx'>q[</span>
-<span class='sx'>    &lt;html&gt;</span>
-<span class='sx'>    &lt;head&gt;</span>
-<span class='sx'>    &lt;script&gt;</span>
-<span class='sx'>      var ws_path = &quot;ws://localhost:5000/_hippie/ws&quot;;</span>
-<span class='sx'>      var socket = new WebSocket(ws_path);</span>
-<span class='sx'>      socket.onopen = function() {</span>
-<span class='sx'>          document.getElementById(&#39;conn-status&#39;).innerHTML = &#39;Connected&#39;;</span>
-<span class='sx'>      };</span>
-<span class='sx'>      socket.onmessage = function(e) {</span>
-<span class='sx'>          var data = JSON.parse(e.data);</span>
-<span class='sx'>          console.log(data);</span>
-<span class='sx'>          if (data.msg) {</span>
-<span class='sx'>            document.getElementById(&#39;content&#39;).innerHTML = data.msg;</span>
-<span class='sx'>            setTimeout(function() {</span>
-<span class='sx'>              document.getElementById(&#39;content&#39;).innerHTML = &#39;No current message&#39;;</span>
-<span class='sx'>            }, 5000);</span>
-<span class='sx'>          }</span>
-<span class='sx'>      };</span>
-<span class='sx'>      function send_msg(message) {</span>
-<span class='sx'>          socket.send(JSON.stringify({ msg: message }));</span>
-<span class='sx'>      }</span>
-<span class='sx'>      function get_long() {</span>
-<span class='sx'>        var xmlHttp = null;</span>
+<span class="n">set</span> <span class="n">logger</span> <span class="o">=&gt;</span> <span class="s">&#39;console&#39;</span><span class="p">;</span>
+<span class="n">set</span> <span class="nb">log</span> <span class="o">=&gt;</span> <span class="s">&#39;core&#39;</span><span class="p">;</span>
 
-<span class='sx'>        xmlHttp = new XMLHttpRequest();</span>
-<span class='sx'>        xmlHttp.open( &quot;GET&quot;, &#39;/long&#39;, false );</span>
-<span class='sx'>        xmlHttp.send( null );</span>
-<span class='sx'>        document.getElementById(&#39;content&#39;).innerHTML = &#39;Waiting...&#39;;</span>
-<span class='sx'>      }</span>
-<span class='sx'>    &lt;/script&gt;</span>
-<span class='sx'>    &lt;/head&gt;</span>
-<span class='sx'>    &lt;body&gt;</span>
-<span class='sx'>    Connection Status: &lt;span id=&quot;conn-status&quot;&gt; Disconnected &lt;/span&gt;</span>
-<span class='sx'>    &lt;input value=&quot;Send Message&quot; type=button onclick=&quot;send_msg(&#39;hello&#39;)&quot; /&gt;</span>
-<span class='sx'>    &lt;input value=&quot;Get Long Call&quot; type=button onclick=&quot;get_long()&quot; /&gt;&lt;br&gt;</span>
-<span class='sx'>    &lt;span id=&quot;content&quot;&gt; No current message &lt;/span&gt;</span>
-<span class='sx'>    &lt;/body&gt;</span>
-<span class='sx'>    &lt;/html&gt;</span>
-<span class='sx'>]</span><span class='p'>};</span>
+<span class="n">get</span> <span class="s">&#39;/&#39;</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span><span class="sx">q[</span>
+<span class="sx">    &lt;html&gt;</span>
+<span class="sx">    &lt;head&gt;</span>
+<span class="sx">    &lt;script&gt;</span>
+<span class="sx">      var ws_path = &quot;ws://localhost:5000/_hippie/ws&quot;;</span>
+<span class="sx">      var socket = new WebSocket(ws_path);</span>
+<span class="sx">      socket.onopen = function() {</span>
+<span class="sx">          document.getElementById(&#39;conn-status&#39;).innerHTML = &#39;Connected&#39;;</span>
+<span class="sx">      };</span>
+<span class="sx">      socket.onmessage = function(e) {</span>
+<span class="sx">          var data = JSON.parse(e.data);</span>
+<span class="sx">          console.log(data);</span>
+<span class="sx">          if (data.msg) {</span>
+<span class="sx">            document.getElementById(&#39;content&#39;).innerHTML = data.msg;</span>
+<span class="sx">            setTimeout(function() {</span>
+<span class="sx">              document.getElementById(&#39;content&#39;).innerHTML = &#39;No current message&#39;;</span>
+<span class="sx">            }, 5000);</span>
+<span class="sx">          }</span>
+<span class="sx">      };</span>
+<span class="sx">      function send_msg(message) {</span>
+<span class="sx">          socket.send(JSON.stringify({ msg: message }));</span>
+<span class="sx">      }</span>
+<span class="sx">      function get_long() {</span>
+<span class="sx">        var xmlHttp = null;</span>
 
-<span class='n'>get</span> <span class='s'>&#39;/long&#39;</span> <span class='o'>=&gt;</span> <span class='k'>sub </span><span class='p'>{</span>
-    <span class='n'>debug</span><span class='p'>(</span><span class='s'>&quot;Stations Called&quot;</span><span class='p'>);</span>
-    <span class='n'>fork_call</span> <span class='p'>{</span>
-      <span class='n'>debug</span><span class='p'>(</span><span class='s'>&quot;Forking&quot;</span><span class='p'>);</span>
-      <span class='nb'>sleep</span> <span class='mi'>5</span><span class='p'>;</span>
-    <span class='p'>}</span> <span class='k'>sub </span><span class='p'>{</span>
-      <span class='k'>my</span> <span class='nv'>$data</span> <span class='o'>=</span> <span class='s'>&#39;Forked result!&#39;</span><span class='p'>;</span>
-      <span class='n'>ws_send</span> <span class='nv'>$data</span><span class='p'>;</span>
-      <span class='n'>debug</span><span class='p'>(</span><span class='s'>&quot;Message Sent&quot;</span><span class='p'>);</span>
-    <span class='p'>};</span>
-    <span class='k'>return</span><span class='p'>;</span>
-<span class='p'>};</span>
+<span class="sx">        xmlHttp = new XMLHttpRequest();</span>
+<span class="sx">        xmlHttp.open( &quot;GET&quot;, &#39;/long&#39;, false );</span>
+<span class="sx">        xmlHttp.send( null );</span>
+<span class="sx">        document.getElementById(&#39;content&#39;).innerHTML = &#39;Waiting...&#39;;</span>
+<span class="sx">      }</span>
+<span class="sx">    &lt;/script&gt;</span>
+<span class="sx">    &lt;/head&gt;</span>
+<span class="sx">    &lt;body&gt;</span>
+<span class="sx">    Connection Status: &lt;span id=&quot;conn-status&quot;&gt; Disconnected &lt;/span&gt;</span>
+<span class="sx">    &lt;input value=&quot;Send Message&quot; type=button onclick=&quot;send_msg(&#39;hello&#39;)&quot; /&gt;</span>
+<span class="sx">    &lt;input value=&quot;Get Long Call&quot; type=button onclick=&quot;get_long()&quot; /&gt;&lt;br&gt;</span>
+<span class="sx">    &lt;span id=&quot;content&quot;&gt; No current message &lt;/span&gt;</span>
+<span class="sx">    &lt;/body&gt;</span>
+<span class="sx">    &lt;/html&gt;</span>
+<span class="sx">]</span><span class="p">};</span>
 
-<span class='n'>dance</span><span class='p'>;</span>
-</code></pre></div>
+<span class="n">get</span> <span class="s">&#39;/long&#39;</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span>
+    <span class="n">debug</span><span class="p">(</span><span class="s">&quot;Stations Called&quot;</span><span class="p">);</span>
+    <span class="n">fork_call</span> <span class="p">{</span>
+      <span class="n">debug</span><span class="p">(</span><span class="s">&quot;Forking&quot;</span><span class="p">);</span>
+      <span class="nb">sleep</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">sub </span><span class="p">{</span>
+      <span class="k">my</span> <span class="nv">$data</span> <span class="o">=</span> <span class="s">&#39;Forked result!&#39;</span><span class="p">;</span>
+      <span class="n">ws_send</span> <span class="nv">$data</span><span class="p">;</span>
+      <span class="n">debug</span><span class="p">(</span><span class="s">&quot;Message Sent&quot;</span><span class="p">);</span>
+    <span class="p">};</span>
+    <span class="k">return</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">dance</span><span class="p">;</span></code></pre></div>
+
 <p>Launch the script with plackup:</p>
-<div class='highlight'><pre><code class='bash'>plackup -s Twiggy socket_dance.pl -p 5000
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">plackup -s Twiggy socket_dance.pl -p 5000</code></pre></div>
+
 <p>Browse to http://localhost:5000 and you should be greeted with a page. Press the buttons and watch the magic happen!</p>
 
 <p>I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some <a href="https://github.com/miyagawa/Twiggy/pull/39">bug reports</a> indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-)</p>
 
 <p>NOTE: I found a solution, instead of using the builtin AnyEvent::Loop, use EV. From what I’ve read it’s a faster and more robust event backend. The errors from chrome still occur, however the server keeps going inside of barfing and dying. As long as EV is available AnyEvent will use it (unless otherwise configured).</p>
+
+
 
     
 
@@ -392,6 +398,8 @@ else
 
         <ul>
         
+            <li><a href="/programming/2015/04/16/EventStreamr.html">EventStreamr Talk at PLUG</a>
+        
             <li><a href="/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a>
         
             <li><a href="/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a>
@@ -409,8 +417,6 @@ else
             <li><a href="/personal/2014/02/06/repair_bb.html">Bottom Bracket Removal</a>
         
             <li><a href="/programming/2014/01/20/eventstreamr.html">Automating AV&#58; EventStreamr</a>
-        
-            <li><a href="/personal/2014/01/19/first_post.html">First Post!</a>
         
         </ul>
     </section>

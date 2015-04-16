@@ -146,39 +146,45 @@ to this post.)
     <p>I love git, it’s a really great tool. However no matter how used I get to my workflows I eventually end up commiting something into the wrong branch!</p>
 
 <p>And although I tend to use a custom bash shell called <a href="https://github.com/rtomayko/git-sh">git-sh</a> with a full colour prompt, with all the relevant information:</p>
-<div class='highlight'><pre><code class='bash'>master <span class='nv'>u</span><span class='o'>=</span>!dev-home&gt;
-</code></pre></div><!--more-->
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">master <span class="nv">u</span><span class="o">=</span>!dev-home&gt;</code></pre></div>
+
+<!--more-->
+
 <p>I somehow still manage to commit in the wrong place. So after doing it again today I figured I’d use some git functionality to resolve it.</p>
 
 <p>Ahh time to write some code.</p>
-<div class='highlight'><pre><code class='bash'>master <span class='nv'>u</span><span class='o'>=</span>!dev-home&gt; tee somescript.pl
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">master <span class="nv">u</span><span class="o">=</span>!dev-home&gt; tee somescript.pl
 !#/usr/bin/perl
 !#/usr/bin/perl
 
 
-print <span class='s2'>&quot;I&#39;m a script...\n&quot;</span>
-print <span class='s2'>&quot;I&#39;m a script...\n&quot;</span>
+print <span class="s2">&quot;I&#39;m a script...\n&quot;</span>
+print <span class="s2">&quot;I&#39;m a script...\n&quot;</span>
 
-master <span class='nv'>u</span><span class='o'>=</span>!dev-home&gt; add somescript.pl 
-master <span class='nv'>u</span><span class='o'>=</span>!dev-home *&gt; commit somescript.pl -m <span class='s1'>&#39;somescript added&#39;</span>
-<span class='o'>[</span>master 8f922af<span class='o'>]</span> somescript added
- 1 file changed, 3 insertions<span class='o'>(</span>+<span class='o'>)</span>
-  create mode 100644 somescript.p
-</code></pre></div>
+master <span class="nv">u</span><span class="o">=</span>!dev-home&gt; add somescript.pl 
+master <span class="nv">u</span><span class="o">=</span>!dev-home *&gt; commit somescript.pl -m <span class="s1">&#39;somescript added&#39;</span>
+<span class="o">[</span>master 8f922af<span class="o">]</span> somescript added
+ <span class="m">1</span> file changed, <span class="m">3</span> insertions<span class="o">(</span>+<span class="o">)</span>
+  create mode <span class="m">100644</span> somescript.p</code></pre></div>
+
 <p>Bah, I commited to the wrong branch.. Again! I know, how ‘bout I cherry pick that commit into the branch I wanted.</p>
-<div class='highlight'><pre><code class='bash'>master u+1!dev-home&gt; checkout dev
-Switched to branch <span class='s1'>&#39;dev&#39;</span>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">master u+1!dev-home&gt; checkout dev
+Switched to branch <span class="s1">&#39;dev&#39;</span>
 
 dev!dev-home&gt; cherry-pick 8f922af
-<span class='o'>[</span>dev aeb40b7<span class='o'>]</span> somescript added
- 1 file changed, 3 insertions<span class='o'>(</span>+<span class='o'>)</span>
-  create mode 100644 somescript.p
-</code></pre></div>
+<span class="o">[</span>dev aeb40b7<span class="o">]</span> somescript added
+ <span class="m">1</span> file changed, <span class="m">3</span> insertions<span class="o">(</span>+<span class="o">)</span>
+  create mode <span class="m">100644</span> somescript.p</code></pre></div>
+
 <p>Now it’s in the right place!</p>
-<div class='highlight'><pre><code class='bash'>dev!dev-home&gt; show
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">dev!dev-home&gt; show
 commit aeb40b782a53c73e6cc2b4b4f87074b026d7e6c2
 Author: Leon Wright &lt;leon.wright@imdexlimited.com&gt;
-Date:   Tue Feb 11 15:11:01 2014 +0800
+Date:   Tue Feb <span class="m">11</span> 15:11:01 <span class="m">2014</span> +0800
 
     somescript added
 
@@ -190,13 +196,16 @@ Date:   Tue Feb 11 15:11:01 2014 +0800
     @@ -0,0 +1,3 @@
     +!#/usr/bin/perl
     +
-    +print <span class='s2'>&quot;I&#39;m a script...\n&quot;</span>
-</code></pre></div>
+    +print <span class="s2">&quot;I&#39;m a script...\n&quot;</span></code></pre></div>
+
 <p>Hmm, but master has the commit that I don’t want in it. Good thing I hadn’t pushed that to my remote repository</p>
-<div class='highlight'><pre><code class='bash'>master u+1!dev-home&gt; git reset --hard origin/master 
-HEAD is now at 3761131 <span class='nb'>test </span>xml stuffs
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">master u+1!dev-home&gt; git reset --hard origin/master 
+HEAD is now at <span class="m">3761131</span> <span class="nb">test </span>xml stuffs</code></pre></div>
+
 <p>Normality restored!</p>
+
+
 
     
 
@@ -367,6 +376,8 @@ else
 
         <ul>
         
+            <li><a href="/programming/2015/04/16/EventStreamr.html">EventStreamr Talk at PLUG</a>
+        
             <li><a href="/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a>
         
             <li><a href="/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a>
@@ -384,8 +395,6 @@ else
             <li><a href="/personal/2014/02/06/repair_bb.html">Bottom Bracket Removal</a>
         
             <li><a href="/programming/2014/01/20/eventstreamr.html">Automating AV&#58; EventStreamr</a>
-        
-            <li><a href="/personal/2014/01/19/first_post.html">First Post!</a>
         
         </ul>
     </section>
