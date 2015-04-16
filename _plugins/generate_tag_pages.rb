@@ -86,7 +86,7 @@ module Jekyll
 
   end
   
-  class TagPager < Pager
+  class TagPager < Paginate::Pager
 
     attr_reader :tag
 
