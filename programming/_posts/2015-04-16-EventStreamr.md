@@ -8,3 +8,5 @@ tags: av plug programming
 <!--more-->
 
 This week I presented at PLUG, a brief history of AV, PLUG's involvement with Linux Conf AU and EventStreamr.
+
+You can find EventStreamr on [GitHub](https://github.com/plugorgau/eventstreamr-station) and [CPAN](https://metacpan.org/pod/App::EventStreamr)
