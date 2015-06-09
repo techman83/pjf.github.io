@@ -12,6 +12,100 @@
                     
 
 			<item>
+				<title>Powershell + Windows Update</title>
+				<description>&lt;p&gt;It’s one of the parts of my job I don’t quite enjoy as much, but Windows is still a necessary thing in a lot of places. It’s becoming less and less required, but for now a lot of places still rely on it. Microsoft to their credit are making an effort to shift people onto their new OS before it becomes another Windows XP situation (Released in 2001, 4 OS’ released in that time and it is still being used in a lot of places). However they seemed to have failed restricting the updates to Consumer machines only. I’ve seen reports of it happening on Domain joined and Volume licensed machines.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s all rather annoying and removing them only means they have a chance to come back next time the user updates. Enter &lt;a href=&quot;https://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/&quot;&gt;PSWindowsUpdate&lt;/a&gt;. Now it didn’t work on powershell 2.0 without a slight modification&lt;/p&gt;
+
+&lt;p&gt;PSWindowsUpdate.psm1 - It’s top comment on one of the threads, If I remember where I’ll make the attribution.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-powershell&quot; data-lang=&quot;powershell&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PSVersionTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PSVersion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tostring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-ge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Get-ChildItem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-Path&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PSScriptRoot&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Unblock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-File&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;Get-ChildItem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-Path&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$PSScriptRoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;\*.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ps1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Foreach&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;-Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FullName&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I also removed the confirmation around the uninstall (I think it’s just missing the argument to ignore it, but It was quicker for me just to remove it):&lt;/p&gt;
+
+&lt;p&gt;Get-WUUninstall.ps1 with confirmation removed from “Process’&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-powershell&quot; data-lang=&quot;powershell&quot;&gt;&lt;span class=&quot;k&quot;&gt;Process&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;    
+              &lt;span class=&quot;k&quot;&gt;If&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$KBArticleID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                  &lt;span class=&quot;nv&quot;&gt;$KBArticleID&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$KBArticleID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-replace&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;KB&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+
+                  &lt;span class=&quot;n&quot;&gt;wusa&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uninstall&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kb&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$KBArticleID&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quiet&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norestart&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#End If $KBArticleID&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;Else&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;wmic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;qfe&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#End Else $KBArticleID&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#End Process&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And this is what I came up with, it appears to work well enough. Could use some extra checking and polishing, but we will have it as a utility app. If someone mentions it they can re-run it and it will try again. Also that’s about as much time I wish to spend doing anything in powershell!&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-powershell&quot; data-lang=&quot;powershell&quot;&gt;&lt;span class=&quot;nb&quot;&gt;Import-Module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PSWindowsUpdate&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$ServiceID&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Get-WUServiceManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Select&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ServiceID&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# KB3035583 - GWX - Get Windows 10 AdWare&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# KB2952664 - Compatibility Update for Upgrading Win 7 to Win 10&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# KB3021917 - Phones Home to tell MS how your computer will perform with Win 10&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$kbIDs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;KB3035583&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;KB2952664&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;KB3021917&amp;quot;&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$installed&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Get-WUList&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-ServiceID&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ServiceID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-IsInstalled&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-KBArticleID&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$kbIDs&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Select&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$installed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;write-host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;We have some crud to remove&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$installed&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$update&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$installed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Removing &amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Get-WUUninstall&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-KBArticleID&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Start-Sleep&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;10&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;write-host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;We&amp;#39;re Crap free&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;Start-Sleep&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;10&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$tohide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Get-WUList&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-ServiceID&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$ServiceID&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-KBArticleID&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$kbIDs&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-IsNotHidden&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tohide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hide ALL the CRAP!!!&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$tohide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Format-Table&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Out-String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$hide&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tohide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hiding &amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$hide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KB&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Write-Host&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$hide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Format-Table&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Out-String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$hide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IsHidden&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$true&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;Start-Sleep&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;10&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Things to note:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Get-WUList seems to take forever.&lt;/li&gt;
+  &lt;li&gt;Get-WUList seems won’t show what’s current until after a reboot (some updates require a reboot and seem to not change their installed state until done).&lt;/li&gt;
+  &lt;li&gt;You can iterate of an object or an array, but if your object is an array and you don’t loop over it you’ll be left scratching your head.&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+				<pubDate>Tue, 09 Jun 2015 00:00:00 +0800</pubDate>
+				<link>http://www.techman83.me/programming/2015/06/09/powershell.html</link>
+				<guid isPermaLink="true">http://www.techman83.me/programming/2015/06/09/powershell.html</guid>
+			</item>
+		
+
+                    
+                    
+                    
+
+			<item>
 				<title>EventStreamr Talk at PLUG</title>
 				<description>&lt;div class=&quot;video-container&quot;&gt;&lt;iframe width=&quot;560&quot; height=&quot;420&quot; src=&quot;http://www.youtube.com/embed/qCzVX7-OJtA?html5=1&quot;&gt; &lt;/iframe&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.youtube.com/watch?v=qCzVX7-OJtA&quot;&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
@@ -473,64 +567,6 @@ HEAD is now at &lt;span class=&quot;m&quot;&gt;3761131&lt;/span&gt; &lt;span cla
 				<pubDate>Thu, 06 Feb 2014 00:00:00 +0800</pubDate>
 				<link>http://www.techman83.me/personal/2014/02/06/repair_bb.html</link>
 				<guid isPermaLink="true">http://www.techman83.me/personal/2014/02/06/repair_bb.html</guid>
-			</item>
-		
-
-                    
-                    
-                    
-
-			<item>
-				<title>Automating AV&amp;#58; EventStreamr</title>
-				<description>&lt;p&gt;&lt;a href=&quot;https://github.com/lukejohnosmahi/eventstreamr/&quot;&gt;EventStreamR&lt;/a&gt; come to inception from a collection of experiences amongst our local LUG the &lt;a href=&quot;https://www.plug.org.au&quot;&gt;Perth Linux User Group&lt;/a&gt;. Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some of our members find it quite difficult to attend. A few years ago an initiave started by &lt;a href=&quot;http://blog.james.rcpt.to/&quot;&gt;James Bromberger&lt;/a&gt; was to film and live stream all PLUG talks so that every member had an oppurtunity to attend our meetings, even if they couldn’t necessarily make it in person.
-&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;p&gt;Between our experience streaming and attending LCA2013 to get a feel for how the conference ran, we had come to the conclusion that the Open Source Video mixing stack we use (DVswitch), whilst being easy to use and quite fit for purpose; it can be a little unreliable. Along with that DV aka Digital Video as a dying standard. To my knowledge there isn’t a lot of work being put into the project as the world is moving on from DV. In light of all that we had come up with a list of requirements to bring reliability to the table.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Open Source&lt;/li&gt;
-  &lt;li&gt;Be able to scale up and down&lt;/li&gt;
-  &lt;li&gt;Easy to setup and use&lt;/li&gt;
-  &lt;li&gt;Work on any hardware&lt;/li&gt;
-  &lt;li&gt;Central Configuration Management + Control&lt;/li&gt;
-  &lt;li&gt;Able to operate independently (Locations with no network or failure of networking)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Ability to scale down was particularly important to us, as we want to be able to use this solution at our local LUG and also encourage other LUGs to generate content. Which was something that I felt was lacking in some of the established solutions (eg. Matterhorn, though I’m happy to be shown otherwise). So after gathering our requirements, there was also figuring out what problems we needed to solve.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;DVswitch - It sometimes goes bang&lt;/li&gt;
-  &lt;li&gt;DVgrab - does not fail gracefully&lt;/li&gt;
-  &lt;li&gt;Setup for multiple stations and rooms is time consuming&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;There are 2 major components to EventStreamR, I’ll cover the engine that sits in the background doing all the hardwork. I had pondered for some time about how I was going to solve the above problems and also meet our requirements. I felt Perl would be up to the challenge (and also happens to be the language I have the most exeprience in). It’s a language I frequently use to glue things together in my day job and there are many libraries availble, which means less time re-inventing the wheel.&lt;/p&gt;
-
-&lt;p&gt;With &lt;a href=&quot;https://github.com/lukejohnosmahi&quot;&gt;Luke&lt;/a&gt; writing the framework for the frontend, it left me focus on the backend. Which at it’s core is a &lt;a href=&quot;https://github.com/lukejohnosmahi/eventstreamr/blob/master/station/bin/station-mgr.pl&quot;&gt;single daemon&lt;/a&gt; and essentially is a RESTful api enabled glorified process manager. I learnt a number of things whilst developing this with &lt;a href=&quot;https://github.com/nimm&quot;&gt;Jason&lt;/a&gt;.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The current firewire stack is extremely reliable, the hardware I chose to develop the solution with initially was not. (2 days yak shaving due to a faulty camera and faulty firewire leads).&lt;/li&gt;
-  &lt;li&gt;IPC::Shareable - I love what it can do, however you really need to devote time to managing your shared memory. We had modest needs, so Signals + HTTP calls were more than enough.&lt;/li&gt;
-  &lt;li&gt;There are either restrictions to what key names when utilising JSON for serialised data or the JSON library does not escape them correctly. &lt;a href=&quot;https://github.com/lukejohnosmahi/eventstreamr/issues/53&quot;&gt;I need to fix this properly&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;The default dancer HTTP engine (HTTP::Server::Simple::CGI) does not support all HTTP methods. Causing much hair pulling when attempting to address CORS issues.&lt;/li&gt;
-  &lt;li&gt;When you think you’ve squashed all the bugs, there will be more&lt;/li&gt;
-  &lt;li&gt;You won’t have quality time to write code at a conference&lt;/li&gt;
-  &lt;li&gt;You will have to write code at the conference and it will inolve hours of yak shaving&lt;/li&gt;
-  &lt;li&gt;If you’re making a lot of mistakes, have a nap or if it’s late go to bed!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Overall LCA2014 was a success and I’m happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I’m sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
-
-&lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
-
-&lt;div class=&quot;video-container&quot;&gt;&lt;iframe width=&quot;560&quot; height=&quot;420&quot; src=&quot;http://www.youtube.com/embed/vbt_0q4qWUo?html5=1&quot;&gt; &lt;/iframe&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.youtube.com/watch?v=vbt_0q4qWUo&quot;&gt;Watch on YouTube&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;
-
-</description>
-				<pubDate>Mon, 20 Jan 2014 00:00:00 +0800</pubDate>
-				<link>http://www.techman83.me/programming/2014/01/20/eventstreamr.html</link>
-				<guid isPermaLink="true">http://www.techman83.me/programming/2014/01/20/eventstreamr.html</guid>
 			</item>
 		
 

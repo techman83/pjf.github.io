@@ -7,7 +7,7 @@
 -->
 <html lang="en">
     <head prefix="og: http://ogp.me/ns#">
-        <title>PLUG&#58; Luakit</title>
+        <title>Powershell + Windows Update</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
         
@@ -17,16 +17,23 @@
     <link rel="image_src"        href="http://www.techman83.me/images/leon_tiger.jpg"  />
 
 
-<meta property="og:title" content="PLUG&amp;#58; Luakit"  />
-<meta property="og:url"   content="http://www.techman83.me/plug/2012/09/09/1564V7phzkc.html" />
+<meta property="og:title" content="Powershell + Windows Update"  />
+<meta property="og:url"   content="http://www.techman83.me/programming/2015/06/09/powershell.html" />
 
 <!-- This should be expanded to allow for 'article' types -->
 <meta property="og:type"  content="website" />
 
 
 
+    <meta name="description"        content="Sometimes being a SysAdmin means solving Windows problems." />
+    <meta property="og:description" content="Sometimes being a SysAdmin means solving Windows problems." />
 
-    <meta name="keywords" content="av, plug" />
+
+
+
+
+
+    <meta name="keywords" content="programming, powershell, windows, update, win10" />
 
 
 
@@ -103,10 +110,10 @@
     <header>
     
 
-    <h2>PLUG&#58; Luakit</h2>
+    <h2>Powershell + Windows Update</h2>
     
     <p class="edit-post">
-(You can <a href="https://github.com/techman83/techman83.github.io/edit/build/plug/_posts/2012-09-09-1564V7phzkc.md">suggest changes</a>
+(You can <a href="https://github.com/techman83/techman83.github.io/edit/build/programming/_posts/2015-06-09-powershell.md">suggest changes</a>
 to this post.)
 </p>
 
@@ -115,9 +122,9 @@ to this post.)
 
     <div class="info">
     
-    <span class="date"> <span class="month">Sep</span>
+    <span class="date"> <span class="month">Jun</span>
         <span class="day"> 9</span> <span
-            class="year"><span>,</span> 2012</span>
+            class="year"><span>,</span> 2015</span>
     </span>
 
 
@@ -136,10 +143,86 @@ to this post.)
 
     
 
-    <div class="video-container"><iframe width="560" height="420" src="http://www.youtube.com/embed/1564V7phzkc?html5=1"> </iframe></div>
-<p><a href="http://www.youtube.com/watch?v=1564V7phzkc">Watch on YouTube</a></p>
+    <p>It’s one of the parts of my job I don’t quite enjoy as much, but Windows is still a necessary thing in a lot of places. It’s becoming less and less required, but for now a lot of places still rely on it. Microsoft to their credit are making an effort to shift people onto their new OS before it becomes another Windows XP situation (Released in 2001, 4 OS’ released in that time and it is still being used in a lot of places). However they seemed to have failed restricting the updates to Consumer machines only. I’ve seen reports of it happening on Domain joined and Volume licensed machines.
+<!--more--></p>
 
-<!--more-->
+<p>It’s all rather annoying and removing them only means they have a chance to come back next time the user updates. Enter <a href="https://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/">PSWindowsUpdate</a>. Now it didn’t work on powershell 2.0 without a slight modification</p>
+
+<p>PSWindowsUpdate.psm1 - It’s top comment on one of the threads, If I remember where I’ll make the attribution.</p>
+
+<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">if</span> <span class="p">(</span><span class="nv">$PSVersionTable</span><span class="p">.</span><span class="n">PSVersion</span><span class="p">.</span><span class="n">tostring</span><span class="p">()</span> <span class="o">-ge</span> <span class="n">4</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$PSScriptRoot</span> <span class="p">|</span> <span class="n">Unblock</span><span class="o">-File</span>
+<span class="p">}</span>
+<span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$PSScriptRoot</span><span class="p">\*.</span><span class="n">ps1</span> <span class="p">|</span> <span class="k">Foreach</span><span class="n">-Object</span><span class="p">{</span> <span class="p">.</span> <span class="nv">$_</span><span class="p">.</span><span class="n">FullName</span> <span class="p">}</span></code></pre></div>
+
+<p>I also removed the confirmation around the uninstall (I think it’s just missing the argument to ignore it, but It was quicker for me just to remove it):</p>
+
+<p>Get-WUUninstall.ps1 with confirmation removed from “Process’</p>
+
+<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="k">Process</span>
+        <span class="p">{</span>    
+              <span class="k">If</span><span class="p">(</span><span class="nv">$KBArticleID</span><span class="p">)</span>
+              <span class="p">{</span>
+                  <span class="nv">$KBArticleID</span> <span class="p">=</span> <span class="nv">$KBArticleID</span> <span class="o">-replace</span> <span class="s2">&quot;KB&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+
+                  <span class="n">wusa</span> <span class="p">/</span><span class="n">uninstall</span> <span class="p">/</span><span class="n">kb</span><span class="err">:</span><span class="nv">$KBArticleID</span> <span class="p">/</span><span class="n">quiet</span> <span class="p">/</span><span class="n">norestart</span>
+              <span class="p">}</span> <span class="c">#End If $KBArticleID</span>
+              <span class="k">Else</span>
+              <span class="p">{</span>
+                  <span class="n">wmic</span> <span class="n">qfe</span> <span class="n">list</span>
+              <span class="p">}</span> <span class="c">#End Else $KBArticleID</span>
+        <span class="p">}</span> <span class="c">#End Process</span></code></pre></div>
+
+<p>And this is what I came up with, it appears to work well enough. Could use some extra checking and polishing, but we will have it as a utility app. If someone mentions it they can re-run it and it will try again. Also that’s about as much time I wish to spend doing anything in powershell!</p>
+
+<div class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nb">Import-Module</span> <span class="n">PSWindowsUpdate</span>
+
+<span class="nv">$ServiceID</span> <span class="p">=</span> <span class="nb">Get-WUServiceManager</span><span class="p">|</span> <span class="n">Select</span> <span class="n">ServiceID</span>
+
+<span class="c"># KB3035583 - GWX - Get Windows 10 AdWare</span>
+<span class="c"># KB2952664 - Compatibility Update for Upgrading Win 7 to Win 10</span>
+<span class="c"># KB3021917 - Phones Home to tell MS how your computer will perform with Win 10</span>
+
+<span class="nv">$kbIDs</span> <span class="p">=</span> <span class="s2">&quot;KB3035583&quot;</span><span class="p">,</span><span class="s2">&quot;KB2952664&quot;</span><span class="p">,</span><span class="s2">&quot;KB3021917&quot;</span>
+
+<span class="nv">$installed</span> <span class="p">=</span> <span class="nb">Get-WUList</span> <span class="n">-ServiceID</span> <span class="nv">$ServiceID</span> <span class="n">-IsInstalled</span> <span class="n">-KBArticleID</span> <span class="nv">$kbIDs</span> <span class="p">|</span> <span class="n">Select</span> <span class="n">KB</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$installed</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">write-host</span> <span class="s2">&quot;We have some crud to remove&quot;</span>
+    <span class="nb">Write-Host</span> <span class="nv">$installed</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$update</span> <span class="k">in</span> <span class="nv">$installed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Host</span> <span class="s2">&quot;Removing &quot;</span> <span class="nv">$update</span><span class="p">.</span><span class="n">KB</span>
+        <span class="nb">Get-WUUninstall</span> <span class="n">-KBArticleID</span> <span class="nv">$update</span><span class="p">.</span><span class="n">KB</span>
+        <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="n">10</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nb">write-host</span> <span class="s2">&quot;We&#39;re Crap free&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="n">10</span>
+
+<span class="nv">$tohide</span> <span class="p">=</span> <span class="nb">Get-WUList</span> <span class="n">-ServiceID</span> <span class="nv">$ServiceID</span> <span class="n">-KBArticleID</span> <span class="nv">$kbIDs</span> <span class="n">-IsNotHidden</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="nv">$tohide</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Host</span> <span class="s2">&quot;Hide ALL the CRAP!!!&quot;</span>
+    <span class="nb">Write-Host</span> <span class="p">(</span><span class="nv">$tohide</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="p">|</span> <span class="nb">Out-String</span><span class="p">)</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$hide</span> <span class="k">in</span> <span class="nv">$tohide</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">Write-Host</span> <span class="s2">&quot;Hiding &quot;</span> <span class="nv">$hide</span><span class="p">.</span><span class="n">KB</span>
+        <span class="nb">Write-Host</span> <span class="p">(</span><span class="nv">$hide</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="p">|</span> <span class="nb">Out-String</span><span class="p">)</span>
+        <span class="nv">$hide</span><span class="p">.</span><span class="n">IsHidden</span> <span class="p">=</span> <span class="nv">$true</span>
+        <span class="nb">Start-Sleep</span> <span class="n">-s</span> <span class="n">10</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Things to note:</p>
+
+<ul>
+  <li>Get-WUList seems to take forever.</li>
+  <li>Get-WUList seems won’t show what’s current until after a reboot (some updates require a reboot and seem to not change their installed state until done).</li>
+  <li>You can iterate of an object or an array, but if your object is an array and you don’t loop over it you’ll be left scratching your head.</li>
+</ul>
 
 
 
@@ -190,9 +273,9 @@ var addthis_config = {
 <script type="text/javascript">
 
     var disqus_shortname  = "techman83"; 
-    var disqus_identifier = "/plug/2012/09/09/1564V7phzkc.html";
-    var disqus_title      = "PLUG&amp;#58; Luakit";
-    var disqus_url        = "http://www.techman83.me/plug/2012/09/09/1564V7phzkc.html";
+    var disqus_identifier = "/programming/2015/06/09/powershell.html";
+    var disqus_title      = "Powershell + Windows Update";
+    var disqus_url        = "http://www.techman83.me/programming/2015/06/09/powershell.html";
 
     /* Make sure that once disqus renders, we trigger any events that
      * need to happen on page resize. Otherwise our left-bar looks funny. */
