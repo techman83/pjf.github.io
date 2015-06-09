@@ -4,10 +4,14 @@ title: Powershell + Windows Update
 description: Sometimes being a SysAdmin means solving Windows problems.
 ---
 
-It's one of the parts of my job I don't quite enjoy as much, but Windows is still a necessary thing in a lot of places. It's becoming less and less required, but for now a lot of places still rely on it. Microsoft to their credit are making an effort to shift people onto their new OS before it becomes another Windows XP situation (Released in 2001, 4 OS' released in that time and it is still being used in a lot of places). However they seemed to have failed restricting the updates to Consumer machines only. I've seen reports of it happening on Domain joined and Volume licensed machines.
+Windows administration is part of my job that I don't enjoy as much as linux, but it is still necessary. Though Windows is becoming less and less required, a lot of software still relies on it. 
+
+Microsoft to their credit are making an effort to shift people onto their new OS before it becomes another Windows XP situation (Released in 2001, 4 OS' released in that time and it is still being used in a lot of places). However they seemed to have failed restricting the updates to Consumer machines only. 
 <!--more-->
 
-It's all rather annoying and removing them only means they have a chance to come back next time the user updates. Enter [PSWindowsUpdate](https://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/). Now it didn't work on powershell 2.0 without a slight modification
+Having the update deploy to coporate machines (I've seen reports of it happening on Domain joined and Volume licensed machines) is all rather annoying and removing them only means they have a chance to come back next time the user updates. In an ideal world you'd use WSUS, but with a geographically disperse workforce often working in remote locations this isn't practical.
+
+Enter [PSWindowsUpdate](https://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/). Now it didn't work on powershell 2.0 without a slight modification
 
 PSWindowsUpdate.psm1 - It's top comment on one of the threads, If I remember where I'll make the attribution.
 {% highlight powershell %}
@@ -20,7 +24,7 @@ Get-ChildItem -Path $PSScriptRoot\*.ps1 | Foreach-Object{ . $_.FullName }
 
 I also removed the confirmation around the uninstall (I think it's just missing the argument to ignore it, but It was quicker for me just to remove it):
 
-Get-WUUninstall.ps1 with confirmation removed from "Process'
+Get-WUUninstall.ps1 with confirmation removed from "Process', also added '/quiet /norestart'
 {% highlight powershell %}
         Process
         {    
@@ -37,7 +41,7 @@ Get-WUUninstall.ps1 with confirmation removed from "Process'
         } #End Process
 {% endhighlight %}
 
-And this is what I came up with, it appears to work well enough. Could use some extra checking and polishing, but we will have it as a utility app. If someone mentions it they can re-run it and it will try again. Also that's about as much time I wish to spend doing anything in powershell!
+This is what I came up with and it appears to work well enough. It could use some extra checking and polishing, but we will have auto deploy and also as a utility app. If someone mentions it, they can be instructed to re-run it and it will try again. Also that's about as much time I wish to spend doing anything in powershell!
 {% highlight powershell %}
 Import-Module PSWindowsUpdate
 
