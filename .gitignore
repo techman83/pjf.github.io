@@ -5,3 +5,8 @@ venv/
 output/
 __pycache__/
 *.swp
+node_modules/
+content/js/compiled-bundle.js
+content/js/compiled-bundle.min.js.map
+content/js/compiled-bundle.min.js
+
