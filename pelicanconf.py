@@ -8,7 +8,7 @@ SITEURL = 'http://techman83.me'
 
 PATH = 'content'
 PLUGIN_PATHS = ['./plugins']
-PLUGINS = ['extract_toc','disqus_static']
+PLUGINS = ['extract_toc']
 OUTPUT_PATH = './_site/'
 STATIC_PATHS = ['images']
 EXTRA_PATH_METADATA = {
@@ -16,6 +16,13 @@ EXTRA_PATH_METADATA = {
     'images/favicon.png': {'path': 'favicon.png'},
 }
 
+# THEME
+THEME = "./themes/pelican-bootstrap3/"
+JINJA_EXTENSIONS = ['jinja2.ext.i18n']
+PLUGINS = ['i18n_subsites']
+BOOTSTRAP_THEME = "simplex"
+
+#SITELOGO = 'images/my_site_logo.png'
 
 TIMEZONE = 'Australia/Perth'
 
@@ -42,4 +49,4 @@ DEFAULT_PAGINATION = 10
 
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
