@@ -1,3 +1,7 @@
 build/
-_site
-Gemfile.lock
+_site/
+venv/
+*.pid
+output/
+__pycache__/
+*.swp
