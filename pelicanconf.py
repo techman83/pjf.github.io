@@ -3,8 +3,17 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Leon Wright'
-SITENAME = '"Techman83\'s Blog"'
+SITENAME = 'Techman83\'s Blog'
 SITEURL = 'http://techman83.me'
+
+PLUGIN_PATHS = [
+    'plugins',
+]
+PLUGINS = [
+    'jinja2content',
+    'related_posts',
+    'summary',
+]
 
 MARKDOWN = {
     'extension_configs': {
@@ -13,24 +22,15 @@ MARKDOWN = {
     'output_format': 'html5',
 }
 
-MD_EXTENSIONS = [
-    'mdx_video',
-]
-
 PATH = 'content'
-PLUGIN_PATHS = [
-    './plugins',
-]
-PLUGINS = [
-    'related_posts',
-    'summary',
-    'jinga2content',
-]
+
+RELATED_POSTS_MAX = 10
 
 OUTPUT_PATH = './_site/'
 STATIC_PATHS = [
     'images',
     'js',
+    'css',
 ]
 
 EXTRA_PATH_METADATA = {
@@ -38,16 +38,14 @@ EXTRA_PATH_METADATA = {
     'images/favicon.png': {'path': 'favicon.png'},
 }
 
-JINJA2CONTENT_TEMPLATES = [
-    './_content',
-]
-
 # THEME
 THEME = "./themes/pelican-bootstrap3/"
 JINJA_EXTENSIONS = ['jinja2.ext.i18n']
 PLUGINS = ['i18n_subsites']
 BOOTSTRAP_THEME = "simplex"
 DISPLAY_PAGES_ON_MENU ="true"
+CUSTOM_CSS = "./css/style.min.css"
+CUSTOM_JS = "./js/compiled-bundle.min.js"
 
 
 #SITELOGO = 'images/my_site_logo.png'
@@ -57,7 +55,6 @@ TIMEZONE = 'Australia/Perth'
 FILENAME_METADATA = '(?P<slug>.*)'
 
 DEFAULT_LANG = 'en'
-RELATED_POSTS_MAX = 10
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
