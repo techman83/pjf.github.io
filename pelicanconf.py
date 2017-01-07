@@ -5,6 +5,16 @@ from __future__ import unicode_literals
 AUTHOR = 'Leon Wright'
 SITENAME = 'Techman83\'s Blog'
 SITEURL = 'http://techman83.me'
+CC_LICENSE = 'CC-BY'
+GITHUB_USER = 'techman83'
+GITHUB_REPO_COUNT = 4
+TWITTER_USERNAME = 'Techman_83'
+GOOGLE_ANALYTICS = "UA-39211824-2"
+DISQUS_SITENAME = "techman83"
+ADDTHIS_PROFILE = "ra-52df33e30fca36e7"
+GITTIP_SITE = "https://www.gittip.com/techman83/"
+FAVICON = 'img/favicon.png'
+AVATAR = 'img/leon-vr.png'
 
 PLUGIN_PATHS = [
     'plugins',
@@ -57,6 +67,8 @@ TIMEZONE = 'Australia/Perth'
 
 ARTICLE_URL = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
 ARTICLE_SAVE_AS = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
+CATEGORY_URL = "{slug}"
+CATEGORY_SAVE_AS = "{slug}/index.html"
 
 DEFAULT_LANG = 'en'
 

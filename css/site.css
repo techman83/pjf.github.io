@@ -22,3 +22,21 @@ figure.right {
 img {
       max-width: 100%;
 }
+
+/* Tip box */
+
+.tip-box {
+    clear: left;
+    border-top:    1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    padding-top:    2em;
+    padding-bottom: 2em;
+}
+
+.tip-box p {
+    margin-bottom: 0.5em;
+}
+
+.tip-box i {
+    margin-bottom: 2em;
+}

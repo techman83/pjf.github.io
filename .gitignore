@@ -8,6 +8,5 @@ __pycache__/
 node_modules/
 content/js/*
 content/css/*
-content/img/fancybox*
-content/img/blank.gif
+content/img/*
 

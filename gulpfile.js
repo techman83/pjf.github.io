@@ -35,6 +35,7 @@ gulp.task('css', function(){
 gulp.task('img', function(){
   return gulp.src([
     'node_modules/fancybox/dist/img/*',
+    'images/*',
   ])
   .pipe(gulp.dest("content/img"));
 });
