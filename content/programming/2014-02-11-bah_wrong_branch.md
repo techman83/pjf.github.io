@@ -2,6 +2,7 @@ Tags: programming, git
 Title: Git&#58; Bah, wrong branch!
 Date: 2014-02-11
 Description: Fixing a commit into the wrong branch.
+Slug: bah_wrong_branch
 
 I love git, it's a really great tool. However no matter how used I get to my workflows I eventually end up commiting something into the wrong branch!
 

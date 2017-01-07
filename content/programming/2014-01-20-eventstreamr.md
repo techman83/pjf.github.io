@@ -1,7 +1,7 @@
----
 Title: Automating AV&#58; EventStreamr
 Date: 2014-01-20
 Tags: programming, perl, lca
+Slug: eventstreamr
 
 [EventStreamR](https://github.com/lukejohnosmahi/eventstreamr/) come to inception from a collection of experiences amongst our local LUG the [Perth Linux User Group](https://www.plug.org.au). Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some of our members find it quite difficult to attend. A few years ago an initiave started by [James Bromberger](http://blog.james.rcpt.to/) was to film and live stream all PLUG talks so that every member had an oppurtunity to attend our meetings, even if they couldn't necessarily make it in person.
 

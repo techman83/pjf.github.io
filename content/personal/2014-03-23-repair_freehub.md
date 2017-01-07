@@ -2,6 +2,7 @@ Title: Freehub Repair/Replace Clutch Master Cylinder
 Date: 2014-03-23
 Tags: personal, diy, repair, cycling
 Description: "My passion for Repair + DIY, repairing my Freehub/Master Cylinder"
+Slug: repair_freehub
 {% from 'fancybox.html' import fancybox,fancybox_gallery %}
 
 After the usual Saturday shopping I decided I needed to repair my Ute and my bike. I figured the best place to start was replacing my Clutch Master Cylinder, after 18 years of service it was no longer operating very well. Driving around wasn't so bad, but parking had become quite tricky. The weekend before I replaced the Slave cyclinder, which was leaking. However wasn't the cause of the issue. It was a pretty simple job to replace and Leish (My wife) helped me bleed the air out of the system. Which took longer than fitting it.

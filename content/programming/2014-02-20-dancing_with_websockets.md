@@ -1,6 +1,7 @@
 Title: Dancing with WebSockets
 Date: 2014-02-20
 Tags: programming, perl, dancer, websockets
+Slug: dancing_with_websockets
 
 I learnt during the development of the [EventStreamR](https://github.com/plugorgau/eventstreamr) frontend that websockets are cool! Another learning project of mine is [NanodeControl](https://github.com/techman83/NanodeControl) and after learning what all the cool new things are available I wanted to have a crack at making it more modern.
 

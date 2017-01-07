@@ -55,7 +55,8 @@ CUSTOM_JS = "./js/compiled-bundle.min.js"
 
 TIMEZONE = 'Australia/Perth'
 
-FILENAME_METADATA = '(?P<slug>.*)'
+ARTICLE_URL = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
+ARTICLE_SAVE_AS = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
 
 DEFAULT_LANG = 'en'
 
@@ -65,14 +66,14 @@ CATEGORY_FEED_ATOM = None
 
 # Blogroll
 LINKS = (
-    ('Pelican', 'http://getpelican.com/'),
-    ('Python.org', 'http://python.org/'),
-    ('Jinja2', 'http://jinja.pocoo.org/'),
+    ('PJF', 'http://pjf.github.io'),
 )
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (
+    ('Github', 'https://github.com/Techman83'),
+    ('Twitter', 'https://twitter.com/Techman_83'),
+)
 
 DEFAULT_PAGINATION = 10
 

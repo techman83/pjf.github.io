@@ -2,6 +2,7 @@ Title: My Xperia Z broke itself!
 Date: 2014-07-29
 Tags: personal, warranty, sony, defect, vodafone
 Description: "My Xperia Z.. It's broken :-("
+Slug: xperiaz_warranty
 {% from 'fancybox.html' import fancybox %}
 
 Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The real big tick in Sony’s favour was the fact there was a [factory supported unlocking method](http://developer.sonymobile.com/unlockbootloader/unlock-yourboot-loader/), the usual caveats apply but I’ll vote with my wallet every time (are you listening Samsung!).

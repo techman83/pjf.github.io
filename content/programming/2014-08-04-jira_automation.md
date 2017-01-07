@@ -1,6 +1,7 @@
 Title: Jira Automation + Copying Fields
 Date: 2014-08-04
 Tags: programming, groovy, jira, automation, scriptrunner
+Slug: jira_automation
 
 We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It's also far more reliable, far easier to keep up-to-date and runs on Linux!
 
