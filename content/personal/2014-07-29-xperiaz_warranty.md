@@ -1,21 +1,27 @@
 Title: My Xperia Z broke itself!
 Date: 2014-07-29
 Tags: personal, warranty, sony, defect, vodafone
-Image: http://www.techman83.mehttps://lh4.googleusercontent.com/-7N0zic7ed6k/U9eNJpv9iYI/AAAAAAAAM5c/kePCM1FxRJM/w300/01-XperiaZ_Crack.JPG
 Description: "My Xperia Z.. It's broken :-("
-
-{{ fancybox }}
+{% from 'fancybox.html' import fancybox %}
 
 Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The real big tick in Sony’s favour was the fact there was a [factory supported unlocking method](http://developer.sonymobile.com/unlockbootloader/unlock-yourboot-loader/), the usual caveats apply but I’ll vote with my wallet every time (are you listening Samsung!).
 
 I’m a massive gadget geek and I must admit I love my Xperia Z. The size is great, the screen resolution (1920x1080) is awesome, takes great photos for a phone and the cpu is nice and fast leaving me as a mostly hassle free CyanogenMod nightly build user.
 
 However a week ago… :-(
-![](href='https://lh4.googleusercontent.com/-7N0zic7ed6k/U9eNJpv9iYI/AAAAAAAAM5c/kePCM1FxRJM/w684/01-XperiaZ_Crack.JPG "Sony Xperia Z")
+{{ fancybox(
+  "https://www.dropbox.com/s/fmf83i7eqahv65k/01-XperiaZ_Crack-sml.JPG?dl=1",
+  "https://www.dropbox.com/s/71ss6i3x631z7ty/01-XperiaZ_Crack.JPG?dl=1",
+  "Sony Xperia Z")
+}}
 
 So how did it happen? Did I drop it? Well no, I set my alarm put it on charge and went to sleep. The next morning I woke up and it took me a little while to wake enough to work out why I couldn’t turn off my alarm. Once waking up properly I noticed the crack and the fact that to the right of the crack the digitiser no longer functioned.
 
-![](https://lh4.googleusercontent.com/-8GIeNL6lVwQ/U9eNJQ1gMZI/AAAAAAAAM5Y/CgUvd2tag3A/w1024/02-XperiaZ_Crack.JPG "Cracked!")
+{{ fancybox(
+  "https://www.dropbox.com/s/iy1vu2sx704ojxh/02-XperiaZ_Crack-sml.JPG?dl=1",
+  "https://www.dropbox.com/s/7r0zj0e1cq1uwfi/02-XperiaZ_Crack.JPG?dl=1",
+  "Cracked!")
+}}
 
 Now I had a bumper case and screen protectors waiting for my shiny new toy to arrive, when I originally ordered it. So I was quite flumuxed to find my screen cracked, for all intents and purposes unsuable. After recovering from the intial shock, I did what any good geek would do; search the internet! It did not take long and I found numerous [examples of the same issue](http://forum.xda-developers.com/xperia-z/help/xperia-z-zr-ul-z-ultra-display-issue-1-t2515293).
 
@@ -29,4 +35,8 @@ UPDATE 2014-08-06: Fonebiz finally received my device. As a private individual I
 
 UPDATE 2014-08-09: It's fixed! Took them no time at all, it was shipped the day after they received it and I received it the day after that. Very happy. The only things weren't replaced were the rear cover and Main PCB. PCB due to have been flashed with non Sony firmware, I'll leave my issues with that aside for now as that was something I knew upfront before purchasing the device. Some support for the modding community is better than none.
 
-![](https://lh6.googleusercontent.com/-bvpQcuiaJQs/U-XATb536ZI/AAAAAAAANBU/_w3ab0M09qY/w1031/IMG_1059-edit.JPG "Fixed!")
+{{ fancybox(
+  "https://www.dropbox.com/s/edt2efp663fsej0/IMG_1059-sml.JPG?dl=1",
+  "https://www.dropbox.com/s/axql2cwpvlpy80r/IMG_1059.JPG?dl=1",
+  "Fixed!")
+}}
