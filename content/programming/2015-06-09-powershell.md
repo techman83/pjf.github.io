@@ -13,6 +13,7 @@ Having the update deploy to coporate machines (I've seen reports of it happening
 Enter [PSWindowsUpdate](https://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/). Now it didn't work on powershell 2.0 without a slight modification
 
 PSWindowsUpdate.psm1 - It's top comment on one of the threads, If I remember where I'll make the attribution.
+
     ::::powershell
     if ($PSVersionTable.PSVersion.tostring() -ge 4)
     {
@@ -23,22 +24,24 @@ PSWindowsUpdate.psm1 - It's top comment on one of the threads, If I remember whe
 I also removed the confirmation around the uninstall (I think it's just missing the argument to ignore it, but It was quicker for me just to remove it):
 
 Get-WUUninstall.ps1 with confirmation removed from "Process', also added '/quiet /norestart'
+
     ::::powershell
-            Process
-            {    
-                  If($KBArticleID)
-                  {
-                      $KBArticleID = $KBArticleID -replace "KB", ""
+    Process
+    {    
+          If($KBArticleID)
+          {
+              $KBArticleID = $KBArticleID -replace "KB", ""
     
-                      wusa /uninstall /kb:$KBArticleID /quiet /norestart
-                  } #End If $KBArticleID
-                  Else
-                  {
-                      wmic qfe list
-                  } #End Else $KBArticleID
-            } #End Process
+              wusa /uninstall /kb:$KBArticleID /quiet /norestart
+          } #End If $KBArticleID
+          Else
+          {
+              wmic qfe list
+          } #End Else $KBArticleID
+    } #End Process
 
 This is what I came up with and it appears to work well enough. It could use some extra checking and polishing, but we will have auto deploy and also as a utility app. If someone mentions it, they can be instructed to re-run it and it will try again. Also that's about as much time I wish to spend doing anything in powershell!
+
     ::::powershell
     Import-Module PSWindowsUpdate
     
