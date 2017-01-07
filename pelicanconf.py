@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
+# Site Config
 AUTHOR = 'Leon Wright'
 SITENAME = 'Techman83\'s Blog'
 SITEURL = 'http://techman83.me'
@@ -15,7 +16,9 @@ ADDTHIS_PROFILE = "ra-52df33e30fca36e7"
 GITTIP_SITE = "https://www.gittip.com/techman83/"
 FAVICON = 'img/favicon.png'
 AVATAR = 'img/leon-vr.png'
+TIMEZONE = 'Australia/Perth'
 
+# Pelican Config
 PLUGIN_PATHS = [
     'plugins',
 ]
@@ -25,6 +28,7 @@ PLUGINS = [
     'summary',
     'related_posts',
     'i18n_subsites',
+	'sitemap',
 ]
 
 MARKDOWN = {
@@ -46,11 +50,6 @@ STATIC_PATHS = [
     'css',
 ]
 
-EXTRA_PATH_METADATA = {
-#    'extra/robots.txt': {'path': 'robots.txt'},
-    'images/favicon.png': {'path': 'favicon.png'},
-}
-
 # THEME
 THEME = "./themes/pelican-bootstrap3/"
 JINJA_EXTENSIONS = ['jinja2.ext.i18n']
@@ -60,11 +59,7 @@ DISPLAY_PAGES_ON_MENU ="true"
 CUSTOM_CSS = "./css/style.min.css"
 CUSTOM_JS = "./js/compiled-bundle.min.js"
 
-
-#SITELOGO = 'images/my_site_logo.png'
-
-TIMEZONE = 'Australia/Perth'
-
+# Site generation
 ARTICLE_URL = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
 ARTICLE_SAVE_AS = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
 CATEGORY_URL = "{slug}"
@@ -72,13 +67,31 @@ CATEGORY_SAVE_AS = "{slug}/index.html"
 
 DEFAULT_LANG = 'en'
 
-# Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
+# Feeds
+FEED_ALL_ATOM = "feeds/all-atom.xml"
+CATEGORY_FEED_ATOM = "feeds/%s-atom.xml"
+FEED_ALL_RSS = "feeds/all-rss.xml"
+CATEGORY_FEED_RSS = "feeds/%s-rss.xml"
+
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.5,
+        'indexes': 0.5,
+        'pages': 0.5
+    },
+    'changefreqs': {
+        'articles': 'monthly',
+        'indexes': 'daily',
+        'pages': 'monthly'
+    }
+}
 
 # Blogroll
 LINKS = (
     ('PJF', 'http://pjf.github.io'),
+    ('Superhouse.tv', 'http://superhouse.tv'),
+    ('Big Clive', 'http://bigclive.com'),
 )
 
 # Social widget
