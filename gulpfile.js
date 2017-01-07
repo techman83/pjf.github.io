@@ -6,10 +6,11 @@ var gulp = require('gulp'),
     gp_sourcemaps = require('gulp-sourcemaps');
     gp_autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('js-fef', function(){
+gulp.task('js', function(){
   return gulp.src([
     'node_modules/jquery/dist/jquery.js', 
-    'node_modules/fancybox/dist/js/jquery.fancybox.js'
+    'node_modules/fancybox/dist/js/jquery.fancybox.js',
+    'js/site.js'
     ])
     .pipe(gp_sourcemaps.init())
     .pipe(gp_concat("compiled-bundle.js"))
@@ -20,9 +21,10 @@ gulp.task('js-fef', function(){
     .pipe(gulp.dest('content/js'));
 });
 
-gulp.task('css-fef', function(){
+gulp.task('css', function(){
   return gulp.src([
-    'node_modules/fancybox/dist/css/jquery.fancybox.css'
+    'node_modules/fancybox/dist/css/jquery.fancybox.css',
+    'css/site.css'
   ])
   .pipe(gp_cleancss())
   .pipe(gp_autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
@@ -30,4 +32,11 @@ gulp.task('css-fef', function(){
   .pipe(gulp.dest('content/css'));
 });
 
-gulp.task('default', ['js-fef', 'css-fef'], function(){});
+gulp.task('img', function(){
+  return gulp.src([
+    'node_modules/fancybox/dist/img/*',
+  ])
+  .pipe(gulp.dest("content/img"));
+});
+
+gulp.task('default', ['js', 'css', 'img'], function(){});

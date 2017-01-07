@@ -9,15 +9,18 @@ SITEURL = 'http://techman83.me'
 PLUGIN_PATHS = [
     'plugins',
 ]
+
 PLUGINS = [
     'jinja2content',
-    'related_posts',
     'summary',
+    'related_posts',
+    'i18n_subsites',
 ]
 
 MARKDOWN = {
     'extension_configs': {
         'mdx_video': {},
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
     },
     'output_format': 'html5',
 }
@@ -28,7 +31,7 @@ RELATED_POSTS_MAX = 10
 
 OUTPUT_PATH = './_site/'
 STATIC_PATHS = [
-    'images',
+    'img',
     'js',
     'css',
 ]
@@ -41,8 +44,8 @@ EXTRA_PATH_METADATA = {
 # THEME
 THEME = "./themes/pelican-bootstrap3/"
 JINJA_EXTENSIONS = ['jinja2.ext.i18n']
-PLUGINS = ['i18n_subsites']
-BOOTSTRAP_THEME = "simplex"
+BOOTSTRAP_THEME = "spacelab"
+PYGMENTS_STYLE = 'vim'
 DISPLAY_PAGES_ON_MENU ="true"
 CUSTOM_CSS = "./css/style.min.css"
 CUSTOM_JS = "./js/compiled-bundle.min.js"
@@ -75,3 +78,4 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
+LOAD_CONTENT_CACHE = False
