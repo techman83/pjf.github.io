@@ -41,7 +41,7 @@ MARKDOWN = {
 
 PATH = 'content'
 
-RELATED_POSTS_MAX = 10
+RELATED_POSTS_MAX = 5
 
 OUTPUT_PATH = './_site/'
 STATIC_PATHS = [
