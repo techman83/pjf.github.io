@@ -28,7 +28,8 @@ PLUGINS = [
     'summary',
     'related_posts',
     'i18n_subsites',
-	'sitemap',
+    'sitemap',
+    'tipue_search',
 ]
 
 MARKDOWN = {
@@ -49,6 +50,8 @@ STATIC_PATHS = [
     'js',
     'css',
 ]
+
+DIRECT_TEMPLATES = [ 'search' ]
 
 # THEME
 THEME = "./themes/pelican-bootstrap3/"
