@@ -1,7 +1,6 @@
 Title: EventStreamr Talk at PLUG
 Tags: av, plug, programming
 Date: 2015-04-16
-Slug: eventstreamr
 
 http://www.youtube.com/watch?v=qCzVX7-OJtA
 

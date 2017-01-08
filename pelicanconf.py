@@ -5,13 +5,10 @@ from __future__ import unicode_literals
 # Site Config
 AUTHOR = 'Leon Wright'
 SITENAME = 'Techman83\'s Blog'
-SITEURL = 'http://techman83.me'
 CC_LICENSE = 'CC-BY'
 GITHUB_USER = 'techman83'
 GITHUB_REPO_COUNT = 4
 TWITTER_USERNAME = 'Techman_83'
-GOOGLE_ANALYTICS = "UA-39211824-2"
-DISQUS_SITENAME = "techman83"
 ADDTHIS_PROFILE = "ra-52df33e30fca36e7"
 GITTIP_SITE = "https://www.gittip.com/techman83/"
 FAVICON = 'img/favicon.png'
@@ -51,11 +48,16 @@ STATIC_PATHS = [
     'css',
 ]
 
-DIRECT_TEMPLATES = [ 'search' ]
+JINJA_ENVIRONMENT = {
+    "extensions": [
+        'jinja2.ext.i18n'
+    ]
+}
+
+DIRECT_TEMPLATES = [ 'search', 'index', 'categories', 'archives' ]
 
 # THEME
 THEME = "./themes/pelican-bootstrap3/"
-JINJA_EXTENSIONS = ['jinja2.ext.i18n']
 BOOTSTRAP_THEME = "spacelab"
 PYGMENTS_STYLE = 'vim'
 DISPLAY_PAGES_ON_MENU ="true"
@@ -69,12 +71,6 @@ CATEGORY_URL = "{slug}"
 CATEGORY_SAVE_AS = "{slug}/index.html"
 
 DEFAULT_LANG = 'en'
-
-# Feeds
-FEED_ALL_ATOM = "feeds/all-atom.xml"
-CATEGORY_FEED_ATOM = "feeds/%s-atom.xml"
-FEED_ALL_RSS = "feeds/all-rss.xml"
-CATEGORY_FEED_RSS = "feeds/%s-rss.xml"
 
 SITEMAP = {
     'format': 'xml',
