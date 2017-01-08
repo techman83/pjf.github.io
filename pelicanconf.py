@@ -11,8 +11,6 @@ GITHUB_REPO_COUNT = 4
 TWITTER_USERNAME = 'Techman_83'
 ADDTHIS_PROFILE = "ra-52df33e30fca36e7"
 GITTIP_SITE = "https://www.gittip.com/techman83/"
-FAVICON = 'img/favicon.png'
-AVATAR = 'img/leon-vr.png'
 TIMEZONE = 'Australia/Perth'
 
 # Pelican Config
@@ -63,6 +61,9 @@ PYGMENTS_STYLE = 'vim'
 DISPLAY_PAGES_ON_MENU ="true"
 CUSTOM_CSS = "./css/style.min.css"
 CUSTOM_JS = "./js/compiled-bundle.min.js"
+FAVICON = 'img/favicon.png'
+AVATAR = 'img/leon-vr.png'
+SITELOGO = 'img/favicon.png'
 
 # Site generation
 ARTICLE_URL = "{category}/{date:%Y}/{date:%m}/{date:%d}/{slug}.html"
