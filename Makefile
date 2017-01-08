@@ -10,7 +10,7 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 GITHUB_PAGES_BRANCH=master
 CNAME="www.techman83.me"
-DATE=`date +'%y.%m.%d %H:%M:%S'`
+DATE=$(shell date +'%y.%m.%d %H:%M:%S')
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -85,7 +85,6 @@ publish:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 
 github: publish
-	node_modules/gulp/bin/gulp.js
 	git fetch origin $(GITHUB_PAGES_BRANCH):$(GITHUB_PAGES_BRANCH)
 	ghp-import -m "Site update at $(DATE)" -c $(CNAME) -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
