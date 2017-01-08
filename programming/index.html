@@ -1,737 +1,280 @@
 <!DOCTYPE html>
-<!--
-    Based upon Striped 2.5 by HTML5 Up!
-    html5up.net | @n33co
-    Updated for Jekyll by Paul Fenwick | @pjf
-    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html lang="en">
-    <head prefix="og: http://ogp.me/ns#">
-        <title>My Coding Adventures</title>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>programming - Techman83's Blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        
 
+    <link href="http://techman83.me/img/favicon.png" rel="icon">
 
-    <meta property="og:image" content="http://www.techman83.me/images/leon_regex.png"  />
-    <link rel="image_src"        href="http://www.techman83.me/images/leon_regex.png"  />
 
+    <meta name="author" content="Leon Wright" />
+    <meta name="keywords" content="programming" />
 
-<meta property="og:title" content="My Coding Adventures"  />
-<meta property="og:url"   content="http://www.techman83.me/programming/index.html" />
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="Techman83's Blog" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Techman83's Blog"/>
+        <meta property="og:url" content="http://techman83.me"/>
+        <meta property="og:description" content="Techman83's Blog"/>
 
-<!-- This should be expanded to allow for 'article' types -->
-<meta property="og:type"  content="website" />
 
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://techman83.me/theme/css/bootstrap.spacelab.min.css" type="text/css"/>
+    <link href="http://techman83.me/theme/css/font-awesome.min.css" rel="stylesheet">
 
+    <link href="http://techman83.me/theme/css/pygments/vim.css" rel="stylesheet">
+    <link href="http://techman83.me/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://techman83.me/theme/css/style.css" type="text/css"/>
+        <link href="http://techman83.me/./css/style.min.css" rel="stylesheet">
 
+        <link href="http://techman83.me/feeds/all-atom.xml" type="application/atom+xml" rel="alternate"
+              title="Techman83's Blog ATOM Feed"/>
 
+        <link href="http://techman83.me/feeds/all-rss.xml" type="application/rss+xml" rel="alternate"
+              title="Techman83's Blog RSS Feed"/>
 
 
-        <link rel="icon" type="image/png" href="/images/favicon.png" />
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml"/>
+        <link href="http://techman83.me/feeds/programming-atom.xml" type="application/atom+xml" rel="alternate"
+              title="Techman83's Blog programming ATOM Feed"/>
 
-        
-            <link rel="alternate" type="application/rss+xml" title="All Comments" href="http://techman83.disqus.com/latest.rss"/>
-        
+</head>
+<body>
 
-        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700|Open+Sans+Condensed:300,700" rel="stylesheet" />
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/skel.min.js"></script>
-        <script src="/js/skel-panels.min.js"></script>
-        <script src="/js/init.js"></script>
-        <noscript>
-            <link rel="stylesheet" href="/css/skel-noscript.css" />
-            <link rel="stylesheet" href="/css/style.css" />
-            <link rel="stylesheet" href="/css/style-desktop.css" />
-            <link rel="stylesheet" href="/css/style-wide.css" />
-        </noscript>
-        <!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
-        <!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
-        <!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
-
-        <!-- TODO: Only load on fancybox pages -->
-<link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-<script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-<script>
-  $(window).load(function() {
-    $(".fancybox_gallery").fancybox();
-  });
-</script>
-
-
-        <link rel="stylesheet" href="/css/pygments.css" />
-        <link rel="stylesheet" href="/css/pjf.css" />
-
-        
-            <link rel="stylesheet" href="/css/custom.css" />
-        
-
-    </head>
-    <!--
-        Note: Set the body element's class to "left-sidebar" to position the sidebar on the left.
-        Set it to "right-sidebar" to, you guessed it, position it on the right.
-    -->
-    <body class="left-sidebar">
-    
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-39211824-2']);
-  _gaq.push(['_gat._anonymizeIp']); // Better user privacy
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
-        <div id="wrapper">
-            <div id="content">
-                <div id="content-inner">
-                    <article class="is-post">
-
-    <img class="me" src="/images/leon_regex.png" />
-
-    <header>
-        <h2>My Coding Adventures</h2>
-    </header>
-
-    <p>A collection of my adventures whilst learning to code.</a>
-    
-    
-<div class="tip-box">
-    <p>
-        <a href="https://www.gittip.com/techman83/"><i class="fa fa-gittip fa-3x pull-left"></i></a>
-        This content is available for you to use for free,
-        even commercially, under a <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 license</a>.
-    </p><p>
-        If you wish to support my work,
-        please <a href="https://www.gittip.com/techman83/">tip me on gittip</a>.
-    </p>
-</div>
-
-
-
-</article>
-
-
-
- 
-
-
-                 
-
-
-
-
-
-
-    
-
-    
-
-    
-        
-    
-
-
-    
-
-    
-
-
-
-    
-
-    
-
-    <article class="is-post is-post-excerpt">
-
-        
-
-
-        <header>
-            <h2><a href="/programming/2015/06/09/powershell.html">Powershell + Windows Update</a></h2>
-            
-        </header>
-
-        <div class="info">
-    
-    <span class="date"> <span class="month">Jun</span>
-        <span class="day"> 9</span> <span
-            class="year"><span>,</span> 2015</span>
-    </span>
-
-
-    <!-- Note: You can change the number of list items in "stats" to whatever you want. -->
-
-    <!--
-        <ul class="stats">
-            <li><a href="#" class="fa fa-comment">16</a></li>
-            <li><a href="#" class="fa fa-heart">32</a></li>
-            <li><a href="#" class="fa fa-twitter">64</a></li>
-            <li><a href="#" class="fa fa-facebook">128</a></li>
-        </ul>
-    -->
-</div>
-
-
-        
-
-        
-            <p>Windows administration is part of my job that I don’t enjoy as much as linux, but it is still necessary. Though Windows is becoming less and less required, a lot of software still relies on it.</p>
-
-<p>Microsoft to their credit are making an effort to shift people onto their new OS before it becomes another Windows XP situation (Released in 2001, 4 OS’ released in that time and it is still being used in a lot of places). However they seemed to have failed restricting the updates to Consumer machines only. 
-
-        
-
-        <a href="/programming/2015/06/09/powershell.html">(read more...)</a>
-
-    </article>
-    <div class="clear_right"></div> <!-- Stop image overflows -->
-
-
-    
-
-    
-
-    
-        
-    
-
-
-    
-
-    
-
-
-
-    
-
-    
-
-    <article class="is-post is-post-excerpt">
-
-        
-
-
-        <header>
-            <h2><a href="/programming/2015/04/16/EventStreamr.html">EventStreamr Talk at PLUG</a></h2>
-            
-        </header>
-
-        <div class="info">
-    
-    <span class="date"> <span class="month">Apr</span>
-        <span class="day">16</span> <span
-            class="year"><span>,</span> 2015</span>
-    </span>
-
-
-    <!-- Note: You can change the number of list items in "stats" to whatever you want. -->
-
-    <!--
-        <ul class="stats">
-            <li><a href="#" class="fa fa-comment">16</a></li>
-            <li><a href="#" class="fa fa-heart">32</a></li>
-            <li><a href="#" class="fa fa-twitter">64</a></li>
-            <li><a href="#" class="fa fa-facebook">128</a></li>
-        </ul>
-    -->
-</div>
-
-
-        
-
-        
-            <div class="video-container"><iframe width="560" height="420" src="http://www.youtube.com/embed/qCzVX7-OJtA?html5=1"> </iframe></div>
-<p><a href="http://www.youtube.com/watch?v=qCzVX7-OJtA">Watch on YouTube</a></p>
-
-
-        
-
-        <a href="/programming/2015/04/16/EventStreamr.html">(read more...)</a>
-
-    </article>
-    <div class="clear_right"></div> <!-- Stop image overflows -->
-
-
-    
-
-    
-
-    
-        
-    
-
-
-    
-
-    
-
-
-
-    
-
-    
-
-    <article class="is-post is-post-excerpt">
-
-        
-
-
-        <header>
-            <h2><a href="/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a></h2>
-            
-        </header>
-
-        <div class="info">
-    
-    <span class="date"> <span class="month">Aug</span>
-        <span class="day">26</span> <span
-            class="year"><span>,</span> 2014</span>
-    </span>
-
-
-    <!-- Note: You can change the number of list items in "stats" to whatever you want. -->
-
-    <!--
-        <ul class="stats">
-            <li><a href="#" class="fa fa-comment">16</a></li>
-            <li><a href="#" class="fa fa-heart">32</a></li>
-            <li><a href="#" class="fa fa-twitter">64</a></li>
-            <li><a href="#" class="fa fa-facebook">128</a></li>
-        </ul>
-    -->
-</div>
-
-
-        
-
-        
-            <p>Being a Cyclist and a Geek, I like to track things. Being a Sys Admin and a Programmer I also like this to happen in the most efficient manner possible. Insert <a href="http://strava.com">Strava</a>, which is basically a social networking platform for cyclists/runners/swimmers (I believe they’re adding more as well). Strava has an App for recording things or you can use any app or device that can output in one of the supported formats (GPX, FIT and TCX).
-
-        
-
-        <a href="/programming/2014/08/26/webservice_strava.html">(read more...)</a>
-
-    </article>
-    <div class="clear_right"></div> <!-- Stop image overflows -->
-
-
-    
-
-    
-
-    
-        
-    
-
-
-    
-
-    
-
-
-
-    
-
-    
-
-    <article class="is-post is-post-excerpt">
-
-        
-
-
-        <header>
-            <h2><a href="/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a></h2>
-            
-        </header>
-
-        <div class="info">
-    
-    <span class="date"> <span class="month">Aug</span>
-        <span class="day"> 4</span> <span
-            class="year"><span>,</span> 2014</span>
-    </span>
-
-
-    <!-- Note: You can change the number of list items in "stats" to whatever you want. -->
-
-    <!--
-        <ul class="stats">
-            <li><a href="#" class="fa fa-comment">16</a></li>
-            <li><a href="#" class="fa fa-heart">32</a></li>
-            <li><a href="#" class="fa fa-twitter">64</a></li>
-            <li><a href="#" class="fa fa-facebook">128</a></li>
-        </ul>
-    -->
-</div>
-
-
-        
-
-        
-            <p>We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It’s also far more reliable, far easier to keep up-to-date and runs on Linux!</p>
-
-<p>In the latest update I had a chance to really push the new version of the <a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin">Jira Automation Plugin</a>, which is a free and open source plugin. Written by Atlassian to support their internal processes, It’s a little nugget of awesome that has really extended what we can do without writing bulk custom code.
-
-        
-
-        <a href="/programming/2014/08/04/jira_automation.html">(read more...)</a>
-
-    </article>
-    <div class="clear_right"></div> <!-- Stop image overflows -->
-
-
-    
-
-    
-
-    
-        
-            
-
-    
-
-    
-
-    
-        
-            
-
-    
-
-    
-
-    
-        
-    
-
-
-    
-
-    
-
-
-
-    
-
-    
-
-    <article class="is-post is-post-excerpt">
-
-        
-
-
-        <header>
-            <h2><a href="/programming/2014/02/20/dancing_with_websockets.html">Dancing with WebSockets</a></h2>
-            
-        </header>
-
-        <div class="info">
-    
-    <span class="date"> <span class="month">Feb</span>
-        <span class="day">20</span> <span
-            class="year"><span>,</span> 2014</span>
-    </span>
-
-
-    <!-- Note: You can change the number of list items in "stats" to whatever you want. -->
-
-    <!--
-        <ul class="stats">
-            <li><a href="#" class="fa fa-comment">16</a></li>
-            <li><a href="#" class="fa fa-heart">32</a></li>
-            <li><a href="#" class="fa fa-twitter">64</a></li>
-            <li><a href="#" class="fa fa-facebook">128</a></li>
-        </ul>
-    -->
-</div>
-
-
-        
-
-        
-            <p>I learnt during the development of the <a href="https://github.com/plugorgau/eventstreamr">EventStreamR</a> frontend that websockets are cool! Another learning project of mine is <a href="https://github.com/techman83/NanodeControl">NanodeControl</a> and after learning what all the cool new things are available I wanted to have a crack at making it more modern.
-
-        
-
-        <a href="/programming/2014/02/20/dancing_with_websockets.html">(read more...)</a>
-
-    </article>
-    <div class="clear_right"></div> <!-- Stop image overflows -->
-
-
-    
-
-    
-
-    
-        
-            
-
-    
-
-    
-
-    
-        
-    
-
-
-    
-
-    
-
-
-
-    
-
-    
-            
-
-
-
-                    
-
-<div class="pager">
-    
-
-    <!-- These numbers look really cool if we we them.
-       - just a simple matter of code, right?
-
-        <div class="pages">
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <span>&hellip;</span>
-            <a href="#">20</a>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://techman83.me/" class="navbar-brand">
+Techman83's Blog            </a>
         </div>
-
-    -->
-
-    
-        <a href="/programming/page2" class="button next">Next Page</a>
-    
-
-</div>
-
-
-
-
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://techman83.me/personal">Personal</a>
+                        </li>
+                        <li class="active">
+                            <a href="http://techman83.me/programming">Programming</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <article>
+                <h2><a href="http://techman83.me/programming/2015/06/09/powershell.html">Powershell + Windows Update</a></h2>
+                <div class="summary"><p>Windows administration is part of my job that I don't enjoy as much as linux, but it is still necessary. Though Windows is becoming less and less required, a lot of software still relies on it. </p>
+<p>Microsoft to their credit are making an effort to shift people onto their new …</p>
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2015/06/09/powershell.html">more ...</a>
                 </div>
-            </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://techman83.me/programming/2015/04/16/eventstreamr-talk-at-plug.html">EventStreamr Talk at PLUG</a></h2>
+                <div class="summary"><p>
+<iframe allowfullscreen="true" frameborder="0" height="315" src="//www.youtube.com/embed/qCzVX7-OJtA" width="560"></iframe>
+</p>
+<p>This week I presented at PLUG, a brief history of AV, PLUG's involvement with Linux Conf AU and EventStreamr.</p>
+<p>You can find EventStreamr on <a href="https://github.com/plugorgau/eventstreamr-station">GitHub</a> and <a href="https://metacpan.org/pod/App::EventStreamr">CPAN</a></p>
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2015/04/16/eventstreamr-talk-at-plug.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://techman83.me/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a></h2>
+                <div class="summary"><p>Being a Cyclist and a Geek, I like to track things. Being a Sys Admin and a Programmer I also like this to happen in the most efficient manner possible. Insert <a href="http://strava.com">Strava</a>, which is basically a social networking platform for cyclists/runners/swimmers (I believe they're adding more as well …</p>
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2014/08/26/webservice_strava.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://techman83.me/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a></h2>
+                <div class="summary"><p>We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It's also far more reliable, far easier to keep up-to-date and runs on Linux!</p>
+<p>In the latest update I had a chance to really push the new version of the <a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin">Jira Automation Plugin</a>, which is a free and open source plugin. Written by Atlassian to support their internal processes, It's a little nugget of awesome that has really extended what we can do without writing bulk custom code.
 
-            <!-- Sidebar -->
-<div id="sidebar">
-    <!-- Logo -->
-    <div id="logo"><h1><a href="/">techman83</a></h1></div>
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2014/08/04/jira_automation.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://techman83.me/programming/2014/02/20/dancing_with_websockets.html">Dancing with WebSockets</a></h2>
+                <div class="summary"><p>I learnt during the development of the <a href="https://github.com/plugorgau/eventstreamr">EventStreamR</a> frontend that websockets are cool! Another learning project of mine is <a href="https://github.com/techman83/NanodeControl">NanodeControl</a> and after learning what all the cool new things are available I wanted to have a crack at making it more modern.</p>
+<p>After a bit of search around I came …</p>
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2014/02/20/dancing_with_websockets.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://techman83.me/programming/2014/02/11/bah_wrong_branch.html">Git&#58; Bah, wrong branch!</a></h2>
+                <div class="summary"><p>I love git, it's a really great tool. However no matter how used I get to my workflows I eventually end up commiting something into the wrong branch!</p>
+<p>And although I tend to use a custom bash shell called <a href="https://github.com/rtomayko/git-sh">git-sh</a> with a full colour prompt, with all the relevant information:</p>
+!dev-home&gt;
+</pre>
 
-    <section class="find_me">
-    
-        <a href="http://twitter.com/Techman_83" rel="me"><i class="fa fa-twitter-square  fa-3x"  ></i></a>
-    
-    
-    
-        <a href="https://github.com/techman83" rel="me"><i class="fa fa-github-square   fa-3x"  ></i></a>
-    
-    
-    
-        <a href="https://plus.google.com/+LeonWright" rel="me"><i class="fa fa-google-plus-square fa-3x"  ></i></a>
-    
-    <a href="/feed.xml"><i class="fa fa-rss-square fa-3x"></i></a>
-    </section>
 
-    <!-- Nav -->
-    <nav id="nav">
-        <ul>
-            <!-- <li class="current_page_item"><a href="/"></a></li> -->
-            <li><a href="/">Latest Posts</a></li>
-        
-            <li><a href="/personal">Personal</a></li>
-        
-            <li><a href="/programming">Programming</a></li>
-        
-            <li><a href="/plug">PLUG</a></li>
-        
-        </ul>
-    </nav>
 
-    
-        <section class="is-search">
-            <form id="cse-search-box" action="http://google.com/cse">
-            <input type="hidden" name="cx" value="013407213838922707467:62s2x7krfn8" />
-            <input type="hidden" name="ie" value="UTF-8" />
-            <input class="text" type="text" name="q" placeholder="Search" />
-        </form>
-        Search powered by Google.
-        </section>
-    
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2014/02/11/bah_wrong_branch.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://techman83.me/programming/2014/01/20/eventstreamr.html">Automating AV&#58; EventStreamr</a></h2>
+                <div class="summary"><p><a href="https://github.com/lukejohnosmahi/eventstreamr/">EventStreamR</a> come to inception from a collection of experiences amongst our local LUG the <a href="https://www.plug.org.au">Perth Linux User Group</a>. Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some …</p>
+                    <a class="btn btn-default btn-xs" href="http://techman83.me/programming/2014/01/20/eventstreamr.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
 
-    <!-- Text -->
-    <section class="is-text-style1">
-        <div class="inner">
-            <p>
-            
-                <a href="https://www.gittip.com/techman83/">
-                    <i class="fa fa-gittip fa-3x pull-left"></i>
-                </a>
-            
-                Everything on this site is free for you to use
-                under the <a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0</a> license.
-            </p>
         </div>
-    </section>
-
-    <!-- Recent Posts -->
-    <section class="is-recent-posts">
-        <header>
-            <h2>Recent Posts</h2>
-        </header>
-
-        <ul>
-        
-            <li><a href="/programming/2015/06/09/powershell.html">Powershell + Windows Update</a>
-        
-            <li><a href="/programming/2015/04/16/EventStreamr.html">EventStreamr Talk at PLUG</a>
-        
-            <li><a href="/programming/2014/08/26/webservice_strava.html">WebService::Strava - A Strava API Perl Client</a>
-        
-            <li><a href="/programming/2014/08/04/jira_automation.html">Jira Automation + Copying Fields</a>
-        
-            <li><a href="/personal/2014/07/29/xperiaz_warranty.html">My Xperia Z broke itself!</a>
-        
-            <li><a href="/personal/2014/03/23/repair_freehub.html">Freehub Repair/Replace Clutch Master Cylinder</a>
-        
-            <li><a href="/programming/2014/02/20/dancing_with_websockets.html">Dancing with WebSockets</a>
-        
-            <li><a href="/personal/2014/02/12/refit_bb.html">Bottom Bracket Refit + Dropout repair</a>
-        
-            <li><a href="/programming/2014/02/11/bah_wrong_branch.html">Git&#58; Bah, wrong branch!</a>
-        
-            <li><a href="/personal/2014/02/06/repair_bb.html">Bottom Bracket Removal</a>
-        
-        </ul>
-    </section>
-
-    <!-- Recent Comments -->
-    <!-- <section class="is-recent-comments">
-        <header>
-            <h2>Recent Comments</h2>
-        </header>
-        <ul>
-            <li>case on <a href="#">Now Full Cyborg</a></li>
-            <li>molly on <a href="#">Untitled Post</a></li>
-            <li>case on <a href="#">Temporal Flux</a></li>
-        </ul>
-    </section> -->
-
-    <!-- Calendar -->
-
-    <!-- <section class="is-calendar">
-        <div class="inner">
-            <table>
-                <caption>February 2013</caption>
-                <thead>
-                    <tr>
-                        <th scope="col" title="Monday">M</th>
-                        <th scope="col" title="Tuesday">T</th>
-                        <th scope="col" title="Wednesday">W</th>
-                        <th scope="col" title="Thursday">T</th>
-                        <th scope="col" title="Friday">F</th>
-                        <th scope="col" title="Saturday">S</th>
-                        <th scope="col" title="Sunday">S</th>
-                    </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                        <td colspan="4" class="pad"><span>&nbsp;</span></td>
-                        <td><span>1</span></td>
-                        <td><span>2</span></td>
-                        <td><span>3</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>4</span></td>
-                        <td><span>5</span></td>
-                        <td><a href="#">6</a></td>
-                        <td><span>7</span></td>
-                        <td><span>8</span></td>
-                        <td><span>9</span></td>
-                        <td><a href="#">10</a></td>
-                    </tr>
-                    <tr>
-                        <td><span>11</span></td>
-                        <td><span>12</span></td>
-                        <td><span>13</span></td>
-                        <td class="today"><a href="#">14</a></td>
-                        <td><span>15</span></td>
-                        <td><span>16</span></td>
-                        <td><span>17</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>18</span></td>
-                        <td><span>19</span></td>
-                        <td><span>20</span></td>
-                        <td><span>21</span></td>
-                        <td><span>22</span></td>
-                        <td><a href="#">23</a></td>
-                        <td><span>24</span></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">25</a></td>
-                        <td><span>26</span></td>
-                        <td><span>27</span></td>
-                        <td><span>28</span></td>
-                        <td class="pad" colspan="3"><span>&nbsp;</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section> -->
-
-    <!-- Copyright -->
-    <div id="copyright">
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
         <p>
-            &copy; 2014 Leon Wright<br />
-            Design: <a href="http://html5up.net/">HTML5 UP</a><br />
-            Site Based On: <a href="https://github.com/pjf/pjf.github.io">pjf.github.io</a>
+            <img width="100%" class="img-thumbnail" src="http://techman83.me/img/leon-vr.png"/>
         </p>
+</div>
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/Techman83"><i class="fa fa-github-square fa-lg"></i> Github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/Techman_83"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-github fa-lg"></i><span class="icon-label">GitHub Repos</span></h4>
+        <div id="gh_repos">
+            <p class="list-group-item">Status updating...</p>
+        </div>
+    </li>
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://pjf.github.io" target="_blank">
+                PJF
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://superhouse.tv" target="_blank">
+                Superhouse.tv
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://bigclive.com" target="_blank">
+                Big Clive
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
     </div>
 </div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 Leon Wright
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.en">Creative Commons Attribution 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://techman83.me/theme/js/jquery.min.js"></script>
 
-            
-        </div>
-    <!-- TODO: Only load on fancybox pages -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".fancybox").fancybox({
-            closeClick: true,
-            closeBtn: false,
-            arrows: false,
-            mouseWheel: false,
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://techman83.me/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://techman83.me/theme/js/respond.min.js"></script>
+
+    <script src="http://techman83.me/./js/compiled-bundle.min.js"></script>
+
+    <!-- GitHub JS -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (!window.jXHR) {
+                var jxhr = document.createElement('script');
+                jxhr.type = 'text/javascript';
+                jxhr.src = 'http://techman83.me/theme/js/jXHR.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(jxhr, s);
+            }
+
+            github.showRepos({
+                user: 'techman83',
+                count: 4,
+                skip_forks: false,
+                target: '#gh_repos'
+            });
         });
-    });
-</script>
+    </script>
+    <script src="http://techman83.me/theme/js/github.js" type="text/javascript"></script>
+    <!-- End GitHub JS Code -->
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'techman83'; // required: replace example with your forum shortname
 
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
 
-<!--[if !(lte IE 8)]><!--> 
-<script type="text/javascript"> 
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-39211824-2']);
+        _gaq.push(['_trackPageview']);
 
-    
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
 
-    (function(){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src=document.location.protocol+"//d1agz031tafz8n.cloudfront.net/thedaywefightback.js/widget.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
-</script>
-<!--<![endif]-->
-
-
-
-    </body>
+</body>
 </html>
-

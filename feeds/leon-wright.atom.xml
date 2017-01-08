@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Techman83's Blog - Leon Wright</title><link href="http://techman83.me/" rel="alternate"></link><link href="http://techman83.me/feeds/leon-wright.atom.xml" rel="self"></link><id>http://techman83.me/</id><updated>2015-06-09T00:00:00+08:00</updated><entry><title>Powershell + Windows Update</title><link href="http://techman83.me/programming/2015/06/09/powershell.html" rel="alternate"></link><published>2015-06-09T00:00:00+08:00</published><updated>2015-06-09T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2015-06-09:/programming/2015/06/09/powershell.html</id><summary type="html">&lt;p&gt;Windows administration is part of my job that I don't enjoy as much as linux, but it is still necessary. Though Windows is becoming less and less required, a lot of software still relies on it. &lt;/p&gt;
+&lt;p&gt;Microsoft to their credit are making an effort to shift people onto their new …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Windows administration is part of my job that I don't enjoy as much as linux, but it is still necessary. Though Windows is becoming less and less required, a lot of software still relies on it. &lt;/p&gt;
+&lt;p&gt;Microsoft to their credit are making an effort to shift people onto their new OS before it becomes another Windows XP situation (Released in 2001, 4 OS' released in that time and it is still being used in a lot of places). However they seemed to have failed restricting the updates to Consumer machines only. &lt;/p&gt;
+&lt;p&gt;Having the update deploy to coporate machines (I've seen reports of it happening on Domain joined and Volume licensed machines) is all rather annoying and removing them only means they have a chance to come back next time the user updates. In an ideal world you'd use WSUS, but with a geographically disperse workforce often working in remote locations this isn't practical.&lt;/p&gt;
+&lt;p&gt;Enter &lt;a href="https://gallery.technet.microsoft.com/scriptcenter/2d191bcd-3308-4edd-9de2-88dff796b0bc/"&gt;PSWindowsUpdate&lt;/a&gt;. Now it didn't work on powershell 2.0 without a slight modification&lt;/p&gt;
+&lt;p&gt;PSWindowsUpdate.psm1 - It's top comment on one of the threads, If I remember where I'll make the attribution.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$PSVersionTable&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PSVersion&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tostring&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-ge&lt;/span&gt; &lt;span class="n"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;Get-ChildItem&lt;/span&gt; &lt;span class="n"&gt;-Path&lt;/span&gt; &lt;span class="nv"&gt;$PSScriptRoot&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Unblock&lt;/span&gt;&lt;span class="o"&gt;-File&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="nb"&gt;Get-ChildItem&lt;/span&gt; &lt;span class="n"&gt;-Path&lt;/span&gt; &lt;span class="nv"&gt;$PSScriptRoot&lt;/span&gt;&lt;span class="p"&gt;\*.&lt;/span&gt;&lt;span class="n"&gt;ps1&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="k"&gt;Foreach&lt;/span&gt;&lt;span class="n"&gt;-Object&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="nv"&gt;$_&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FullName&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I also removed the confirmation around the uninstall (I think it's just missing the argument to ignore it, but It was quicker for me just to remove it):&lt;/p&gt;
+&lt;p&gt;Get-WUUninstall.ps1 with confirmation removed from "Process', also added '/quiet /norestart'&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;Process&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;    
+      &lt;span class="k"&gt;If&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$KBArticleID&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="nv"&gt;$KBArticleID&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;$KBArticleID&lt;/span&gt; &lt;span class="o"&gt;-replace&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;KB&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+
+          &lt;span class="n"&gt;wusa&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="n"&gt;uninstall&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kb&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="nv"&gt;$KBArticleID&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="n"&gt;quiet&lt;/span&gt; &lt;span class="p"&gt;/&lt;/span&gt;&lt;span class="n"&gt;norestart&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="c"&gt;#End If $KBArticleID&lt;/span&gt;
+      &lt;span class="k"&gt;Else&lt;/span&gt;
+      &lt;span class="p"&gt;{&lt;/span&gt;
+          &lt;span class="n"&gt;wmic&lt;/span&gt; &lt;span class="n"&gt;qfe&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt;
+      &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="c"&gt;#End Else $KBArticleID&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="c"&gt;#End Process&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This is what I came up with and it appears to work well enough. It could use some extra checking and polishing, but we will have auto deploy and also as a utility app. If someone mentions it, they can be instructed to re-run it and it will try again. Also that's about as much time I wish to spend doing anything in powershell!&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;Import-Module&lt;/span&gt; &lt;span class="n"&gt;PSWindowsUpdate&lt;/span&gt;
+
+&lt;span class="nv"&gt;$ServiceID&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;Get-WUServiceManager&lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Select&lt;/span&gt; &lt;span class="n"&gt;ServiceID&lt;/span&gt;
+
+&lt;span class="c"&gt;# KB3035583 - GWX - Get Windows 10 AdWare&lt;/span&gt;
+&lt;span class="c"&gt;# KB2952664 - Compatibility Update for Upgrading Win 7 to Win 10&lt;/span&gt;
+&lt;span class="c"&gt;# KB3021917 - Phones Home to tell MS how your computer will perform with Win 10&lt;/span&gt;
+
+&lt;span class="nv"&gt;$kbIDs&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;KB3035583&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;KB2952664&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;KB3021917&amp;quot;&lt;/span&gt;
+
+&lt;span class="nv"&gt;$installed&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;Get-WUList&lt;/span&gt; &lt;span class="n"&gt;-ServiceID&lt;/span&gt; &lt;span class="nv"&gt;$ServiceID&lt;/span&gt; &lt;span class="n"&gt;-IsInstalled&lt;/span&gt; &lt;span class="n"&gt;-KBArticleID&lt;/span&gt; &lt;span class="nv"&gt;$kbIDs&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Select&lt;/span&gt; &lt;span class="n"&gt;KB&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$installed&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;write-host&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;We have some crud to remove&amp;quot;&lt;/span&gt;
+    &lt;span class="nb"&gt;Write-Host&lt;/span&gt; &lt;span class="nv"&gt;$installed&lt;/span&gt;
+
+    &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$update&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;$installed&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nb"&gt;Write-Host&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Removing &amp;quot;&lt;/span&gt; &lt;span class="nv"&gt;$update&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;KB&lt;/span&gt;
+        &lt;span class="nb"&gt;Get-WUUninstall&lt;/span&gt; &lt;span class="n"&gt;-KBArticleID&lt;/span&gt; &lt;span class="nv"&gt;$update&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;KB&lt;/span&gt;
+        &lt;span class="nb"&gt;Start-Sleep&lt;/span&gt; &lt;span class="n"&gt;-s&lt;/span&gt; &lt;span class="n"&gt;10&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;write-host&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;We&amp;#39;re Crap free&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nb"&gt;Start-Sleep&lt;/span&gt; &lt;span class="n"&gt;-s&lt;/span&gt; &lt;span class="n"&gt;10&lt;/span&gt;
+
+&lt;span class="nv"&gt;$tohide&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;Get-WUList&lt;/span&gt; &lt;span class="n"&gt;-ServiceID&lt;/span&gt; &lt;span class="nv"&gt;$ServiceID&lt;/span&gt; &lt;span class="n"&gt;-KBArticleID&lt;/span&gt; &lt;span class="nv"&gt;$kbIDs&lt;/span&gt; &lt;span class="n"&gt;-IsNotHidden&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="nv"&gt;$tohide&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;Write-Host&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hide ALL the CRAP!!!&amp;quot;&lt;/span&gt;
+    &lt;span class="nb"&gt;Write-Host&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$tohide&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Format-Table&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Out-String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$hide&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;$tohide&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nb"&gt;Write-Host&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Hiding &amp;quot;&lt;/span&gt; &lt;span class="nv"&gt;$hide&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;KB&lt;/span&gt;
+        &lt;span class="nb"&gt;Write-Host&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$hide&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Format-Table&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Out-String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="nv"&gt;$hide&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsHidden&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;$true&lt;/span&gt;
+        &lt;span class="nb"&gt;Start-Sleep&lt;/span&gt; &lt;span class="n"&gt;-s&lt;/span&gt; &lt;span class="n"&gt;10&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Things to note:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Get-WUList seems to take forever.&lt;/li&gt;
+&lt;li&gt;Get-WUList seems won't show what's current until after a reboot (some updates require a reboot and seem to not change their installed state until done).&lt;/li&gt;
+&lt;li&gt;You can iterate of an object or an array, but if your object is an array and you don't loop over it you'll be left scratching your head.&lt;/li&gt;
+&lt;/ul&gt;</content><category term="programming"></category><category term="powershell"></category><category term="windows"></category><category term="update"></category><category term="win10"></category></entry><entry><title>EventStreamr Talk at PLUG</title><link href="http://techman83.me/programming/2015/04/16/eventstreamr-talk-at-plug.html" rel="alternate"></link><published>2015-04-16T00:00:00+08:00</published><updated>2015-04-16T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2015-04-16:/programming/2015/04/16/eventstreamr-talk-at-plug.html</id><summary type="html">&lt;p&gt;
+&lt;iframe allowfullscreen="true" frameborder="0" height="315" src="//www.youtube.com/embed/qCzVX7-OJtA" width="560"&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+&lt;p&gt;This week I presented at PLUG, a brief history of AV, PLUG's involvement with Linux Conf AU and EventStreamr.&lt;/p&gt;
+&lt;p&gt;You can find EventStreamr on &lt;a href="https://github.com/plugorgau/eventstreamr-station"&gt;GitHub&lt;/a&gt; and &lt;a href="https://metacpan.org/pod/App::EventStreamr"&gt;CPAN&lt;/a&gt;&lt;/p&gt;</summary><content type="html">&lt;p&gt;
+&lt;iframe allowfullscreen="true" frameborder="0" height="315" src="//www.youtube.com/embed/qCzVX7-OJtA" width="560"&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+&lt;p&gt;This week I presented at PLUG, a brief history of AV, PLUG's involvement with Linux Conf AU and EventStreamr.&lt;/p&gt;
+&lt;p&gt;You can find EventStreamr on &lt;a href="https://github.com/plugorgau/eventstreamr-station"&gt;GitHub&lt;/a&gt; and &lt;a href="https://metacpan.org/pod/App::EventStreamr"&gt;CPAN&lt;/a&gt;&lt;/p&gt;</content><category term="av"></category><category term="plug"></category><category term="programming"></category></entry><entry><title>WebService::Strava - A Strava API Perl Client</title><link href="http://techman83.me/programming/2014/08/26/webservice_strava.html" rel="alternate"></link><published>2014-08-26T00:00:00+08:00</published><updated>2014-08-26T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-08-26:/programming/2014/08/26/webservice_strava.html</id><summary type="html">&lt;p&gt;Being a Cyclist and a Geek, I like to track things. Being a Sys Admin and a Programmer I also like this to happen in the most efficient manner possible. Insert &lt;a href="http://strava.com"&gt;Strava&lt;/a&gt;, which is basically a social networking platform for cyclists/runners/swimmers (I believe they're adding more as well …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Being a Cyclist and a Geek, I like to track things. Being a Sys Admin and a Programmer I also like this to happen in the most efficient manner possible. Insert &lt;a href="http://strava.com"&gt;Strava&lt;/a&gt;, which is basically a social networking platform for cyclists/runners/swimmers (I believe they're adding more as well). Strava has an App for recording things or you can use any app or device that can output in one of the supported formats (GPX, FIT and TCX).&lt;/p&gt;
+&lt;p&gt;Strava also has an &lt;a href="http://strava.github.io"&gt;api&lt;/a&gt; and I was looking to implement something for &lt;a href="https://metacpan.org/pod/Exobrain"&gt;Exobrain&lt;/a&gt; and noted that whilst a Perl Client existed for Strava it was based on V2 API which no longer exists. So after pinging the Maintainer I was given co-maint on &lt;a href="https://metacpan.org/pod/WebService::Strava"&gt;WebService::Strava&lt;/a&gt; and today I was able to release my first module on cpan!&lt;/p&gt;
+&lt;p&gt;Probably the easiest way to install it is via cpanm + local::lib. On an Ubuntu distro you can grab these with apt:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo apt-get install cpanminus liblocal-lib-perl
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then you can configure local::lib&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ perl -Mlocal::lib &amp;gt;&amp;gt; ~/.bashrc
+$ &lt;span class="nb"&gt;eval&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;perl -Mlocal::lib&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;then install WebService::Strava&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cpanm WebService::Strava
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once installed you will need to configure your authentication. After setting up your application in your &lt;a href="https://www.strava.com/settings/api"&gt;profile&lt;/a&gt; just run&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;strava --setup
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It will ask for your client id, client secret and authenticate with the strava api. You will have to copy the 'code' from the url bar as Strava doesn't yet implement 'urn:ietf:wg:oauth:2.0:oob' standard for scripts.&lt;/p&gt;
+&lt;p&gt;After which you can in a few lines access most of the API&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/usr/env/perl&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="n"&gt;strict&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="n"&gt;feature&lt;/span&gt; &lt;span class="sx"&gt;qw(say)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;WebService::&lt;/span&gt;&lt;span class="n"&gt;Strava&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$strava&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nn"&gt;WebService::&lt;/span&gt;&lt;span class="n"&gt;Strava&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$athlete&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;$strava&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;athlete&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="n"&gt;say&lt;/span&gt; &lt;span class="nv"&gt;$athlete&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;firstname&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Which outputs&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;leon@bofh-sider:/tmp$ perl strava.pl 
+Leon
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Full documentation is available on &lt;a href="https://metacpan.org/pod/WebService::Strava"&gt;cpan&lt;/a&gt; and you can contribute, ask for features on &lt;a href="https://github.com/techman83/WebService-Strava3"&gt;github&lt;/a&gt;&lt;/p&gt;</content><category term="programming"></category><category term="perl"></category><category term="cycling"></category><category term="strava"></category></entry><entry><title>Jira Automation + Copying Fields</title><link href="http://techman83.me/programming/2014/08/04/jira_automation.html" rel="alternate"></link><published>2014-08-04T00:00:00+08:00</published><updated>2014-08-04T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-08-04:/programming/2014/08/04/jira_automation.html</id><summary type="html">&lt;p&gt;We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It's also far more reliable, far easier to keep up-to-date and runs on Linux!&lt;/p&gt;
+&lt;p&gt;In the latest update I had a chance to really push the new version of the &lt;a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin"&gt;Jira Automation Plugin&lt;/a&gt;, which is a free and open source plugin. Written by Atlassian to support their internal processes, It's a little nugget of awesome that has really extended what we can do without writing bulk custom code.
+</summary><content type="html">&lt;p&gt;We heavily utilise Jira at my place of work and one of our non IT based departments use it in their business processes. It was chosen to replace a custom developed, unreliable .NET application and apart from minor bending to suit the processes Jira is an excellent replacement. It's also far more reliable, far easier to keep up-to-date and runs on Linux!&lt;/p&gt;
+&lt;p&gt;In the latest update I had a chance to really push the new version of the &lt;a href="https://marketplace.atlassian.com/plugins/com.atlassian.plugin.automation.jira-automation-plugin"&gt;Jira Automation Plugin&lt;/a&gt;, which is a free and open source plugin. Written by Atlassian to support their internal processes, It's a little nugget of awesome that has really extended what we can do without writing bulk custom code.
+&lt;/p&gt;
+&lt;p&gt;The team that maintains the Jira Automation plugin implemented a feature request I raised for &lt;a href="https://bitbucket.org/atlassianlabs/automation/issue/10/copy-field-contents-to-another"&gt;Copying fields&lt;/a&gt;, which they implented and included in their next release. However being a simple field copy, the data needs to be exactly how the destination expects.&lt;/p&gt;
+&lt;p&gt;Insert the &lt;a href="https://marketplace.atlassian.com/plugins/com.onresolve.jira.groovy.groovyrunner"&gt;Script Runner&lt;/a&gt; plugin. Which offers a massive amount of things you can extend without writing a custom Jira Plugin. Whilst I've written one before I'm completely allergic to the concept, as it requires Java ramp up that I'm not really interested in.&lt;/p&gt;
+&lt;p&gt;When I first used the Script Runner plugin, external scripts were really the only option for doing things. Often when I need to hack something together a post action script is my default go to, but in the case of the combination of the Automation Plugin gave results that didn't work in practice and required a lot more effort to do the job.&lt;/p&gt;
+&lt;p&gt;The easiest way to give the Automation plugin data that the destination can accept is to use a transitionary custom field. I was initially using a post action script to populate it, however it populates it after the Trigger that fires the automation and gets blatted in the process. Which is less than ideal.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Setting a field to contain the raw username&lt;/em&gt;&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// Accessing Customfield data&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.ComponentManager&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.CustomFieldManager&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Updating Custom field data&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.ModifiedValue&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.util.DefaultIssueChangeHolder&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.util.IssueChangeHolder&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.fields.CustomField&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Define Field IDs&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;assignee&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;customfield_11402&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;assigneeTransition&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;customfield_11705&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Load Custom Fields from Jira&lt;/span&gt;
+&lt;span class="n"&gt;ComponentManager&lt;/span&gt; &lt;span class="n"&gt;componentManager&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ComponentManager&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getInstance&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;CustomFieldManager&lt;/span&gt; &lt;span class="n"&gt;customFieldManager&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;componentManager&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldManager&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;CustomField&lt;/span&gt; &lt;span class="n"&gt;assigneeSrc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;customFieldManager&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldObject&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;assignee&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;CustomField&lt;/span&gt; &lt;span class="n"&gt;assigneeTransitionCF&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;customFieldManager&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldObject&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;assigneeTransition&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Load Values&lt;/span&gt;
+&lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;assigneeVal&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;issue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldValue&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;assigneeSrc&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;getUsername&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Write data&lt;/span&gt;
+&lt;span class="n"&gt;IssueChangeHolder&lt;/span&gt; &lt;span class="n"&gt;changeHolder&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;DefaultIssueChangeHolder&lt;/span&gt;&lt;span class="o"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;assigneeTransitionCF&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;updateValue&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;issue&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ModifiedValue&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;issue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldValue&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;assigneeTransitionCF&lt;/span&gt;&lt;span class="o"&gt;),&lt;/span&gt; &lt;span class="n"&gt;assigneeVal&lt;/span&gt;&lt;span class="o"&gt;),&lt;/span&gt; &lt;span class="n"&gt;changeHolder&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now the Script Runner plugin can produce &lt;a href="https://jamieechlin.atlassian.net/wiki/display/GRV/Scripted+Fields"&gt;scripted fields&lt;/a&gt;. Which can return information when queried (cached by default, but caching can be disabled). Which is a perfect companion to the Automation Plugin.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Returning a raw username compatible with the Assignee Field&lt;/em&gt;&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.ComponentManager&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.CustomFieldManager&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.atlassian.jira.issue.fields.CustomField&lt;/span&gt;
+
+&lt;span class="nf"&gt;if&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt; &lt;span class="n"&gt;issue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldValue&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ComponentManager&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getInstance&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldManager&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldObject&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;customfield_10400&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="c1"&gt;// Get username from &amp;#39;Custom Field 10400&amp;#39;&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;issue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldValue&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ComponentManager&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getInstance&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldManager&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getCustomFieldObject&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;customfield_10400&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;)).&lt;/span&gt;&lt;span class="na"&gt;getUsername&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Update 2014-08-08 - It's probably a good idea to check that 10400 contains a user object before you fill your logs with Null Pointer Exceptions during indexing!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Automatically generate a Date compatible with the Due Date field&lt;/em&gt;&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.sql.Timestamp&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.util.Date&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.text.SimpleDateFormat&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.text.DateFormat&lt;/span&gt;
+
+&lt;span class="c1"&gt;//Returns current date + 4 weeks - formatted &amp;#39;26/Jul/14&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;SimpleDateFormat&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;d/MMM/yy&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;format&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Timestamp&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;java&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;util&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getTime&lt;/span&gt;&lt;span class="o"&gt;()).&lt;/span&gt;&lt;span class="na"&gt;plus&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;28&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Though the script runner is based on Groovy, you can import (at least to my limited knowledge) any Java class available within the Jira framework. The Jira Automation + Script Runner plugins complement each other perfectly and really give you a huge amount of flexibility without writing a custom Plugin. As long as the data for the destination is valid the Automation plugin will happily set the field and it's trivial to provide that data via a Scripted field.&lt;/p&gt;
+&lt;p&gt;Happy Days!&lt;/p&gt;</content><category term="programming"></category><category term="groovy"></category><category term="jira"></category><category term="automation"></category><category term="scriptrunner"></category></entry><entry><title>My Xperia Z broke itself!</title><link href="http://techman83.me/personal/2014/07/29/xperiaz_warranty.html" rel="alternate"></link><published>2014-07-29T00:00:00+08:00</published><updated>2014-07-29T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-07-29:/personal/2014/07/29/xperiaz_warranty.html</id><summary type="html">&lt;p&gt;Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The real big tick in Sony’s favour was the fact there was a &lt;a href="http://developer.sonymobile.com/unlockbootloader/unlock-yourboot-loader/"&gt;factory supported unlocking method&lt;/a&gt;, the usual caveats apply but I’ll vote with my wallet every time (are you listening Samsung!).&lt;/p&gt;
+&lt;p&gt;I’m a massive gadget geek and I must admit I love my Xperia Z. The size is great, the screen resolution (1920x1080) is awesome, takes great photos for a phone and the cpu is nice and fast leaving me as a mostly hassle free CyanogenMod nightly build user.&lt;/p&gt;
+&lt;p&gt;However a week ago… :-(
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/71ss6i3x631z7ty/01-XperiaZ_Crack.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/fmf83i7eqahv65k/01-XperiaZ_Crack-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Sony Xperia Z&lt;figcaption/&gt;
+&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;So how did it happen? Did I drop it? Well no, I set my alarm put it on charge and went to sleep. The next morning I woke up and it took me a little while to wake enough to work out why I couldn’t turn off my alarm. Once waking up properly I noticed the crack and the fact that to the right of the crack the digitiser no longer functioned.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/7r0zj0e1cq1uwfi/02-XperiaZ_Crack.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/iy1vu2sx704ojxh/02-XperiaZ_Crack-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Cracked!&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Now I had a bumper case and screen protectors waiting for my shiny new toy to arrive, when I originally ordered it. So I was quite flumuxed to find my screen cracked, for all intents and purposes unsuable. After recovering from the intial shock, I did what any good geek would do; search the internet! It did not take long and I found numerous &lt;a href="http://forum.xda-developers.com/xperia-z/help/xperia-z-zr-ul-z-ultra-display-issue-1-t2515293"&gt;examples of the same issue&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So off to Vodafone I went, after showing the shop assistant the details of the issue; He noted that the device apart from the crack and a couple of light marks on the back, the phone was almost spotless. Unfortunately he may not have been aware exactly how ridgid their Repair Centers policies are. I noted the status of the repair changed to ‘Awaiting Customer Response’ I gave them a call, which resulted being informed that without formal notification from Sony all physical damage is not covered by warranty and that I have to pay $350 for it to be repaired. The representative couldn’t understand why I didn’t want to pay and said I would have to take it up with Sony.&lt;/p&gt;
+&lt;p&gt;I called Sony, to which their response was they would need to to assess the phone at their service center. Which required rejecting Vodafone’s quote and getting the phone shipped back to me. So I have the device back and am waiting for shipping details from Sony’s service center. By time the phone gets back to me It will have travelled ~16,000kms (Both Sony’s Mobile and Vodafone’s service centers are on the East Coast and I live on the West Coast)!&lt;/p&gt;
+&lt;p&gt;I’ll add updates as I get them, but I do hope Sony come to the party here. It’s inexcusable for a screen to break seemingly of it’s own accord, I would completely understand if I dropped it or stood on it and it broke; However that is not the case here.&lt;/p&gt;
+&lt;p&gt;UPDATE 2014-08-06: Fonebiz finally received my device. As a private individual I had to ship it via Road Freight (Had a lithium ion battery, so considered dangerous goods...)  so it took a week. I should have spoken nicely to the warehouse guys at work, they have the necessary approvals and qualifications to do so. Aus Post info &lt;a href="http://auspost.com.au/parcels-mail/dangerous-and-prohibited-items.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;UPDATE 2014-08-09: It's fixed! Took them no time at all, it was shipped the day after they received it and I received it the day after that. Very happy. The only things weren't replaced were the rear cover and Main PCB. PCB due to have been flashed with non Sony firmware, I'll leave my issues with that aside for now as that was something I knew upfront before purchasing the device. Some support for the modding community is better than none.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/axql2cwpvlpy80r/IMG_1059.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/edt2efp663fsej0/IMG_1059-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Fixed!&lt;figcaption/&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="warranty"></category><category term="sony"></category><category term="defect"></category><category term="vodafone"></category></entry><entry><title>Freehub Repair/Replace Clutch Master Cylinder</title><link href="http://techman83.me/personal/2014/03/23/repair_freehub.html" rel="alternate"></link><published>2014-03-23T00:00:00+08:00</published><updated>2014-03-23T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-03-23:/personal/2014/03/23/repair_freehub.html</id><summary type="html">&lt;p&gt;After the usual Saturday shopping I decided I needed to repair my Ute and my bike. I figured the best place to start was replacing my Clutch Master Cylinder, after 18 years of service it was no longer operating very well. Driving around wasn't so bad, but parking had become …&lt;/p&gt;</summary><content type="html">&lt;p&gt;After the usual Saturday shopping I decided I needed to repair my Ute and my bike. I figured the best place to start was replacing my Clutch Master Cylinder, after 18 years of service it was no longer operating very well. Driving around wasn't so bad, but parking had become quite tricky. The weekend before I replaced the Slave cyclinder, which was leaking. However wasn't the cause of the issue. It was a pretty simple job to replace and Leish (My wife) helped me bleed the air out of the system. Which took longer than fitting it.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/25zklmvp4d8pkey/IMG_20140322_151447.jpg?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/86dmrgrkb2dtk4i/IMG_20140322_151447-sml.jpg?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Clutch Master Cylinder&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;After taking the Ute for a test drive it was time to fix my loose wheel on my bike. I had dropped by the Local Bike Shop on Friday, to price up a replacement free hub. Only to find that it was unlikely that I'd be able to get one for the OEM rims that came with the bike and they'd have to take the wheel to the service centre to even find out. With that in mind I picked up a bigger set of Allen keys, which turned out to be not big enough to pull out the freehub, even though 10mm is what the Shimano freehubs take. &lt;/p&gt;
+&lt;p&gt;Dropping by an engineering supplies shop, I grabbed the only 11mm Allen key they head. Even the guy behind the counter was a little surprised that they even had one. Testing it was correct lead me to fixing the problem. All that was wrong was the freehub was loose.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/e0a6uimt7z1kkdx/IMG_0305.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/mlhpudvkbbcv9bc/IMG_0305-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;11m Allen Key&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;So I stripped it all down, gave it all a clean and put it back together. Ready for another week of commuting. Hopefully in the not too distant future, I'll get me a pair of &lt;a href="http://www.mavic.com/wheels-road-triathlon-aksium-s"&gt;Mavik Aksiums&lt;/a&gt;. My boss has a pair with around 14,000k on them and had very little trouble, beyond some loose spokes (which I fixed with some loctite and a spoke spanner I keep in my desk at work).&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/wwbrh2q8t2dgcek/IMG_0307.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/bni3uiwhbzreeu9/IMG_0307-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Freehub&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/zuuhr1zxp3718tu/IMG_0313.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/ff2myro3vgadef1/IMG_0313-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Freehub - Axle - Cassete&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/nr9qee70u1l6q9v/IMG_0332.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/tucz1pjkqj49nht/IMG_0332-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Allen Keys&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/xu6s82hcy0zzo86/IMG_0318.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/ib61wg6rfvp5mrf/IMG_0318-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Refitted&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/ppacwijb45i65q0/IMG_0309.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/8ujq3rino6qcyd4/IMG_0309-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Tools Used&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/cj5zkifa4elp7u9/IMG_0331.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/xgubmuud9kybeub/IMG_0331-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;All Fixed&lt;figcaption/&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="diy"></category><category term="repair"></category><category term="cycling"></category></entry><entry><title>Dancing with WebSockets</title><link href="http://techman83.me/programming/2014/02/20/dancing_with_websockets.html" rel="alternate"></link><published>2014-02-20T00:00:00+08:00</published><updated>2014-02-20T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-02-20:/programming/2014/02/20/dancing_with_websockets.html</id><summary type="html">&lt;p&gt;I learnt during the development of the &lt;a href="https://github.com/plugorgau/eventstreamr"&gt;EventStreamR&lt;/a&gt; frontend that websockets are cool! Another learning project of mine is &lt;a href="https://github.com/techman83/NanodeControl"&gt;NanodeControl&lt;/a&gt; and after learning what all the cool new things are available I wanted to have a crack at making it more modern.&lt;/p&gt;
+&lt;p&gt;After a bit of search around I came …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I learnt during the development of the &lt;a href="https://github.com/plugorgau/eventstreamr"&gt;EventStreamR&lt;/a&gt; frontend that websockets are cool! Another learning project of mine is &lt;a href="https://github.com/techman83/NanodeControl"&gt;NanodeControl&lt;/a&gt; and after learning what all the cool new things are available I wanted to have a crack at making it more modern.&lt;/p&gt;
+&lt;p&gt;After a bit of search around I came across &lt;a href="http://search.cpan.org/~ironcamel/Dancer-Plugin-WebSocket-0.0100/lib/Dancer/Plugin/WebSocket.pm"&gt;Dancer::Plugin::WebSocket&lt;/a&gt;. Expanding on the example provided here is a simple web page with simple messages and forked calls. It utilises the the Twiggy AnyEvent based non-blocking (asynchronous) and lightweight PSGI web server.&lt;/p&gt;
+&lt;p&gt;You'll need some libraries, my favourite way to install them is &lt;a href="http://search.cpan.org/~miyagawa/App-cpanminus-1.7001/lib/App/cpanminus.pm"&gt;cpanm&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;cpanm -S Plack Twiggy Dancer Dancer::Plugin::WebSocket AnyEvent::Util
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;app.pl:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="n"&gt;Dancer&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;:syntax&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;Dancer::Plugin::&lt;/span&gt;&lt;span class="n"&gt;WebSocket&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;AnyEvent::&lt;/span&gt;&lt;span class="n"&gt;Util&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;logger&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;console&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="nb"&gt;log&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;core&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;sub &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="sx"&gt;q[&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;head&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;script&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;      var ws_path = &amp;quot;ws://localhost:5000/_hippie/ws&amp;quot;;&lt;/span&gt;
+&lt;span class="sx"&gt;      var socket = new WebSocket(ws_path);&lt;/span&gt;
+&lt;span class="sx"&gt;      socket.onopen = function() {&lt;/span&gt;
+&lt;span class="sx"&gt;          document.getElementById(&amp;#39;conn-status&amp;#39;).innerHTML = &amp;#39;Connected&amp;#39;;&lt;/span&gt;
+&lt;span class="sx"&gt;      };&lt;/span&gt;
+&lt;span class="sx"&gt;      socket.onmessage = function(e) {&lt;/span&gt;
+&lt;span class="sx"&gt;          var data = JSON.parse(e.data);&lt;/span&gt;
+&lt;span class="sx"&gt;          console.log(data);&lt;/span&gt;
+&lt;span class="sx"&gt;          if (data.msg) {&lt;/span&gt;
+&lt;span class="sx"&gt;            document.getElementById(&amp;#39;content&amp;#39;).innerHTML = data.msg;&lt;/span&gt;
+&lt;span class="sx"&gt;            setTimeout(function() {&lt;/span&gt;
+&lt;span class="sx"&gt;              document.getElementById(&amp;#39;content&amp;#39;).innerHTML = &amp;#39;No current message&amp;#39;;&lt;/span&gt;
+&lt;span class="sx"&gt;            }, 5000);&lt;/span&gt;
+&lt;span class="sx"&gt;          }&lt;/span&gt;
+&lt;span class="sx"&gt;      };&lt;/span&gt;
+&lt;span class="sx"&gt;      function send_msg(message) {&lt;/span&gt;
+&lt;span class="sx"&gt;          socket.send(JSON.stringify({ msg: message }));&lt;/span&gt;
+&lt;span class="sx"&gt;      }&lt;/span&gt;
+&lt;span class="sx"&gt;      function get_long() {&lt;/span&gt;
+&lt;span class="sx"&gt;        var xmlHttp = null;&lt;/span&gt;
+
+&lt;span class="sx"&gt;        xmlHttp = new XMLHttpRequest();&lt;/span&gt;
+&lt;span class="sx"&gt;        xmlHttp.open( &amp;quot;GET&amp;quot;, &amp;#39;/long&amp;#39;, false );&lt;/span&gt;
+&lt;span class="sx"&gt;        xmlHttp.send( null );&lt;/span&gt;
+&lt;span class="sx"&gt;        document.getElementById(&amp;#39;content&amp;#39;).innerHTML = &amp;#39;Waiting...&amp;#39;;&lt;/span&gt;
+&lt;span class="sx"&gt;      }&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    Connection Status: &amp;lt;span id=&amp;quot;conn-status&amp;quot;&amp;gt; Disconnected &amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;input value=&amp;quot;Send Message&amp;quot; type=button onclick=&amp;quot;send_msg(&amp;#39;hello&amp;#39;)&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;input value=&amp;quot;Get Long Call&amp;quot; type=button onclick=&amp;quot;get_long()&amp;quot; /&amp;gt;&amp;lt;br&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;span id=&amp;quot;content&amp;quot;&amp;gt; No current message &amp;lt;/span&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;    &amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;span class="sx"&gt;]&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/long&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;sub &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Stations Called&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;fork_call&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Forking&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+      &lt;span class="nb"&gt;sleep&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;sub &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Forked result!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="n"&gt;ws_send&lt;/span&gt; &lt;span class="nv"&gt;$data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Message Sent&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+
+&lt;span class="n"&gt;dance&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Launch the script with plackup:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;plackup -s Twiggy socket_dance.pl -p 5000
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Browse to http://localhost:5000 and you should be greeted with a page. Press the buttons and watch the magic happen!&lt;/p&gt;
+&lt;p&gt;I did encounter issues with the latest version of chrome on page refreshes sending bad data crashing twiggy, looks like there are some &lt;a href="https://github.com/miyagawa/Twiggy/pull/39"&gt;bug reports&lt;/a&gt; indirectly relating to it. However it does work on initial page load and seems to work correctly on firefox :-) &lt;/p&gt;
+&lt;p&gt;NOTE: I found a solution, instead of using the builtin AnyEvent::Loop, use EV. From what I've read it's a faster and more robust event backend. The errors from chrome still occur, however the server keeps going inside of barfing and dying. As long as EV is available AnyEvent will use it (unless otherwise configured).&lt;/p&gt;</content><category term="programming"></category><category term="perl"></category><category term="dancer"></category><category term="websockets"></category></entry><entry><title>Bottom Bracket Refit + Dropout repair</title><link href="http://techman83.me/personal/2014/02/12/refit_bb.html" rel="alternate"></link><published>2014-02-12T00:00:00+08:00</published><updated>2014-02-12T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-02-12:/personal/2014/02/12/refit_bb.html</id><summary type="html">&lt;p&gt;As a follow up to my &lt;a href="/personal/2014/02/06/repair_bb.html"&gt;previous post&lt;/a&gt;, I ordered an upgraded BB. Being a Shimano HollowTech II, the different screw in type BBs are interchangeable. So long as you get the correct thread and width. Mine had the english thread (1.37x24) and the bracket width of 68mm. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;As a follow up to my &lt;a href="/personal/2014/02/06/repair_bb.html"&gt;previous post&lt;/a&gt;, I ordered an upgraded BB. Being a Shimano HollowTech II, the different screw in type BBs are interchangeable. So long as you get the correct thread and width. Mine had the english thread (1.37x24) and the bracket width of 68mm. The bike shop had stock of a Dura-Ace SM-BB9000 in their warehouse, being only a little more than the equivilent Shimano 105 I decided to spring for the upgrade (mine only had a Tiagra, so quite an upgrade indeed).&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/65i87lct9iihuoz/IMG_0288.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/a64aukzmzvuys4s/IMG_0288-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;New vs Old&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The BB was pretty easy to fit in the end. Grease the BB threads, put back together, slide in the crank (with a few gentle taps with a plastic mallet drive it home) and a bit of thread locker on the crank arm bolts.&lt;/p&gt;
+&lt;p&gt;I also gave everything a really good clean whilst it was apart. The chain rings were quite filthy and there a few places that are difficult to reach when it's all together.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/wjnva7zyhgxckem/IMG_0297.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/x5nqekwl1ghzjuk/IMG_0297-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;BB Fitted&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/wc6sh9y0vdz26v5/IMG_0285.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/inbo4rcwtuu2z6y/IMG_0285-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Shimano 105 Crankset&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The dropouts were something else I addressed. When I first got the bike it came with Skewers that were cheap and didn't have a lot of clamping force. Initially the replacements I got helped, but the damage was done and it indented the dropout in the wrong position. No matter how much force I used, eventually the wheel would find it's way into that incorrect position. Lately it's been happening nearly every day, which was driving me mental.&lt;/p&gt;
+&lt;p&gt;So it gave me a chance to use my new found favourite product, JB Weld (2 part epoxy steel resin). I filled in the incorrect position so I could reset it and create a new one. So far it appears to be working quite well. Though I need a new skewer as I cracked it with all the force I had used to try and stop the wheel from moving.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/u3s8j95c0l8cshn/IMG_0293.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/i99b4zywqqu909f/IMG_0293-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Dropout Repair&lt;figcaption/&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="diy"></category><category term="repair"></category><category term="cycling"></category></entry><entry><title>Git: Bah, wrong branch!</title><link href="http://techman83.me/programming/2014/02/11/bah_wrong_branch.html" rel="alternate"></link><published>2014-02-11T00:00:00+08:00</published><updated>2014-02-11T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-02-11:/programming/2014/02/11/bah_wrong_branch.html</id><summary type="html">&lt;p&gt;I love git, it's a really great tool. However no matter how used I get to my workflows I eventually end up commiting something into the wrong branch!&lt;/p&gt;
+&lt;p&gt;And although I tend to use a custom bash shell called &lt;a href="https://github.com/rtomayko/git-sh"&gt;git-sh&lt;/a&gt; with a full colour prompt, with all the relevant information:&lt;/p&gt;
+!dev-home&amp;gt;
+&lt;/pre&gt;
+
+
+</summary><content type="html">&lt;p&gt;I love git, it's a really great tool. However no matter how used I get to my workflows I eventually end up commiting something into the wrong branch!&lt;/p&gt;
+&lt;p&gt;And although I tend to use a custom bash shell called &lt;a href="https://github.com/rtomayko/git-sh"&gt;git-sh&lt;/a&gt; with a full colour prompt, with all the relevant information:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;master &lt;span class="nv"&gt;u&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;!dev-home&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+
+
+&lt;p&gt;I somehow still manage to commit in the wrong place. So after doing it again today I figured I'd use some git functionality to resolve it.&lt;/p&gt;
+&lt;p&gt;Ahh time to write some code.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;master &lt;span class="nv"&gt;u&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;!dev-home&amp;gt; tee somescript.pl
+!#/usr/bin/perl
+!#/usr/bin/perl
+
+
+print &lt;span class="s2"&gt;&amp;quot;I&amp;#39;m a script...\n&amp;quot;&lt;/span&gt;
+print &lt;span class="s2"&gt;&amp;quot;I&amp;#39;m a script...\n&amp;quot;&lt;/span&gt;
+
+master &lt;span class="nv"&gt;u&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;!dev-home&amp;gt; add somescript.pl 
+master &lt;span class="nv"&gt;u&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;!dev-home *&amp;gt; commit somescript.pl -m &lt;span class="s1"&gt;&amp;#39;somescript added&amp;#39;&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;master 8f922af&lt;span class="o"&gt;]&lt;/span&gt; somescript added
+ &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;3&lt;/span&gt; insertions&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+  create mode &lt;span class="m"&gt;100644&lt;/span&gt; somescript.p
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Bah, I commited to the wrong branch.. Again! I know, how 'bout I cherry pick that commit into the branch I wanted.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;master u+1!dev-home&amp;gt; checkout dev
+Switched to branch &lt;span class="s1"&gt;&amp;#39;dev&amp;#39;&lt;/span&gt;
+
+dev!dev-home&amp;gt; cherry-pick 8f922af
+&lt;span class="o"&gt;[&lt;/span&gt;dev aeb40b7&lt;span class="o"&gt;]&lt;/span&gt; somescript added
+ &lt;span class="m"&gt;1&lt;/span&gt; file changed, &lt;span class="m"&gt;3&lt;/span&gt; insertions&lt;span class="o"&gt;(&lt;/span&gt;+&lt;span class="o"&gt;)&lt;/span&gt;
+  create mode &lt;span class="m"&gt;100644&lt;/span&gt; somescript.p
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now it's in the right place!&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dev!dev-home&amp;gt; show
+commit aeb40b782a53c73e6cc2b4b4f87074b026d7e6c2
+Author: Leon Wright &amp;lt;leon.wright@imdexlimited.com&amp;gt;
+Date:   Tue Feb &lt;span class="m"&gt;11&lt;/span&gt; 15:11:01 &lt;span class="m"&gt;2014&lt;/span&gt; +0800
+
+    somescript added
+
+    diff --git a/somescript.pl b/somescript.pl
+    new file mode 100644
+    index 0000000..6145323
+    --- /dev/null
+    +++ b/somescript.pl
+    @@ -0,0 +1,3 @@
+    +!#/usr/bin/perl
+    +
+    +print &lt;span class="s2"&gt;&amp;quot;I&amp;#39;m a script...\n&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hmm, but master has the commit that I don't want in it. Good thing I hadn't pushed that to my remote repository&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;master u+1!dev-home&amp;gt; git reset --hard origin/master 
+HEAD is now at &lt;span class="m"&gt;3761131&lt;/span&gt; &lt;span class="nb"&gt;test&lt;/span&gt; xml stuffs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Normality restored!&lt;/p&gt;</content><category term="programming"></category><category term="git"></category></entry><entry><title>Bottom Bracket Removal</title><link href="http://techman83.me/personal/2014/02/06/repair_bb.html" rel="alternate"></link><published>2014-02-06T00:00:00+08:00</published><updated>2014-02-06T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-02-06:/personal/2014/02/06/repair_bb.html</id><summary type="html">&lt;figure class="right"&gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/wuef9h5akftehfh/IMG_0235.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/c8g8rtk0k41lnzr/IMG_0235-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Shimano BB - 4500&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;For those that don't know me, I like to cycle. Though I do find it difficult to fit the time in, I find it really easy to make it part of my commute to work. Commuting however is pretty hard on your equipment. Especially if you're not afraid of a bit of water. (I'm not, not even horizontal rain!)&lt;/p&gt;
+</summary><content type="html">&lt;figure class="right"&gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/wuef9h5akftehfh/IMG_0235.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/c8g8rtk0k41lnzr/IMG_0235-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Shimano BB - 4500&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;For those that don't know me, I like to cycle. Though I do find it difficult to fit the time in, I find it really easy to make it part of my commute to work. Commuting however is pretty hard on your equipment. Especially if you're not afraid of a bit of water. (I'm not, not even horizontal rain!)&lt;/p&gt;
+
+
+&lt;p&gt;Another passion of mine is repairing things. Buying a complete replacement is always a last resort and it feels really wrong to pay someone to do something knowing full well that I'm more than capable of doing it myself.&lt;/p&gt;
+&lt;p&gt;I noticed earlier this week that my pedaling didn't feel all that smooth. Upon investigation I noted a small amount of play in my crank shaft. I decided it wasn't bad enough to not commute for the week, so I waited till this evening to strip it down. After stripping it all down and inspecting the bearings, I found the issue straight away. The drive side bearing had a lot of play in it and when rotating it, it felt very gritty. Off to the bike shop tomorrow to buy a replacement, I might even spring for an upgrade to a Dura Ace BB.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/fflrjlee0bos2zu/IMG_0242.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/jstpqfld43bvfp9/IMG_0242-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="diy"></category><category term="repair"></category><category term="cycling"></category></entry><entry><title>Automating AV: EventStreamr</title><link href="http://techman83.me/programming/2014/01/20/eventstreamr.html" rel="alternate"></link><published>2014-01-20T00:00:00+08:00</published><updated>2014-01-20T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-01-20:/programming/2014/01/20/eventstreamr.html</id><summary type="html">&lt;p&gt;&lt;a href="https://github.com/lukejohnosmahi/eventstreamr/"&gt;EventStreamR&lt;/a&gt; come to inception from a collection of experiences amongst our local LUG the &lt;a href="https://www.plug.org.au"&gt;Perth Linux User Group&lt;/a&gt;. Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://github.com/lukejohnosmahi/eventstreamr/"&gt;EventStreamR&lt;/a&gt; come to inception from a collection of experiences amongst our local LUG the &lt;a href="https://www.plug.org.au"&gt;Perth Linux User Group&lt;/a&gt;. Although we call ourselves PLUG, we have members from all over the state. Western Australia being quite large, 2,529,875 square km or over 10 times bigger than Victoria; so some of our members find it quite difficult to attend. A few years ago an initiave started by &lt;a href="http://blog.james.rcpt.to/"&gt;James Bromberger&lt;/a&gt; was to film and live stream all PLUG talks so that every member had an oppurtunity to attend our meetings, even if they couldn't necessarily make it in person.&lt;/p&gt;
+&lt;p&gt;Between our experience streaming and attending LCA2013 to get a feel for how the conference ran, we had come to the conclusion that the Open Source Video mixing stack we use (DVswitch), whilst being easy to use and quite fit for purpose; it can be a little unreliable. Along with that DV aka Digital Video as a dying standard. To my knowledge there isn't a lot of work being put into the project as the world is moving on from DV. In light of all that we had come up with a list of requirements to bring reliability to the table.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open Source&lt;/li&gt;
+&lt;li&gt;Be able to scale up and down&lt;/li&gt;
+&lt;li&gt;Easy to setup and use&lt;/li&gt;
+&lt;li&gt;Work on any hardware&lt;/li&gt;
+&lt;li&gt;Central Configuration Management + Control&lt;/li&gt;
+&lt;li&gt;Able to operate independently (Locations with no network or failure of networking)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ability to scale down was particularly important to us, as we want to be able to use this solution at our local LUG and also encourage other LUGs to generate content. Which was something that I felt was lacking in some of the established solutions (eg. Matterhorn, though I'm happy to be shown otherwise). So after gathering our requirements, there was also figuring out what problems we needed to solve.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DVswitch - It sometimes goes bang&lt;/li&gt;
+&lt;li&gt;DVgrab - does not fail gracefully&lt;/li&gt;
+&lt;li&gt;Setup for multiple stations and rooms is time consuming&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are 2 major components to EventStreamR, I'll cover the engine that sits in the background doing all the hardwork. I had pondered for some time about how I was going to solve the above problems and also meet our requirements. I felt Perl would be up to the challenge (and also happens to be the language I have the most exeprience in). It's a language I frequently use to glue things together in my day job and there are many libraries availble, which means less time re-inventing the wheel.&lt;/p&gt;
+&lt;p&gt;With &lt;a href="https://github.com/lukejohnosmahi"&gt;Luke&lt;/a&gt; writing the framework for the frontend, it left me focus on the backend. Which at it's core is a &lt;a href="https://github.com/lukejohnosmahi/eventstreamr/blob/master/station/bin/station-mgr.pl"&gt;single daemon&lt;/a&gt; and essentially is a RESTful api enabled glorified process manager. I learnt a number of things whilst developing this with &lt;a href="https://github.com/nimm"&gt;Jason&lt;/a&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The current firewire stack is extremely reliable, the hardware I chose to develop the solution with initially was not. (2 days yak shaving due to a faulty camera and faulty firewire leads).&lt;/li&gt;
+&lt;li&gt;IPC::Shareable - I love what it can do, however you really need to devote time to managing your shared memory. We had modest needs, so Signals + HTTP calls were more than enough.&lt;/li&gt;
+&lt;li&gt;There are either restrictions to what key names when utilising JSON for serialised data or the JSON library does not escape them correctly. &lt;a href="https://github.com/lukejohnosmahi/eventstreamr/issues/53"&gt;I need to fix this properly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The default dancer HTTP engine (HTTP::Server::Simple::CGI) does not support all HTTP methods. Causing much hair pulling when attempting to address CORS issues.&lt;/li&gt;
+&lt;li&gt;When you think you've squashed all the bugs, there will be more&lt;/li&gt;
+&lt;li&gt;You won't have quality time to write code at a conference&lt;/li&gt;
+&lt;li&gt;You will have to write code at the conference and it will inolve hours of yak shaving&lt;/li&gt;
+&lt;li&gt;If you're making a lot of mistakes, have a nap or if it's late go to bed!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Overall LCA2014 was a success and I'm happy to report that the solution was extremely reliable, we had some hardware failure and issues with capture devices; scenarios we were quite preparred for. I'm sure there is more I could write or more lessons I could share, but I will leave you with the following statement and youtube video.&lt;/p&gt;
+&lt;p&gt;Amazing things can happen when your volunteers are not afraid to experiemnt.&lt;/p&gt;
+&lt;p&gt;
+&lt;iframe allowfullscreen="true" frameborder="0" height="315" src="//www.youtube.com/embed/vbt_0q4qWUo" width="560"&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+&lt;p&gt;(We caught this on the video wall in the TAVNOC and crowded around the nearest computer with external speakers. It was amazing!)&lt;/p&gt;</content><category term="programming"></category><category term="perl"></category><category term="lca"></category></entry><entry><title>First Post!</title><link href="http://techman83.me/personal/2014/01/19/first_post.html" rel="alternate"></link><published>2014-01-19T00:00:00+08:00</published><updated>2014-01-19T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-01-19:/personal/2014/01/19/first_post.html</id><summary type="html">&lt;p&gt;I've been saying it for years, "I should make a website!". However "Graphic Design" and "Presentation" aren't really things that excite me and so motivation was hard to come by. &lt;!--more--&gt;Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've been saying it for years, "I should make a website!". However "Graphic Design" and "Presentation" aren't really things that excite me and so motivation was hard to come by. &lt;!--more--&gt;Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time involved really meant that it never happened. Fortunately I follow an awesome dude named Paul Fenwick and he built &lt;a href="http://pjf.id.au/"&gt;this site&lt;/a&gt; and encouraged others to fork the codebase. Of which I was more than happy to oblige. Thanks Paul!&lt;/p&gt;
+&lt;p&gt;Now to populate the site with content! :D&lt;/p&gt;</content><category term="personal"></category></entry></feed>

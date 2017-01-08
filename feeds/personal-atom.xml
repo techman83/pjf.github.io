@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Techman83's Blog - personal</title><link href="http://techman83.me/" rel="alternate"></link><link href="http://techman83.me/feeds/personal-atom.xml" rel="self"></link><id>http://techman83.me/</id><updated>2014-07-29T00:00:00+08:00</updated><entry><title>My Xperia Z broke itself!</title><link href="http://techman83.me/personal/2014/07/29/xperiaz_warranty.html" rel="alternate"></link><published>2014-07-29T00:00:00+08:00</published><updated>2014-07-29T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-07-29:/personal/2014/07/29/xperiaz_warranty.html</id><summary type="html">&lt;p&gt;Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Mid June I was notified by Vodafone that I could transfer my Crazy John’s service and to sweeten the deal, I could upgrade early. I checked out what was available and the Xperia Z had the best specs and kept me on the same plan I had previously. The real big tick in Sony’s favour was the fact there was a &lt;a href="http://developer.sonymobile.com/unlockbootloader/unlock-yourboot-loader/"&gt;factory supported unlocking method&lt;/a&gt;, the usual caveats apply but I’ll vote with my wallet every time (are you listening Samsung!).&lt;/p&gt;
+&lt;p&gt;I’m a massive gadget geek and I must admit I love my Xperia Z. The size is great, the screen resolution (1920x1080) is awesome, takes great photos for a phone and the cpu is nice and fast leaving me as a mostly hassle free CyanogenMod nightly build user.&lt;/p&gt;
+&lt;p&gt;However a week ago… :-(
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/71ss6i3x631z7ty/01-XperiaZ_Crack.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/fmf83i7eqahv65k/01-XperiaZ_Crack-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Sony Xperia Z&lt;figcaption/&gt;
+&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;So how did it happen? Did I drop it? Well no, I set my alarm put it on charge and went to sleep. The next morning I woke up and it took me a little while to wake enough to work out why I couldn’t turn off my alarm. Once waking up properly I noticed the crack and the fact that to the right of the crack the digitiser no longer functioned.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/7r0zj0e1cq1uwfi/02-XperiaZ_Crack.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/iy1vu2sx704ojxh/02-XperiaZ_Crack-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Cracked!&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Now I had a bumper case and screen protectors waiting for my shiny new toy to arrive, when I originally ordered it. So I was quite flumuxed to find my screen cracked, for all intents and purposes unsuable. After recovering from the intial shock, I did what any good geek would do; search the internet! It did not take long and I found numerous &lt;a href="http://forum.xda-developers.com/xperia-z/help/xperia-z-zr-ul-z-ultra-display-issue-1-t2515293"&gt;examples of the same issue&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So off to Vodafone I went, after showing the shop assistant the details of the issue; He noted that the device apart from the crack and a couple of light marks on the back, the phone was almost spotless. Unfortunately he may not have been aware exactly how ridgid their Repair Centers policies are. I noted the status of the repair changed to ‘Awaiting Customer Response’ I gave them a call, which resulted being informed that without formal notification from Sony all physical damage is not covered by warranty and that I have to pay $350 for it to be repaired. The representative couldn’t understand why I didn’t want to pay and said I would have to take it up with Sony.&lt;/p&gt;
+&lt;p&gt;I called Sony, to which their response was they would need to to assess the phone at their service center. Which required rejecting Vodafone’s quote and getting the phone shipped back to me. So I have the device back and am waiting for shipping details from Sony’s service center. By time the phone gets back to me It will have travelled ~16,000kms (Both Sony’s Mobile and Vodafone’s service centers are on the East Coast and I live on the West Coast)!&lt;/p&gt;
+&lt;p&gt;I’ll add updates as I get them, but I do hope Sony come to the party here. It’s inexcusable for a screen to break seemingly of it’s own accord, I would completely understand if I dropped it or stood on it and it broke; However that is not the case here.&lt;/p&gt;
+&lt;p&gt;UPDATE 2014-08-06: Fonebiz finally received my device. As a private individual I had to ship it via Road Freight (Had a lithium ion battery, so considered dangerous goods...)  so it took a week. I should have spoken nicely to the warehouse guys at work, they have the necessary approvals and qualifications to do so. Aus Post info &lt;a href="http://auspost.com.au/parcels-mail/dangerous-and-prohibited-items.html"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;UPDATE 2014-08-09: It's fixed! Took them no time at all, it was shipped the day after they received it and I received it the day after that. Very happy. The only things weren't replaced were the rear cover and Main PCB. PCB due to have been flashed with non Sony firmware, I'll leave my issues with that aside for now as that was something I knew upfront before purchasing the device. Some support for the modding community is better than none.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/axql2cwpvlpy80r/IMG_1059.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/edt2efp663fsej0/IMG_1059-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Fixed!&lt;figcaption/&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="warranty"></category><category term="sony"></category><category term="defect"></category><category term="vodafone"></category></entry><entry><title>Freehub Repair/Replace Clutch Master Cylinder</title><link href="http://techman83.me/personal/2014/03/23/repair_freehub.html" rel="alternate"></link><published>2014-03-23T00:00:00+08:00</published><updated>2014-03-23T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-03-23:/personal/2014/03/23/repair_freehub.html</id><summary type="html">&lt;p&gt;After the usual Saturday shopping I decided I needed to repair my Ute and my bike. I figured the best place to start was replacing my Clutch Master Cylinder, after 18 years of service it was no longer operating very well. Driving around wasn't so bad, but parking had become …&lt;/p&gt;</summary><content type="html">&lt;p&gt;After the usual Saturday shopping I decided I needed to repair my Ute and my bike. I figured the best place to start was replacing my Clutch Master Cylinder, after 18 years of service it was no longer operating very well. Driving around wasn't so bad, but parking had become quite tricky. The weekend before I replaced the Slave cyclinder, which was leaking. However wasn't the cause of the issue. It was a pretty simple job to replace and Leish (My wife) helped me bleed the air out of the system. Which took longer than fitting it.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/25zklmvp4d8pkey/IMG_20140322_151447.jpg?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/86dmrgrkb2dtk4i/IMG_20140322_151447-sml.jpg?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Clutch Master Cylinder&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;After taking the Ute for a test drive it was time to fix my loose wheel on my bike. I had dropped by the Local Bike Shop on Friday, to price up a replacement free hub. Only to find that it was unlikely that I'd be able to get one for the OEM rims that came with the bike and they'd have to take the wheel to the service centre to even find out. With that in mind I picked up a bigger set of Allen keys, which turned out to be not big enough to pull out the freehub, even though 10mm is what the Shimano freehubs take. &lt;/p&gt;
+&lt;p&gt;Dropping by an engineering supplies shop, I grabbed the only 11mm Allen key they head. Even the guy behind the counter was a little surprised that they even had one. Testing it was correct lead me to fixing the problem. All that was wrong was the freehub was loose.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/e0a6uimt7z1kkdx/IMG_0305.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/mlhpudvkbbcv9bc/IMG_0305-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;11m Allen Key&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;So I stripped it all down, gave it all a clean and put it back together. Ready for another week of commuting. Hopefully in the not too distant future, I'll get me a pair of &lt;a href="http://www.mavic.com/wheels-road-triathlon-aksium-s"&gt;Mavik Aksiums&lt;/a&gt;. My boss has a pair with around 14,000k on them and had very little trouble, beyond some loose spokes (which I fixed with some loctite and a spoke spanner I keep in my desk at work).&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/wwbrh2q8t2dgcek/IMG_0307.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/bni3uiwhbzreeu9/IMG_0307-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Freehub&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/zuuhr1zxp3718tu/IMG_0313.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/ff2myro3vgadef1/IMG_0313-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Freehub - Axle - Cassete&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/nr9qee70u1l6q9v/IMG_0332.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/tucz1pjkqj49nht/IMG_0332-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Allen Keys&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/xu6s82hcy0zzo86/IMG_0318.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/ib61wg6rfvp5mrf/IMG_0318-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Refitted&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/ppacwijb45i65q0/IMG_0309.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/8ujq3rino6qcyd4/IMG_0309-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Tools Used&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/cj5zkifa4elp7u9/IMG_0331.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/xgubmuud9kybeub/IMG_0331-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;All Fixed&lt;figcaption/&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="diy"></category><category term="repair"></category><category term="cycling"></category></entry><entry><title>Bottom Bracket Refit + Dropout repair</title><link href="http://techman83.me/personal/2014/02/12/refit_bb.html" rel="alternate"></link><published>2014-02-12T00:00:00+08:00</published><updated>2014-02-12T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-02-12:/personal/2014/02/12/refit_bb.html</id><summary type="html">&lt;p&gt;As a follow up to my &lt;a href="/personal/2014/02/06/repair_bb.html"&gt;previous post&lt;/a&gt;, I ordered an upgraded BB. Being a Shimano HollowTech II, the different screw in type BBs are interchangeable. So long as you get the correct thread and width. Mine had the english thread (1.37x24) and the bracket width of 68mm. The …&lt;/p&gt;</summary><content type="html">&lt;p&gt;As a follow up to my &lt;a href="/personal/2014/02/06/repair_bb.html"&gt;previous post&lt;/a&gt;, I ordered an upgraded BB. Being a Shimano HollowTech II, the different screw in type BBs are interchangeable. So long as you get the correct thread and width. Mine had the english thread (1.37x24) and the bracket width of 68mm. The bike shop had stock of a Dura-Ace SM-BB9000 in their warehouse, being only a little more than the equivilent Shimano 105 I decided to spring for the upgrade (mine only had a Tiagra, so quite an upgrade indeed).&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/65i87lct9iihuoz/IMG_0288.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/a64aukzmzvuys4s/IMG_0288-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;New vs Old&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The BB was pretty easy to fit in the end. Grease the BB threads, put back together, slide in the crank (with a few gentle taps with a plastic mallet drive it home) and a bit of thread locker on the crank arm bolts.&lt;/p&gt;
+&lt;p&gt;I also gave everything a really good clean whilst it was apart. The chain rings were quite filthy and there a few places that are difficult to reach when it's all together.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/wjnva7zyhgxckem/IMG_0297.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/x5nqekwl1ghzjuk/IMG_0297-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;BB Fitted&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/wc6sh9y0vdz26v5/IMG_0285.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/inbo4rcwtuu2z6y/IMG_0285-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Shimano 105 Crankset&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The dropouts were something else I addressed. When I first got the bike it came with Skewers that were cheap and didn't have a lot of clamping force. Initially the replacements I got helped, but the damage was done and it indented the dropout in the wrong position. No matter how much force I used, eventually the wheel would find it's way into that incorrect position. Lately it's been happening nearly every day, which was driving me mental.&lt;/p&gt;
+&lt;p&gt;So it gave me a chance to use my new found favourite product, JB Weld (2 part epoxy steel resin). I filled in the incorrect position so I could reset it and create a new one. So far it appears to be working quite well. Though I need a new skewer as I cracked it with all the force I had used to try and stop the wheel from moving.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox fancybox_gallery" rel="group" id="single_image" href="https://www.dropbox.com/s/u3s8j95c0l8cshn/IMG_0293.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/i99b4zywqqu909f/IMG_0293-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Dropout Repair&lt;figcaption/&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="diy"></category><category term="repair"></category><category term="cycling"></category></entry><entry><title>Bottom Bracket Removal</title><link href="http://techman83.me/personal/2014/02/06/repair_bb.html" rel="alternate"></link><published>2014-02-06T00:00:00+08:00</published><updated>2014-02-06T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-02-06:/personal/2014/02/06/repair_bb.html</id><summary type="html">&lt;figure class="right"&gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/wuef9h5akftehfh/IMG_0235.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/c8g8rtk0k41lnzr/IMG_0235-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Shimano BB - 4500&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;For those that don't know me, I like to cycle. Though I do find it difficult to fit the time in, I find it really easy to make it part of my commute to work. Commuting however is pretty hard on your equipment. Especially if you're not afraid of a bit of water. (I'm not, not even horizontal rain!)&lt;/p&gt;
+</summary><content type="html">&lt;figure class="right"&gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/wuef9h5akftehfh/IMG_0235.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/c8g8rtk0k41lnzr/IMG_0235-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+      &lt;figcaption&gt;Shimano BB - 4500&lt;figcaption/&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;For those that don't know me, I like to cycle. Though I do find it difficult to fit the time in, I find it really easy to make it part of my commute to work. Commuting however is pretty hard on your equipment. Especially if you're not afraid of a bit of water. (I'm not, not even horizontal rain!)&lt;/p&gt;
+
+
+&lt;p&gt;Another passion of mine is repairing things. Buying a complete replacement is always a last resort and it feels really wrong to pay someone to do something knowing full well that I'm more than capable of doing it myself.&lt;/p&gt;
+&lt;p&gt;I noticed earlier this week that my pedaling didn't feel all that smooth. Upon investigation I noted a small amount of play in my crank shaft. I decided it wasn't bad enough to not commute for the week, so I waited till this evening to strip it down. After stripping it all down and inspecting the bearings, I found the issue straight away. The drive side bearing had a lot of play in it and when rotating it, it felt very gritty. Off to the bike shop tomorrow to buy a replacement, I might even spring for an upgrade to a Dura Ace BB.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/fflrjlee0bos2zu/IMG_0242.JPG?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/jstpqfld43bvfp9/IMG_0242-sml.JPG?dl=1" /&gt;
+  &lt;/a&gt;
+&lt;/figure&gt;</content><category term="personal"></category><category term="diy"></category><category term="repair"></category><category term="cycling"></category></entry><entry><title>First Post!</title><link href="http://techman83.me/personal/2014/01/19/first_post.html" rel="alternate"></link><published>2014-01-19T00:00:00+08:00</published><updated>2014-01-19T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2014-01-19:/personal/2014/01/19/first_post.html</id><summary type="html">&lt;p&gt;I've been saying it for years, "I should make a website!". However "Graphic Design" and "Presentation" aren't really things that excite me and so motivation was hard to come by. &lt;!--more--&gt;Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've been saying it for years, "I should make a website!". However "Graphic Design" and "Presentation" aren't really things that excite me and so motivation was hard to come by. &lt;!--more--&gt;Sure there are CMS frameworks; but for a little website to display my random thoughts, the learning curve and time involved really meant that it never happened. Fortunately I follow an awesome dude named Paul Fenwick and he built &lt;a href="http://pjf.id.au/"&gt;this site&lt;/a&gt; and encouraged others to fork the codebase. Of which I was more than happy to oblige. Thanks Paul!&lt;/p&gt;
+&lt;p&gt;Now to populate the site with content! :D&lt;/p&gt;</content><category term="personal"></category></entry></feed>
