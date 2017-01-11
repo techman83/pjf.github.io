@@ -1,4 +1,4 @@
-title: Automating your home with themachine
+title: Automating your home with 'themachine'
 date: 2017-01-11
 tags: homeautomation, machinelearning, programming, python
 category: hardware
