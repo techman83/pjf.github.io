@@ -9,7 +9,7 @@ There will be more posts to come, but for some time I have been playing around w
 
 I've been learning about machine learning for a while, in particular however it was this post on [Stackoverflow](http://stackoverflow.com/questions/30991592/support-vector-machine-in-python-using-libsvm-example-of-features) and sentdex's [Machine Learning with Python](https://www.youtube.com/playlist?list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v) playlist that really helped me find a solution that appeared to fit what I was trying to do.
 
-Using a couple of [DHT22](http://www.freetronics.com.au/products/humidity-and-temperature-sensor-module) sensor modules attached to [Wemos D1 Mini](https://www.wemos.cc/product/d1-mini.html), I was readily collecting Temporature data into OpenHAB.
+Using a couple of [DHT22](http://www.freetronics.com.au/products/humidity-and-temperature-sensor-module) sensor modules attached to [Wemos D1 Mini](https://www.wemos.cc/product/d1-mini.html), I was readily collecting Temperature data into OpenHAB.
 
 {{ fancybox(
   "https://www.dropbox.com/s/woijao1722z2qdl/dht11_wemos_d1-sml.jpg?dl=1",
