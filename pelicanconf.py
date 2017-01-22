@@ -16,6 +16,7 @@ TIMEZONE = 'Australia/Perth'
 # Pelican Config
 PLUGIN_PATHS = [
     'plugins',
+    'plugins-extra',
 ]
 
 PLUGINS = [
@@ -25,6 +26,7 @@ PLUGINS = [
     'i18n_subsites',
     'sitemap',
     'tipue_search',
+    'plugins-extra.pelican-embed-tweet.embed_tweet',
 ]
 
 MARKDOWN = {

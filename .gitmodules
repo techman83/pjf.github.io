@@ -4,3 +4,6 @@
 [submodule "plugins"]
 	path = plugins
 	url = https://github.com/getpelican/pelican-plugins.git
+[submodule "plugins-extra/pelican-embed-tweet"]
+	path = plugins-extra/pelican-embed-tweet
+	url = https://github.com/lqez/pelican-embed-tweet.git
