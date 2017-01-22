@@ -6,7 +6,7 @@ slug: hacking_hugs_profit
 
 Last week was [Linux Conf AU 2017](http://lca2017.org), which is a community run Free and Open Source Software conference that is in a different A/NZ city every year. This year I'd managed to attend the [Open Hardware MiniConf](http://www.openhardwareconf.org/) and was inspired to build something during the conference. I'm not sure how it occurred to me to build a 'Hug Detector' into my Conference badge, but it did and after talking about it with some fellow delegates, the feedback was overwhelmingly positive.
 
-So after heading to my room early to get some sleep, I got sidetracked. Armed with an [ESP8266](https://espressif.com/en/products/hardware/esp8266ex/overview) based [D1 Mini](https://www.wemos.cc/product/d1-mini.html), some sensors,a breadboard, and some wires I stayed up until 1am. Then a wild [GitHub repository](https://github.com/techman83/been_hugged) occurred.
+So after heading to my room early to get some sleep, I got sidetracked. Armed with an [ESP8266](https://espressif.com/en/products/hardware/esp8266ex/overview) based [D1 Mini](https://www.wemos.cc/product/d1-mini.html), some sensors, a breadboard, and some wires I stayed up until 1am. Then a wild [GitHub repository](https://github.com/techman83/been_hugged) occurred.
 
 @Techman_83/status/821716638235906050
 
