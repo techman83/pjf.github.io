@@ -1,5 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Techman83's Blog - hardware</title><link href="http://techman83.me/" rel="alternate"></link><link href="http://techman83.me/feeds/hardware-atom.xml" rel="self"></link><id>http://techman83.me/</id><updated>2017-01-22T00:00:00+08:00</updated><entry><title>Hacking your Conference badge for Hugs &amp; Profit</title><link href="http://techman83.me/hardware/2017/01/22/hacking_hugs_profit.html" rel="alternate"></link><published>2017-01-22T00:00:00+08:00</published><updated>2017-01-22T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2017-01-22:/hardware/2017/01/22/hacking_hugs_profit.html</id><summary type="html">&lt;p&gt;Last week was &lt;a href="http://lca2017.org"&gt;Linux Conf AU 2017&lt;/a&gt;, which is a community run Free and Open Source Software conference that is in a different A/NZ city every year. This year I'd managed to attend the &lt;a href="http://www.openhardwareconf.org/"&gt;Open Hardware MiniConf&lt;/a&gt; and was inspired to build something during the conference. I'm not sure …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last week was &lt;a href="http://lca2017.org"&gt;Linux Conf AU 2017&lt;/a&gt;, which is a community run Free and Open Source Software conference that is in a different A/NZ city every year. This year I'd managed to attend the &lt;a href="http://www.openhardwareconf.org/"&gt;Open Hardware MiniConf&lt;/a&gt; and was inspired to build something during the conference. I'm not sure how it occurred to me to build a 'Hug Detector' into my Conference badge, but it did and after talking about it with some fellow delegates, the feedback was overwhelmingly positive.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Techman83's Blog - hardware</title><link href="http://techman83.me/" rel="alternate"></link><link href="http://techman83.me/feeds/hardware-atom.xml" rel="self"></link><id>http://techman83.me/</id><updated>2017-06-04T00:00:00+08:00</updated><entry><title>Don't underestimate the... Doorbell</title><link href="http://techman83.me/hardware/2017/06/04/dont_underestimate_the_doorbell.html" rel="alternate"></link><published>2017-06-04T00:00:00+08:00</published><updated>2017-06-04T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2017-06-04:/hardware/2017/06/04/dont_underestimate_the_doorbell.html</id><summary type="html">&lt;p&gt;A while ago I needed a doorbell, so I &lt;a href="https://github.com/techman83/hackydoorbell"&gt;hacked&lt;/a&gt; one together using a Raspberry Pi I had laying around. It was a temporary fix while I got around to building an Arduino based replacement. A month or so ago the SD card croaked, so it was time.&lt;/p&gt;
+&lt;p&gt;I have …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A while ago I needed a doorbell, so I &lt;a href="https://github.com/techman83/hackydoorbell"&gt;hacked&lt;/a&gt; one together using a Raspberry Pi I had laying around. It was a temporary fix while I got around to building an Arduino based replacement. A month or so ago the SD card croaked, so it was time.&lt;/p&gt;
+&lt;p&gt;I have a bunch of &lt;a href="https://wiki.wemos.cc/products:d1:d1_mini"&gt;Wemos D1 Mini's&lt;/a&gt; which would be the basis of my project and I also wanted it to play an actual sound file, so I'd ordered an &lt;a href="https://en.wikipedia.org/wiki/I%C2%B2S"&gt;I2S&lt;/a&gt; based &lt;a href="https://learn.adafruit.com/adafruit-max98357-i2s-class-d-mono-amp/overview"&gt;Class-D Mono Amplifier&lt;/a&gt; from Adafruit.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/tg2mlxazxahrkhj/doorbell.jpg?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/6rqa9o57ruy6tik/doorbell-sml.jpg?dl=1" /&gt;
+  &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;I'd stumbled across a &lt;a href="https://github.com/bbx10/SFX-I2S-web-trigger"&gt;project&lt;/a&gt; using the same amplifier and they'd used a permissive license, so I didn't actually end up needing to write much of my own code. I however spent a number of hours trying to figure out why the sound was extremely distorted, only to note that I'd hooked up &lt;code&gt;LRC&lt;/code&gt; to &lt;code&gt;TX&lt;/code&gt; instead of &lt;code&gt;D4&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Pin Connections&lt;/h3&gt;
+&lt;table class="table"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Adafruit I2S DAC&lt;/th&gt;
+            &lt;th&gt;ESP8266&lt;/th&gt;
+            &lt;th&gt;D1 Mini&lt;/th&gt;
+            &lt;th&gt;Description&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;LRC&lt;/td&gt;
+            &lt;td&gt;GPIO2/TX1 LRCK&lt;/td&gt;
+            &lt;td&gt;D4&lt;/td&gt;
+            &lt;td&gt;Left/Right audio&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;BCLK&lt;/td&gt;
+            &lt;td&gt;GPIO15 BCLK&lt;/td&gt;
+            &lt;td&gt;D8&lt;/td&gt;
+            &lt;td&gt;I2S Clock&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;DIN&lt;/td&gt;
+            &lt;td&gt;GPIO03/RX0 DATA&lt;/td&gt;
+            &lt;td&gt;RX&lt;/td&gt;
+            &lt;td&gt;I2S Data&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;GAIN&lt;/td&gt;
+            &lt;td&gt;n/c&lt;/td&gt;
+            &lt;td&gt;n/c&lt;/td&gt;
+            &lt;td&gt;9 dB gain&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;SD&lt;/td&gt;
+            &lt;td&gt;n/c&lt;/td&gt;
+            &lt;td&gt;n/c&lt;/td&gt;
+            &lt;td&gt;Stereo average&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;GND&lt;/td&gt;
+            &lt;td&gt;GND&lt;/td&gt;
+            &lt;td&gt;GND&lt;/td&gt;
+            &lt;td&gt;Ground&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Vin&lt;/td&gt;
+            &lt;td&gt;BAT&lt;/td&gt;
+            &lt;td&gt;5V&lt;/td&gt;
+            &lt;td&gt;3.3/5V power&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;I've broken the Non Blocking WAV player into a separate library &lt;a href="https://github.com/techman83/esp8266-wavplay"&gt;ESP8266-wavplay&lt;/a&gt; along with one for the Wav SPIFFS reader &lt;a href="https://github.com/techman83/esp8266-wavspiffs"&gt;ESP8266-wavspiffs&lt;/a&gt;, which makes for a tiny amount of code to produce a functional doorbell.&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;quot;ESP8266Wavplay.h&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Serial&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;115200&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="n"&gt;Serial&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Booting&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="c1"&gt;// Set D3 as Switch pin&lt;/span&gt;
+  &lt;span class="n"&gt;pinMode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;D3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;INPUT_PULLUP&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Setup WavPlay&lt;/span&gt;
+  &lt;span class="n"&gt;wavSetup&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+  &lt;span class="n"&gt;showDir&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;loop&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;digitalRead&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;D3&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;state&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;wavPlaying&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;wavStartPlaying&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/doorbell.wav&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// WavPlay is non blocking, we need to call it to make&lt;/span&gt;
+  &lt;span class="c1"&gt;// sure it keeps playing until file end.&lt;/span&gt;
+  &lt;span class="n"&gt;wavLoop&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can find the project &lt;a href="https://github.com/techman83/esp8266-doorbell"&gt;here&lt;/a&gt; and is already laid out as a &lt;a href="http://platformio.org/"&gt;PlatformIO&lt;/a&gt; project. If you've yet to come across PlatformIO and you do a lot with Arduino, it takes a lot of the pain out of things like managing dependencies, custom libraries, platform independent code etc.&lt;/p&gt;
+&lt;p&gt;Happy Hacking and  may the force be with you.&lt;/p&gt;
+&lt;p&gt;
+&lt;iframe allowfullscreen="true" frameborder="0" height="315" src="//www.youtube.com/embed/SCnJ7anb-r0" width="560"&gt;&lt;/iframe&gt;
+&lt;/p&gt;&lt;script src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;</content><category term="programming"></category><category term="arduino"></category><category term="esp8266"></category><category term="hardware"></category></entry><entry><title>Hacking your Conference badge for Hugs &amp; Profit</title><link href="http://techman83.me/hardware/2017/01/22/hacking_hugs_profit.html" rel="alternate"></link><published>2017-01-22T00:00:00+08:00</published><updated>2017-01-22T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2017-01-22:/hardware/2017/01/22/hacking_hugs_profit.html</id><summary type="html">&lt;p&gt;Last week was &lt;a href="http://lca2017.org"&gt;Linux Conf AU 2017&lt;/a&gt;, which is a community run Free and Open Source Software conference that is in a different A/NZ city every year. This year I'd managed to attend the &lt;a href="http://www.openhardwareconf.org/"&gt;Open Hardware MiniConf&lt;/a&gt; and was inspired to build something during the conference. I'm not sure …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Last week was &lt;a href="http://lca2017.org"&gt;Linux Conf AU 2017&lt;/a&gt;, which is a community run Free and Open Source Software conference that is in a different A/NZ city every year. This year I'd managed to attend the &lt;a href="http://www.openhardwareconf.org/"&gt;Open Hardware MiniConf&lt;/a&gt; and was inspired to build something during the conference. I'm not sure how it occurred to me to build a 'Hug Detector' into my Conference badge, but it did and after talking about it with some fellow delegates, the feedback was overwhelmingly positive.&lt;/p&gt;
 &lt;p&gt;So after heading to my room early to get some sleep, I got sidetracked. Armed with an &lt;a href="https://espressif.com/en/products/hardware/esp8266ex/overview"&gt;ESP8266&lt;/a&gt; based &lt;a href="https://www.wemos.cc/product/d1-mini.html"&gt;D1 Mini&lt;/a&gt;, some sensors, a breadboard, and some wires I stayed up until 1am. Then a wild &lt;a href="https://github.com/techman83/been_hugged"&gt;GitHub repository&lt;/a&gt; occurred.&lt;/p&gt;
 &lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/Techman_83/status/821716638235906050"&gt;Tweet of Techman_83/821716638235906050&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;
 &lt;p&gt;I popped by the rego desk the next morning, to acquire an extra badge holder. Which was met with some initial quizzical expressions, followed by intrigue whilst handing it over. Sitting up the back of the sessions and stabbing myself several times, I managed to get something of a working concept. &lt;/p&gt;
