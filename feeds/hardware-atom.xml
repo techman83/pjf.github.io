@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Techman83's Blog - hardware</title><link href="http://techman83.me/" rel="alternate"></link><link href="http://techman83.me/feeds/hardware-atom.xml" rel="self"></link><id>http://techman83.me/</id><updated>2017-06-04T00:00:00+08:00</updated><entry><title>Don't underestimate the... Doorbell</title><link href="http://techman83.me/hardware/2017/06/04/dont_underestimate_the_doorbell.html" rel="alternate"></link><published>2017-06-04T00:00:00+08:00</published><updated>2017-06-04T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2017-06-04:/hardware/2017/06/04/dont_underestimate_the_doorbell.html</id><summary type="html">&lt;p&gt;A while ago I needed a doorbell, so I &lt;a href="https://github.com/techman83/hackydoorbell"&gt;hacked&lt;/a&gt; one together using a Raspberry Pi I had laying around. It was a temporary fix while I got around to building an Arduino based replacement. A month or so ago the SD card croaked, so it was time.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Techman83's Blog - hardware</title><link href="http://techman83.me/" rel="alternate"></link><link href="http://techman83.me/feeds/hardware-atom.xml" rel="self"></link><id>http://techman83.me/</id><updated>2018-01-29T00:00:00+08:00</updated><entry><title>The Hugs Strike Back!</title><link href="http://techman83.me/hardware/2018/01/29/the_hugs_strike_back.html" rel="alternate"></link><published>2018-01-29T00:00:00+08:00</published><updated>2018-01-29T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2018-01-29:/hardware/2018/01/29/the_hugs_strike_back.html</id><summary type="html">&lt;p&gt;Another year, another amazing &lt;a href="http://lca2018.org"&gt;Linux Conf AU&lt;/a&gt;! Based on feedback from LCA2017, I was definitely going to iterate on the hug detector. In that time the &lt;a href="http://esp32.net/"&gt;ESP32&lt;/a&gt; platform has begun to mature and because I like challenges, decided to use a board I received days prior to leaving for the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Another year, another amazing &lt;a href="http://lca2018.org"&gt;Linux Conf AU&lt;/a&gt;! Based on feedback from LCA2017, I was definitely going to iterate on the hug detector. In that time the &lt;a href="http://esp32.net/"&gt;ESP32&lt;/a&gt; platform has begun to mature and because I like challenges, decided to use a board I received days prior to leaving for the conference and really only flashed with blink.&lt;/p&gt;
+&lt;p&gt;Other project parameters I'd set myself include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Beyond component testing, nothing developed before the conference&lt;/li&gt;
+&lt;li&gt;Conference badge as an integral part of the design&lt;/li&gt;
+&lt;li&gt;Operational by main conference opening (Wednesday)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With that in mind, I set about beginning my work Monday evening. As I presented a &lt;a href="../../../../talks/2018/01/22/come_on_do_you_want_your_mods_to_live_forever.html"&gt;talk&lt;/a&gt; earlier in the day and quite a broken sleep the night before, I was feeling a little weary. I spent several hours fighting with &lt;a href="https://en.wikipedia.org/wiki/I%C2%B2C"&gt;I²C&lt;/a&gt; on the &lt;a href="https://wiki.wemos.cc/products:lolin32:lolin32_lite"&gt;Wemos Lolin32_Lite&lt;/a&gt;, which didn't seem to have pins mapped for the purpose and discussed GPIO Muxing which I was unfamiliar with. After deciding I was way too tired for that I figured I'd sleep and see if I could find one of the Hardware guys to chat about it in the morning.&lt;/p&gt;
+&lt;p&gt;I chatted to &lt;a href="https://twitter.com/jonoxer"&gt;@jonoxer&lt;/a&gt;, who pointed me in the direction of &lt;a href="https://twitter.com/geekscape"&gt;@geekscape&lt;/a&gt; and then I bumped into &lt;a href="https://twitter.com/wolfeidau"&gt;@wolfeidau&lt;/a&gt; who I'd spoken to at the open hardware miniconf. He understood exactly what I was trying to do and was more than happy to impart his knowledge and learnings about working with I²C, in particular on the ESP32 platform. Turns out that any pin that isn't an input only pin, can be re-assigned using the Wire library. He also pointed me in the direction of an &lt;a href="https://github.com/CCHS-Melbourne/iotuz-esp32-hardware/blob/master/Software/Snippets/i2cScanTest/i2cScanTest.ino"&gt;I²C scanner&lt;/a&gt; used in the previous years hardware project as an excellent starting place.&lt;/p&gt;
+&lt;p&gt;Feeling motivated after dinner, I headed back to the  accommodation and begun work. With a deadline of 2130 before I'd fall back to the ESP8266 based &lt;a href="https://wiki.wemos.cc/products:d1:d1_mini"&gt;D1 Mini&lt;/a&gt;, which I was far more familiar with; I got started. Now getting the pins remapped was pretty easy as it turns out:&lt;/p&gt;
+&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;Wire.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;Wire&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;begin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// SDA, SCL&lt;/span&gt;
+    &lt;span class="c1"&gt;// Do things&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;However whilst I could get it to work via the I²C scanner, I couldn't get it to work via the library for the &lt;a href="https://learn.adafruit.com/adafruit-vl6180x-time-of-flight-micro-lidar-distance-sensor-breakout"&gt;vl6180x lidar distance sensor&lt;/a&gt; that was a core part of how I would be detecting hugs this year. After a lot of flaffing around, I figured it's a conference &lt;a href="https://github.com/techman83/vl6180x-arduino/commit/42f625008d277f2d2f184dc32ec94dede9f2005a"&gt;and hacking the library is always an option&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/Techman_83/status/955726017603055616"&gt;Tweet of Techman_83/955726017603055616&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;That success spurred me on to tidying up the code to work with the range finder. I also got pretty sidetracked trying to get the &lt;a href="https://www.freetronics.com.au/products/freepixel-addressable-rgb-led-module"&gt;FreePixel&lt;/a&gt; modules working and struggled with different libraries not actually producing the results I expected. As it was getting late I decided to use the built in LED as the visual indicator of a successful hug.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/1suawxnm5pougro/badge.jpg?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/sbyhzaev5k5w7ap/badge-sml.jpg?dl=1" /&gt;
+  &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;The only thing that was left to do was hook up the JST Connector (pictured below) and test the battery.&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/5b938py1cy33pls/jst2mm1.jpg?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/pqv2no2nb9tb0kf/jst2mm1-sml.jpg?dl=1" /&gt;
+  &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Unfortunately whilst I distinctly remember checking the polarity of the connector...&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/developerjack/status/955800704572010496"&gt;Tweet of developerjack/955800704572010496&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Fortunately I didn't destroy it, but the charge circuitry is limited to about 100mA now. As opposed to the 500mA it is actually capable of. Seeing as it was 1am Wednesday morning, I had a functioning hug detector, and nearly destroyed it.. I decided to call it done and go to bed.&lt;/p&gt;
+&lt;p&gt;I headed off to the conference in the morning and after remembering to start the backend infrastructure (a python script running in screen..)&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/Techman_83/status/955924923888779264"&gt;Tweet of Techman_83/955924923888779264&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;Over the course of a couple of days it got a thorough testing and generated a lot of conversations. Which in reality was part of my motivation to build it. Oddly enough, having wires hanging off your badge is a wonderful conversation starter!&lt;/p&gt;
+&lt;p&gt;All was not well by Friday morning, the hug detector worked a little too well and I ended up getting filtered from twitter searches.&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/web_goddess/status/956674224252338177"&gt;Tweet of web_goddess/956674224252338177&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;So overall I'm really happy with how well everything worked, the wonderful interactions it encouraged during the conference and all the wonderful people who made it extra fun. I think for the next iteration I'd like to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Create a dedicated hug bot account, to ensure I don't bust my own account and also make it easier for people to filter out the hugs&lt;/li&gt;
+&lt;li&gt;Randomise the tweet content a bit more so that I don't trip up the filters&lt;/li&gt;
+&lt;li&gt;Incorporate better hug feedback, be it lights or an OLED display of some sort&lt;/li&gt;
+&lt;li&gt;Some better handling of I²C issues, I got around it this year mostly by regular power cycling which isn't ideal.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And as a final note, after the conference I went to &lt;a href="http://www.braincandylive.com/"&gt;Brain Candy Live&lt;/a&gt;, hosted by &lt;a href="https://twitter.com/donttrythis"&gt;@donttrythis&lt;/a&gt; and &lt;a href="https://twitter.com/tweetsauce"&gt;@tweetsauce&lt;/a&gt;. My ticket included a 'Meet and Greet', however in my very exhausted and excited state forgot to look at the camera when getting a photo with them!&lt;/p&gt;
+&lt;figure &gt;
+  &lt;a class="fancybox" id="single_image" href="https://www.dropbox.com/s/yojyxtuwdz1zimm/meetgreet.jpg?dl=1"&gt;
+    &lt;img src="https://www.dropbox.com/s/hf6mkcyz3gfpwa7/meetgreet-sml.jpg?dl=1" /&gt;
+  &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;All was not lost though, as I did get a hug out of both Michael and Adam! Which was the best way to finish an entirely spectacular week!&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/Techman_83/status/957220689303384065"&gt;Tweet of Techman_83/957220689303384065&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;
+&lt;p&gt;&lt;blockquote class="twitter-tweet" align="center"&gt;&lt;a href="https://twitter.com/Techman_83/status/957220801052164096"&gt;Tweet of Techman_83/957220801052164096&lt;/a&gt;&lt;/blockquote&gt;&lt;/p&gt;&lt;script src="//platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;</content><category term="programming"></category><category term="arduino"></category><category term="linuxconfau"></category><category term="lca2018"></category></entry><entry><title>Don't underestimate the... Doorbell</title><link href="http://techman83.me/hardware/2017/06/04/dont_underestimate_the_doorbell.html" rel="alternate"></link><published>2017-06-04T00:00:00+08:00</published><updated>2017-06-04T00:00:00+08:00</updated><author><name>Leon Wright</name></author><id>tag:techman83.me,2017-06-04:/hardware/2017/06/04/dont_underestimate_the_doorbell.html</id><summary type="html">&lt;p&gt;A while ago I needed a doorbell, so I &lt;a href="https://github.com/techman83/hackydoorbell"&gt;hacked&lt;/a&gt; one together using a Raspberry Pi I had laying around. It was a temporary fix while I got around to building an Arduino based replacement. A month or so ago the SD card croaked, so it was time.&lt;/p&gt;
 &lt;p&gt;I have …&lt;/p&gt;</summary><content type="html">&lt;p&gt;A while ago I needed a doorbell, so I &lt;a href="https://github.com/techman83/hackydoorbell"&gt;hacked&lt;/a&gt; one together using a Raspberry Pi I had laying around. It was a temporary fix while I got around to building an Arduino based replacement. A month or so ago the SD card croaked, so it was time.&lt;/p&gt;
 &lt;p&gt;I have a bunch of &lt;a href="https://wiki.wemos.cc/products:d1:d1_mini"&gt;Wemos D1 Mini's&lt;/a&gt; which would be the basis of my project and I also wanted it to play an actual sound file, so I'd ordered an &lt;a href="https://en.wikipedia.org/wiki/I%C2%B2S"&gt;I2S&lt;/a&gt; based &lt;a href="https://learn.adafruit.com/adafruit-max98357-i2s-class-d-mono-amp/overview"&gt;Class-D Mono Amplifier&lt;/a&gt; from Adafruit.&lt;/p&gt;
 &lt;figure &gt;
