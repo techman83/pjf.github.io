@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 PY?=python3
 PELICAN?=pelican
 PELICANOPTS=
@@ -43,8 +44,8 @@ help:
 
 env:
 	virtualenv -p /usr/bin/python3 venv
-	source venv/bin/activate
-	pip install -r requirements.txt
+	(source venv/bin/activate; \
+	pip install -r requirements.txt;)
 	npm install
 
 html:
